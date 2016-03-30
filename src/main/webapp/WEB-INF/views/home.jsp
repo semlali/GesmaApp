@@ -7,9 +7,10 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	GESMA MODULES  
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<a href="paiementModule" role="button">Module Paiement</a>
 </body>
 </html>

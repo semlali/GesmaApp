@@ -46,6 +46,8 @@ public class Facture implements Serializable {
 	private Double avance;
 	private double prix;
 	
+	private String numFacture;
+	
 	public Facture() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -53,8 +55,9 @@ public class Facture implements Serializable {
 	
 	
 
-	public Facture(Date date_facture, boolean etat, Double avance) {
+	public Facture(String numFacture, Date date_facture, boolean etat, Double avance) {
 		super();
+		this.numFacture=numFacture;
 		this.date_facture = date_facture;
 		this.etat = etat;
 		this.avance = avance;
@@ -128,6 +131,18 @@ public class Facture implements Serializable {
 
 	public void setPrix(double prix) {
 		this.prix = prix;
+	}
+
+
+
+	public String getNumFacture() {
+		return numFacture;
+	}
+
+
+
+	public void setNumFacture(String numFacture) {
+		this.numFacture = numFacture;
 	}
 	
 	

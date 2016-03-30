@@ -21,5 +21,15 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/factureForm")
+	public String facture() {
+		return "factureForm";
+	}
+	
+	@RequestMapping("/paiementModule")
+	public String paiement() {
+		return "paiementModule";
+	}
+	
 	
 }
