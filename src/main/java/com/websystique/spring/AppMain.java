@@ -14,44 +14,7 @@ public class AppMain {
 		
 		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-		//EmployeeService service = (EmployeeService) context.getBean("employeeService");
-
-		
-		PaiementService servicePaiement = (PaiementService) context.getBean("PaiementService");
-		
-		/*Facture facture= new Facture();
-		facture.setPrix(90000);
-		servicePaiement.addFacture(facture, 1, 1);*/
-		
-		/*facture.setAvance(33.33);
-		servicePaiement.updateFacture(facture,3);
-		
-		servicePaiement.deleteFactureByNum(1);*/
-		
-		Frais frais=new Frais("frais scolarité","pas obligatoir!");
-		servicePaiement.addFrais(frais);
-		
-		/*Niveau niveau =new Niveau("2eme année bac");
-		servicePaiement.addNiveau(niveau);*/
-		
-		//servicePaiement.setFrais_Niveau(2, 1, 9900000, "5%");
-
-		
-		//Reduction red= new Reduction("heho", "1");
-		//servicePaiement.addReduction(red);
-		
-		//Reduction redu = new Reduction("sam","5");
-		//servicePaiement.updateReduction(redu,1);
-		
-		//servicePaiement.deleteReductionByName("sam");
-	    
-		
-		/*Caisse caisse=new Caisse("caisse2");
-		servicePaiement.addCaisse(caisse,1);
-		servicePaiement.updateCaisse(caisse, 1);
-		servicePaiement.deleteCaisseByName("caisse2");*/
-		 
-		
+	
 
 		
 	
