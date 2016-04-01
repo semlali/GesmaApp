@@ -17,6 +17,11 @@ public class HomeController {
 	public String index() {
 		return "home";
 	}
+
+	@RequestMapping("/transportAcceuil")
+	public String paiement() {
+		return "AcceuilTransport";
+	}
 	
 	
 }
