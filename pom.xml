@@ -14,6 +14,9 @@
 		<hibernate.version>4.3.6.Final</hibernate.version>
 		<mysql.version>5.1.31</mysql.version>
 		<joda-time.version>2.3</joda-time.version>
+			<jsp.version>2.1</jsp.version>
+			
+		
 	</properties>
 
 	<dependencies>
@@ -81,7 +84,7 @@
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
+			<version>${jsp.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
