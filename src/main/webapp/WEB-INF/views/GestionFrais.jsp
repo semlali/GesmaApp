@@ -73,6 +73,12 @@
            </fieldset>
        </f:form>
 </div>
+<c:if test="${error}">
+<script type="text/javascript">
+alert("Vous pouvez pas supprimer ce frais car il réferent a certain facture!! Supprimer d'abord les facture associés ");
+</script>
+</c:if>
+
 <c:if test="${not empty frais_to_update}">
 <div align="center" id="dcacl">
    

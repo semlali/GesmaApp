@@ -1,17 +1,22 @@
 package com.websystique.spring;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Facture;
@@ -151,7 +156,7 @@ public class HomeController {
     }
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deleteFrais(Model model,@RequestParam("getId") int getId) {
+    public String deleteFrais(Model model,@RequestParam("getId") int getId) throws DataIntegrityViolationException {
 		
 		service.deleteFraisById(getId);
 		
@@ -161,6 +166,29 @@ public class HomeController {
         System.out.println("supprimer frais num : "+getId); //here's when I want to see the param
         
         return "GestionFrais";
+    }
+	
+	@ExceptionHandler({DataIntegrityViolationException.class})
+    public ModelAndView  handleIOException(Exception ex) {
+		ModelAndView model = new ModelAndView("GestionFrais");
+		
+		List<Frais> frais =service.getAllFrais();
+		
+		model.addObject("frais", frais);
+		List<Niveau> niveaux=service.getAllNiveau();
+		model.addObject("niveaux", niveaux);
+		
+		
+		model.addObject("GestionFraisFormulaire", new FraisNiveau());
+		
+		List<Frais_Niveau> niveauFrais=service.getAllNiveauFrais();
+		model.addObject("niveauFrais",niveauFrais);
+		
+        
+ 
+        model.addObject("error", true);
+         
+        return model;
     }
 	
 	
