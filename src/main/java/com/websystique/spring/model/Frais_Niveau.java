@@ -21,7 +21,7 @@ public class Frais_Niveau implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private Long id_frais_niveau;
+	private int id_frais_niveau;
 	
 	@ManyToOne
 	@JoinColumn
@@ -76,5 +76,15 @@ public class Frais_Niveau implements Serializable{
 	public void setReduction(String reduction) {
 		this.reduction = reduction;
 	}
+
+	public int getId_frais_niveau() {
+		return id_frais_niveau;
+	}
+
+	public void setId_frais_niveau(int id_frais_niveau) {
+		this.id_frais_niveau = id_frais_niveau;
+	}
+
+	
 
 }

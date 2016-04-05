@@ -6,11 +6,11 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	GESMA MODULES  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-<a href="paiementModule" role="button">Module Paiement</a>
+<div align="center">
+<fieldset> <legend>Gesma Modules</legend>
+<a href="paiementModule" role="button">Module Paiement</a><br>
+<a href="transportModule" role="button">Module Transport</a>
+</fieldset>
+</div>
 </body>
 </html>

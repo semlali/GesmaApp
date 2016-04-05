@@ -55,6 +55,18 @@ public class Facture implements Serializable {
 	
 	
 
+	public Reduction getReduction() {
+		return reduction;
+	}
+
+
+
+	public void setReduction(Reduction reduction) {
+		this.reduction = reduction;
+	}
+
+
+
 	public Facture(String numFacture, Date date_facture, boolean etat, Double avance) {
 		super();
 		this.numFacture=numFacture;

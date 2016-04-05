@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="NIVEAU_ETUDIANT")
+@Table(name="niveau_etudiant")
 public class Niveau implements Serializable{
 	
 	/**
@@ -18,11 +18,19 @@ public class Niveau implements Serializable{
 
 	@Id
 	@GeneratedValue
-	private Long id_niveau;
+	private int id_niveau;
 	
 	private String niveau_scolaire;
 
 	
+	public int getId_niveau() {
+		return id_niveau;
+	}
+
+	public void setId_niveau(int id_niveau) {
+		this.id_niveau = id_niveau;
+	}
+
 	public Niveau(String niveau_scolaire) {
 		super();
 		this.niveau_scolaire = niveau_scolaire;

@@ -1,11 +1,10 @@
 package com.websystique.spring.modelMVC;
-
-import com.websystique.spring.model.Etudiant;
+import com.websystique.spring.model.Facture;
 
 public class FactureForm {
 	
 	private String numFacture;
-	private Etudiant nomEtudiant;
+	private Facture facture;
 	
 	public String getNumFacture() {
 		return numFacture;
@@ -13,11 +12,12 @@ public class FactureForm {
 	public void setNumFacture(String numFacture) {
 		this.numFacture = numFacture;
 	}
-	public Etudiant getNomEtudiant() {
-		return nomEtudiant;
+	public Facture getFacture() {
+		return facture;
 	}
-	public void setNomEtudiant(Etudiant nomEtudiant) {
-		this.nomEtudiant = nomEtudiant;
+	public void setFacture(Facture facture) {
+		this.facture = facture;
 	}
+	
 
 }

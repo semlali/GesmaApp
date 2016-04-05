@@ -19,7 +19,7 @@ public class Frais implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_frais;
+	private int id_frais;
 	private String nom;
 	private String description;
 	
@@ -48,6 +48,16 @@ public class Frais implements Serializable{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public int getId_frais() {
+		return id_frais;
+	}
+
+
+	public void setId_frais(int id_frais) {
+		this.id_frais = id_frais;
 	}
 	
 	

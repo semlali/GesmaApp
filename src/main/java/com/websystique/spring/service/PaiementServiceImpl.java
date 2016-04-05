@@ -1,13 +1,17 @@
 package com.websystique.spring.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.websystique.spring.dao.PaiementDao;
+import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Frais;
+import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
 import com.websystique.spring.model.Reduction;
 
@@ -83,6 +87,66 @@ public class PaiementServiceImpl implements PaiementService {
 	public void deleteFactureByNum(int codeFacture) {
 		// TODO Auto-generated method stub
 		dao.deleteFactureByNum(codeFacture);
+	}
+
+	@Override
+	public Facture consulterFacture(String codeFacture) {
+		// TODO Auto-generated method stub
+		return dao.consulterFacture(codeFacture);
+	}
+
+	@Override
+	public List<Niveau> getAllNiveau() {
+		// TODO Auto-generated method stub
+		return dao.getAllNiveau();
+	}
+
+	@Override
+	public List<Branche> getAllBranche() {
+		// TODO Auto-generated method stub
+		return dao.getAllBranche();
+	}
+
+	@Override
+	public List<Frais> getAllFrais() {
+		// TODO Auto-generated method stub
+		return dao.getAllFrais();
+	}
+
+	@Override
+	public Frais getFraisById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getFraisById(id);
+	}
+
+	@Override
+	public Niveau getNiveauById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getNiveauById(id);
+	}
+
+	@Override
+	public List<Frais_Niveau> getAllNiveauFrais() {
+		// TODO Auto-generated method stub
+		return dao.getAllNiveauFrais();
+	}
+
+	@Override
+	public Frais_Niveau AddFrais_Niveau(Frais_Niveau fn) {
+		// TODO Auto-generated method stub
+		return dao.AddFrais_Niveau(fn);
+	}
+
+	@Override
+	public Frais_Niveau deleteFraisById(int getId) {
+		// TODO Auto-generated method stub
+		return dao.deleteFraisById(getId);
+	}
+
+	@Override
+	public Frais_Niveau getNiveauFraisById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getNiveauFraisById(id);
 	}
 
 }

@@ -6,6 +6,8 @@ import org.springframework.context.support.AbstractApplicationContext;
 import com.websystique.spring.configuration.AppConfig;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Frais;
+import com.websystique.spring.model.Frais_Niveau;
+import com.websystique.spring.model.Niveau;
 import com.websystique.spring.service.PaiementService;
 
 public class AppMain {
@@ -19,22 +21,27 @@ public class AppMain {
 		
 		PaiementService servicePaiement = (PaiementService) context.getBean("PaiementService");
 		
+		//servicePaiement.deleteFraisById(1);
+		//System.out.println(servicePaiement.getNiveauFraisById(1).getPrix());
+		
 		/*Facture facture= new Facture();
-		facture.setPrix(90000);
-		servicePaiement.addFacture(facture, 1, 1);*/
+		
+		facture=servicePaiement.consulterFacture("120");
+		System.out.println(facture.getEtudiant().getNom_etudiant());*/
 		
 		/*facture.setAvance(33.33);
 		servicePaiement.updateFacture(facture,3);
 		
 		servicePaiement.deleteFactureByNum(1);*/
 		
-		Frais frais=new Frais("frais scolarité","pas obligatoir!");
-		servicePaiement.addFrais(frais);
+		/*Frais frais=new Frais("frais scolarité","pas obligatoir!");
+		servicePaiement.addFrais(frais);*/
 		
 		/*Niveau niveau =new Niveau("2eme année bac");
 		servicePaiement.addNiveau(niveau);*/
 		
-		//servicePaiement.setFrais_Niveau(2, 1, 9900000, "5%");
+		
+		servicePaiement.setFrais_Niveau(1,1,999,"999");
 
 		
 		//Reduction red= new Reduction("heho", "1");
