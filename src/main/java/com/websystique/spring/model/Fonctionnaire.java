@@ -65,6 +65,14 @@ public class Fonctionnaire implements Serializable {
 	private int id_cycle;
 	private int activation; 
 	private int id_ecole;
+	
+	
+	public int getN_fonc() {
+		return n_fonc;
+	}
+	public void setN_fonc(int n_fonc) {
+		this.n_fonc = n_fonc;
+	}
 	public String getNom_fonc() {
 		return nom_fonc;
 	}

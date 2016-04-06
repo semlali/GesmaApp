@@ -1,10 +1,13 @@
 package com.websystique.spring;
 
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.websystique.spring.configuration.AppConfig;
 import com.websystique.spring.model.Facture;
+import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
@@ -20,6 +23,11 @@ public class AppMain {
 
 		
 		PaiementService servicePaiement = (PaiementService) context.getBean("PaiementService");
+		
+		List<Fonctionnaire> f=servicePaiement.getAllFontionnaire();
+		
+		System.out.println(" nom fonc: "+f.get(0).getNom_fonc());
+		
 		
 		//servicePaiement.deleteFraisById(1);
 		//System.out.println(servicePaiement.getNiveauFraisById(1).getPrix());

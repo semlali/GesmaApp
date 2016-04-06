@@ -10,6 +10,7 @@ import com.websystique.spring.dao.PaiementDao;
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
 import com.websystique.spring.model.Facture;
+import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
@@ -59,9 +60,9 @@ public class PaiementServiceImpl implements PaiementService {
 		return null;
 	}
 
-	public Caisse addCaisse(Caisse caisse,int codeFonctionnaire) {
+	public Caisse addCaisse(Caisse caisse) {
 		// TODO Auto-generated method stub
-		return dao.addCaisse(caisse,codeFonctionnaire);
+		return dao.addCaisse(caisse);
 	}
 
 	public Caisse updateCaisse(Caisse caisse, int id_caisse_old) {
@@ -69,9 +70,9 @@ public class PaiementServiceImpl implements PaiementService {
 		return dao.updateCaisse(caisse, id_caisse_old);
 	}
 
-	public void deleteCaisseByName(String nom) {
+	public void deleteCaisseById(int id) {
 		// TODO Auto-generated method stub
-		dao.deleteCaisseByName(nom);
+		dao.deleteCaisseById(id);
 	}
 
 	public Facture addFacture(Facture facture, int codeEtudiant, int codeCaisse) {
@@ -147,6 +148,30 @@ public class PaiementServiceImpl implements PaiementService {
 	public Frais_Niveau getNiveauFraisById(int id) {
 		// TODO Auto-generated method stub
 		return dao.getNiveauFraisById(id);
+	}
+
+	@Override
+	public List<Caisse> getAllCaisse() {
+		// TODO Auto-generated method stub
+		return dao.getAllCaisse();
+	}
+
+	@Override
+	public List<Fonctionnaire> getAllFontionnaire() {
+		// TODO Auto-generated method stub
+		return dao.getAllFontionnaire();
+	}
+
+	@Override
+	public Caisse getCaisseById(int getId) {
+		// TODO Auto-generated method stub
+		return dao.getCaisseById(getId);
+	}
+
+	@Override
+	public Fonctionnaire getFonctionnaireById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getFonctionnaireById(id);
 	}
 
 }

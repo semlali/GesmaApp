@@ -57,6 +57,14 @@ public class Caisse implements Serializable {
 	public void setNom_caisse(String nom_caisse) {
 		this.nom_caisse = nom_caisse;
 	}
+
+	public int getId_caisse() {
+		return id_caisse;
+	}
+
+	public void setId_caisse(int id_caisse) {
+		this.id_caisse = id_caisse;
+	}
 	
 
 }

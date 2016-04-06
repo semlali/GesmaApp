@@ -28,9 +28,6 @@ public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 		Query query = getSession().createSQLQuery("UPDATE frais_niveau_paiement SET prix='"+prix+"', reduction='"+reduction+"' WHERE frais_id_frais='"+idFrais+"' AND niveau_id_niveau='"+idNiveau+"'");
 		query.executeUpdate();
   
-	
-		
-	
 	}
 	
 
@@ -73,22 +70,22 @@ public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 		return (Reduction) criteria.uniqueResult();
 	}
 
-	public Caisse addCaisse(Caisse caisse,int codeFonctionnaire) {
-		Fonctionnaire fonc= (Fonctionnaire)getSession().load(Fonctionnaire.class, codeFonctionnaire);
-		caisse.setFonctionnaire(fonc);
+	public Caisse addCaisse(Caisse caisse) {
+		
 		persist(caisse);
+		
 		return caisse;
 	}
 
 	public Caisse updateCaisse(Caisse caisse, int id_caisse_old) {
-		Query query = getSession().createSQLQuery("UPDATE caisse_paiement SET nom_caisse='"+caisse.getNom_caisse()+"' WHERE id_caisse='"+id_caisse_old+"' ");
+		Query query = getSession().createSQLQuery("UPDATE caisse_paiement SET nom_caisse='"+caisse.getNom_caisse()+"', fonctionnaire_n_fonc='"+caisse.getFonctionnaire().getN_fonc()+"' WHERE id_caisse='"+id_caisse_old+"'");
 		query.executeUpdate();
 		return caisse;
 	}
 
-	public void deleteCaisseByName(String nom) {
+	public void deleteCaisseById(int id) {
 		// TODO Auto-generated method stub
-		Query query = getSession().createSQLQuery("delete from caisse_paiement WHERE nom_caisse='"+nom+"' ");
+		Query query = getSession().createSQLQuery("delete from caisse_paiement WHERE id_caisse='"+id+"' ");
 		query.executeUpdate();
 	}
 
@@ -193,6 +190,36 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 		Criteria criteria = getSession().createCriteria(Frais_Niveau.class);
 		criteria.add(Restrictions.eq("id_frais_niveau",id));
 		return (Frais_Niveau) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public List<Caisse> getAllCaisse() {
+		List<Caisse> list=getSession().createCriteria(Caisse.class).list();
+		return list;
+	}
+
+
+	@Override
+	public List<Fonctionnaire> getAllFontionnaire() {
+		List<Fonctionnaire> list=getSession().createCriteria(Fonctionnaire.class).list();
+		return list;
+	}
+
+
+	@Override
+	public Caisse getCaisseById(int getId) {
+		Criteria criteria = getSession().createCriteria(Caisse.class);
+		criteria.add(Restrictions.eq("id_caisse",getId));
+		return (Caisse) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public Fonctionnaire getFonctionnaireById(int id) {
+		Criteria criteria = getSession().createCriteria(Fonctionnaire.class);
+		criteria.add(Restrictions.eq("n_fonc",id));
+		return (Fonctionnaire) criteria.uniqueResult();
 	}
 
 }

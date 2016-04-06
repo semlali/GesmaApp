@@ -5,6 +5,7 @@ import java.util.List;
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
 import com.websystique.spring.model.Facture;
+import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
@@ -23,9 +24,11 @@ public interface PaiementDao {
 	public Reduction updateReduction(Reduction reduction,int id_reduction_old);
 	public void deleteReductionByName(String nom);
 	public Reduction getReductionByName(String name);
-	public Caisse addCaisse(Caisse caisse,int codeFonctionnaire);
+	public Caisse addCaisse(Caisse caisse);
 	public Caisse updateCaisse(Caisse caisse,int id_caisse_old);
-	public void deleteCaisseByName(String nom);
+	public void deleteCaisseById(int id);
+	public List<Caisse> getAllCaisse();
+	public Caisse getCaisseById(int getId);
 	public Facture addFacture(Facture facture,int codeEtudiant,int codeCaisse);
 	public void updateFacture(Facture facture, int codeFacture);
 	public void deleteFactureByNum(int codeFacture);
@@ -34,6 +37,8 @@ public interface PaiementDao {
 	public Niveau getNiveauById(int id);
 	public List<Frais_Niveau> getAllNiveauFrais();
 	public Frais_Niveau getNiveauFraisById(int id);
+	public List<Fonctionnaire> getAllFontionnaire();
+	public Fonctionnaire getFonctionnaireById(int id);
 	
 	
 

@@ -12,9 +12,9 @@
 <a href="paiementForm" role="button">Paiement et création de la facture</a><br>
 <a href="factureForm" role="button">Rechercher une facture</a><br>
 <a href="#" role="button">Lister les factures par étudiant</a><br>
-<a href="GestionFrais" >Gestion des Frais de prestations</a><br>
+<a href="GestionFrais">Gestion des Frais de prestations</a><br>
 <a href="" >Gestion de reduction</a><br>
-<a href="">Gestion multicaisse</a><br>
+<a href="GestionCaisse">Gestion multicaisse</a><br>
 <a href="">Gestion des comptes bancaires</a><br>
 <a href="">Gestion des impayés</a><br>
 <a href="">Gestion de réglement</a><br>

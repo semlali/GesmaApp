@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.websystique.spring.model.Branche;
+import com.websystique.spring.model.Caisse;
 import com.websystique.spring.model.Facture;
+import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
+import com.websystique.spring.modelMVC.CaisseFormulaire;
 import com.websystique.spring.modelMVC.FactureForm;
 import com.websystique.spring.modelMVC.FraisNiveau;
 import com.websystique.spring.service.PaiementService;
@@ -172,21 +175,15 @@ public class HomeController {
     public ModelAndView  handleIOException(Exception ex) {
 		ModelAndView model = new ModelAndView("GestionFrais");
 		
-		List<Frais> frais =service.getAllFrais();
 		
+		List<Frais> frais =service.getAllFrais();
 		model.addObject("frais", frais);
 		List<Niveau> niveaux=service.getAllNiveau();
 		model.addObject("niveaux", niveaux);
-		
-		
 		model.addObject("GestionFraisFormulaire", new FraisNiveau());
-		
 		List<Frais_Niveau> niveauFrais=service.getAllNiveauFrais();
 		model.addObject("niveauFrais",niveauFrais);
-		
-        
- 
-        model.addObject("error", true);
+		model.addObject("error", true);
          
         return model;
     }
@@ -228,5 +225,92 @@ public class HomeController {
 		
 		
 	}
+	
+	@RequestMapping("/GestionCaisse")
+	public String GestionCaisse(Model model) {
+	
+		List<Caisse> caisses=service.getAllCaisse();
+		model.addAttribute("caisses", caisses);
+		
+		List<Fonctionnaire> fonctionnaire=service.getAllFontionnaire();
+		model.addAttribute("fonctionnaires", fonctionnaire);
+		
+		model.addAttribute("GestionCaisseFormulaire", new CaisseFormulaire());
+		
+		return "GestionCaisse";
+		
+	}
+	
+	@RequestMapping("/addCaisse")
+	public String addCaisse(CaisseFormulaire cf,Model model) {
+		
+		Caisse c=new Caisse();
+		c.setNom_caisse(cf.getNom());
+		Fonctionnaire fonc=new Fonctionnaire();
+		fonc.setN_fonc(cf.getN_fonc());
+		c.setFonctionnaire(fonc);
+		service.addCaisse(c);
+		
+		List<Caisse> caisses=service.getAllCaisse();
+		model.addAttribute("caisses", caisses);
+		
+        List<Fonctionnaire> fonctionnaire=service.getAllFontionnaire();
+		model.addAttribute("fonctionnaires", fonctionnaire);
+		
+		model.addAttribute("GestionCaisseFormulaire",cf);
+		
+		return "GestionCaisse";
+		
+	}
+	
+	@RequestMapping(value = "/deleteCaisse", method = RequestMethod.GET)
+    public String deleteCaisse(Model model,@RequestParam("getId") int getId) throws DataIntegrityViolationException{
+		
+		service.deleteCaisseById(getId);
+		
+		GestionCaisse(model);
+		
+       
+        System.out.println("supprimer caisse num : "+getId); //here's when I want to see the param
+        
+        return "GestionCaisse";
+    }
+	
+	@RequestMapping(value = "/updateCaisse", method = RequestMethod.GET)
+    public String updateCaisse(Model model,@RequestParam("getId") int getId,CaisseFormulaire cf) {
+		
+		GestionCaisse(model);
+		model.addAttribute("caisse_to_update", service.getCaisseById(getId));
+		
+        System.out.println("id de caisse modifié : "+service.getCaisseById(getId).getNom_caisse()); //here's when I want to see the param
+        
+        return "GestionCaisse";
+    }
+	
+	@RequestMapping(value = "/updateCaisseForm")
+    public String updateCaisseForm(Model model,CaisseFormulaire cf) {
+		
+		
+		model.addAttribute("GestionCaisseFormulaire", cf);
+		
+        Caisse caisse=new Caisse();
+        
+        caisse.setNom_caisse(cf.getNom());
+        
+        Fonctionnaire fonctionnaire=service.getFonctionnaireById(cf.getN_fonc());
+        
+        caisse.setFonctionnaire(fonctionnaire);
+        
+        System.out.println("nom fonctionnaire"+fonctionnaire.getNom_fonc());
+        
+        service.updateCaisse(caisse, cf.getIdcaisse());
+        
+        GestionCaisse(model);
+        
+        return "GestionCaisse";
+    }
+	
+	
+	
 	
 }
