@@ -24,9 +24,9 @@ public class AppMain {
 		
 		PaiementService servicePaiement = (PaiementService) context.getBean("PaiementService");
 		
-		List<Fonctionnaire> f=servicePaiement.getAllFontionnaire();
+		List<Niveau> f=servicePaiement.getAllNiveauName();
 		
-		System.out.println(" nom fonc: "+f.get(0).getNom_fonc());
+		System.out.println(" niveau scolaire: "+f.get(1));
 		
 		
 		//servicePaiement.deleteFraisById(1);

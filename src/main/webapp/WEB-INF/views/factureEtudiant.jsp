@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Paiement</title>
+<title>Factures Etudiant</title>
 
 
 <script type="text/javascript"
@@ -171,5 +171,22 @@ $(document).ready(function() {
 
 </div>
 
+<div align="center">
+<c:if test="${not empty factures}">
+<table border="1"><th>Numero de Facture<th>Frais de prestation<th>Date de facture<th>Etat<th>Caisse<th>prix
+                               <c:forEach items="${factures}" var="f">
+                                     <tr>
+                                         <td>${f.numFacture}</td>
+                                         <td>${f.frais_niveau.frais.nom}</td>
+                                         <td>${f.date_facture}</td>
+                                         <td>${f.etat}</td>
+                                         <td>${f.caisse.nom_caisse}</td>
+                                         <td>${f.prix}</td>   
+                                     </tr>
+                                    
+                               </c:forEach>
+</table>
+</c:if>
+</div>
 </body>
 </html>

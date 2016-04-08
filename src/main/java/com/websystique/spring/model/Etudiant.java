@@ -1,9 +1,12 @@
 package com.websystique.spring.model;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -88,6 +91,11 @@ public class Etudiant implements Serializable{
 	private int nbr_annee_5primaire;
 	private String nbr_annee_6primaire;
 	private int id_ecole;
+	
+	@ManyToOne
+	@JoinColumn
+	private Classe classe;
+	
 	public int getN_etudiant() {
 		return n_etudiant;
 	}
@@ -459,6 +467,12 @@ public class Etudiant implements Serializable{
 	}
 	public void setId_ecole(int id_ecole) {
 		this.id_ecole = id_ecole;
+	}
+	public Classe getClasse() {
+		return classe;
+	}
+	public void setClasse(Classe classe) {
+		this.classe = classe;
 	}
 	
 

@@ -1,6 +1,10 @@
 package com.websystique.spring.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,20 +13,58 @@ import org.springframework.transaction.annotation.Transactional;
 import com.websystique.spring.dao.PaiementDao;
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.City;
+import com.websystique.spring.model.Classe;
+import com.websystique.spring.model.Compte;
+import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
 import com.websystique.spring.model.Reduction;
+import com.websystique.spring.model.State;
 
 
 @Service("PaiementService")
 @Transactional
 public class PaiementServiceImpl implements PaiementService {
 	
+	private Map<String, State> states = new LinkedHashMap<String, State>();
+	
 	@Autowired
 	private PaiementDao dao;
+	
+	public PaiementServiceImpl(){
+		
+		State state = new State("NJ");
+		state.addCity("Haddonfield").addCity("Cherry Hill").addCity("Marlton");
+		this.states.put(state.getName(), state);
+
+		state = new State("PA");
+		// Carville's joke
+		state.addCity("Philadelphia").addCity("Pittsburgh").addCity("Alabama");
+		this.states.put(state.getName(), state);
+
+		state = new State("NY");
+		state.addCity("Sewer").addCity("Flushing").addCity("Armpit");
+		state.addCity("Jerkville").addCity("Moronica").addCity("Shithole");
+		this.states.put(state.getName(), state);
+	}
+	
+	public Set<City> findCitiesForState(String stateName) {
+		System.out.println("method: find cities for state ");
+		State state = this.states.get(stateName);
+		return state.getCities();
+	}
+
+	public Set<State> findAllStates() {
+		System.out.println("method: find all states");
+		Set<State> set = new TreeSet<State>();
+		set.addAll(this.states.values());
+		return set;
+	}
+	
 
 	public Frais addFrais(Frais frais) {
 		// TODO Auto-generated method stub
@@ -173,5 +215,73 @@ public class PaiementServiceImpl implements PaiementService {
 		// TODO Auto-generated method stub
 		return dao.getFonctionnaireById(id);
 	}
+
+	@Override
+	public List<Compte> getAllCompte() {
+		// TODO Auto-generated method stub
+		return dao.getAllCompte();
+	}
+
+	@Override
+	public Compte addCompte(Compte compte) {
+		// TODO Auto-generated method stub
+		return dao.addCompte(compte);
+	}
+
+	@Override
+	public Compte deleteCompteByCodeCompte(String getId) {
+		// TODO Auto-generated method stub
+		return dao.deleteCompteByCodeCompte(getId);
+	}
+
+	@Override
+	public Compte getCompteByCode(String getId) {
+		// TODO Auto-generated method stub
+		return dao.getCompteByCode(getId);
+	}
+
+	@Override
+	public void updateCompteByCode(Compte compte) {
+		// TODO Auto-generated method stub
+		dao.updateCompteByCode(compte);
+	}
+
+	@Override
+	public List<Etudiant> getAllEtudiant() {
+		// TODO Auto-generated method stub
+		return dao.getAllEtudiant();
+	}
+
+	@Override
+	public List<Facture> getAllFactureForOneEtudiant(int id_etudiant) {
+		// TODO Auto-generated method stub
+		return dao.getAllFactureForOneEtudiant(id_etudiant);
+	}
+
+	@Override
+	public List<Niveau> getAllNiveauName() {
+		// TODO Auto-generated method stub
+		return dao.getAllNiveauName();
+	}
+
+	@Override
+	public List<Branche> findBrancheForNiveauName(String string) {
+		// TODO Auto-generated method stub
+		return dao.findBrancheForNiveauName(string);
+	}
+
+	@Override
+	public List<Classe> findClasseForBrancheName(String nomBranche) {
+		// TODO Auto-generated method stub
+		return dao.findClasseForBrancheName(nomBranche);
+	}
+
+	@Override
+	public List<Etudiant> findEtudiantForClasseName(String nomClasse) {
+		// TODO Auto-generated method stub
+		return dao.findEtudiantForClasseName(nomClasse);
+	}
+
+	
 
 }

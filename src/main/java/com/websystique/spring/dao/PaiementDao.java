@@ -1,9 +1,13 @@
 package com.websystique.spring.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.Classe;
+import com.websystique.spring.model.Compte;
+import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
@@ -18,6 +22,7 @@ public interface PaiementDao {
 	public Frais_Niveau AddFrais_Niveau(Frais_Niveau fn);
 	public Frais_Niveau deleteFraisById(int getId);
 	public List<Niveau> getAllNiveau();
+	public List<Niveau> getAllNiveauName();
 	public List<Branche> getAllBranche();
 	public List<Frais> getAllFrais();
 	public Reduction addReduction(Reduction reduction);
@@ -39,7 +44,16 @@ public interface PaiementDao {
 	public Frais_Niveau getNiveauFraisById(int id);
 	public List<Fonctionnaire> getAllFontionnaire();
 	public Fonctionnaire getFonctionnaireById(int id);
-	
+	public List<Compte> getAllCompte();
+	public Compte addCompte(Compte compte);
+	public Compte deleteCompteByCodeCompte(String getId);
+	public Compte getCompteByCode(String getId);
+	public void updateCompteByCode(Compte compte);
+	public List<Etudiant> getAllEtudiant();
+	public List<Facture> getAllFactureForOneEtudiant(int id_etudiant);
+	public List<Branche> findBrancheForNiveauName(String string);
+	public List<Classe> findClasseForBrancheName(String nomBranche);
+	public List<Etudiant> findEtudiantForClasseName(String nomClasse);
 	
 
 }

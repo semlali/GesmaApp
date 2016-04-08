@@ -1,31 +1,30 @@
 package com.websystique.spring;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.Classe;
+import com.websystique.spring.model.Compte;
+import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
 import com.websystique.spring.modelMVC.CaisseFormulaire;
+import com.websystique.spring.modelMVC.CompteFormulaire;
+import com.websystique.spring.modelMVC.FactureEtudiantForm;
 import com.websystique.spring.modelMVC.FactureForm;
 import com.websystique.spring.modelMVC.FraisNiveau;
 import com.websystique.spring.service.PaiementService;
@@ -310,7 +309,139 @@ public class HomeController {
         return "GestionCaisse";
     }
 	
+	@RequestMapping("/creationCompte")
+	public String creationCompte(Model model) {
+		
+		model.addAttribute("comptes", service.getAllCompte());
+		model.addAttribute("addCompteFormulaire", new CompteFormulaire());
+		
+		return "creationCompte";
+	}
+	
+	@RequestMapping("/addCompte")
+	public String addCompte(Model model,CompteFormulaire cf) {
+		
+		
+		System.out.println("date compte : "+cf.getDateCreation());
+		
+		Compte compte =new Compte();
+		compte.setCodeCompte(cf.getCodeCompte());
+		compte.setDateCreation(cf.getDateCreation());
+		compte.setSolde(cf.getSolde());
+		
+		
+		Fonctionnaire fonc=service.getFonctionnaireById(1);
+		compte.setFonctionnaire(fonc);
+		
+		service.addCompte(compte);
+		
+		creationCompte(model);
+		
+		return "creationCompte";
+		
+	}
+	
+	@RequestMapping(value = "/deleteCompte", method = RequestMethod.GET)
+    public String deleteCompte(Model model,@RequestParam("getId") String getId) {
+		
+		service.deleteCompteByCodeCompte(getId);
+		
+		creationCompte(model);
+		
+       
+        System.out.println("supprimer compte num : "+getId); //here's when I want to see the param
+        
+        return "creationCompte";
+    }
 	
 	
+	@RequestMapping(value = "/updateCompte", method = RequestMethod.GET)
+    public String updateCompte(Model model,@RequestParam("getId") String getId,CompteFormulaire cf) {
+		
+		creationCompte(model);
+		
+       
+       model.addAttribute("compte_to_update", service.getCompteByCode(getId));
+		
+        System.out.println("id de compte : "+getId); //here's when I want to see the param
+        return "creationCompte";
+    }
+	
+	@RequestMapping(value = "/updateCompteFormulaire")
+    public String updateCompteFormulaire(Model model,CompteFormulaire cf) {
+		
+		
+		Compte compte =new Compte();
+		compte.setSolde(cf.getSolde());
+		compte.setCodeCompte(cf.getCodeCompte());
+		System.out.println("code: "+cf.getCodeCompte());
+		
+		Fonctionnaire fonc=service.getFonctionnaireById(1);
+		compte.setFonctionnaire(fonc);
+		
+		service.updateCompteByCode(compte);
+		
+		creationCompte(model);
+		
+	
+	return "creationCompte";
+	
+	}
+	
+	@RequestMapping("/factureEtudiant")
+	public String factureEtudiant(Model model) {
+		model.addAttribute("factureEtudiantFormulaire", new FactureEtudiantForm());
+		model.addAttribute("etudiants", service.getAllEtudiant());
+		return "factureEtudiant";
+	}
+	
+	
+	
+	@RequestMapping("/listefactureEtudiant")
+	public String listefactureEtudiant(Model model, FactureEtudiantForm f) {
+		factureEtudiant(model);
+		System.out.println("id etudiant "+f.getN_etudiant());
+		model.addAttribute("factures", service.getAllFactureForOneEtudiant(f.getN_etudiant()));
+		return "factureEtudiant";
+	}
+	
+	@RequestMapping(value = "/etudiants", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Etudiant> etudiantForClasse(
+			@RequestParam(value = "stateName", required = true) String state) {
+		
+		System.out.println("finding etudiant for classe " + state);
+		//System.out.println("branche pour niveau 5eme: "+service.findBrancheForNiveauName("5eme").get(0).getNom_branche());
+		return service.findEtudiantForClasseName(state);
+	}
+	
+	
+	@RequestMapping(value = "/classes", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Classe> classeForBranche(
+			@RequestParam(value = "stateName", required = true) String state) {
+		
+		System.out.println("finding classes for branche " + state);
+		//System.out.println("branche pour niveau 5eme: "+service.findBrancheForNiveauName("5eme").get(0).getNom_branche());
+		return service.findClasseForBrancheName(state);
+	}
+	
+	@RequestMapping(value = "/cities", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Branche> citiesForState(
+			@RequestParam(value = "stateName", required = true) String state) {
+		
+		System.out.println("finding branches for niveau " + state);
+		System.out.println("branche pour niveau 5eme: "+service.findBrancheForNiveauName("5eme").get(0).getNom_branche());
+		return service.findBrancheForNiveauName(state);
+	}
+
+	@RequestMapping(value = "/states", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Niveau> findAllStates(Model model) {
+		System.out.println("finding all niveaux");
+		return service.getAllNiveau();
+		
+	}
 	
 }

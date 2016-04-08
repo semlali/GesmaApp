@@ -1,6 +1,7 @@
 package com.websystique.spring.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.Classe;
+import com.websystique.spring.model.Compte;
 import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
@@ -129,6 +132,17 @@ public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 		
 		return list;
 	}
+	
+	@Override
+	public List<Niveau> getAllNiveauName() {
+		// TODO Auto-generated method stub
+		List<Niveau> list=getSession().createCriteria(Niveau.class).setProjection(Projections.property("niveau_scolaire")).list();
+		
+		return list;
+	}
+	
+	
+	
 
 	@Override
 	public List<Branche> getAllBranche() {
@@ -221,5 +235,113 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 		criteria.add(Restrictions.eq("n_fonc",id));
 		return (Fonctionnaire) criteria.uniqueResult();
 	}
+
+
+	@Override
+	public List<Compte> getAllCompte() {
+		List<Compte> list=getSession().createCriteria(Compte.class).list();
+		return list;
+	}
+
+
+	@Override
+	public Compte addCompte(Compte compte) {
+		// TODO Auto-generated method stub
+		persist(compte);
+		return compte;
+	}
+
+
+	@Override
+	public Compte deleteCompteByCodeCompte(String getId) {
+		
+		Compte compte=getCompteByCode(getId);
+		delete(compte);
+		
+		return compte;
+	}
+
+
+	@Override
+	public Compte getCompteByCode(String getId) {
+		Criteria criteria = getSession().createCriteria(Compte.class);
+		criteria.add(Restrictions.eq("codeCompte",getId));
+		return (Compte) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public void updateCompteByCode(Compte compte) {
+		// TODO Auto-generated method stub
+		Query query = getSession().createSQLQuery("UPDATE  compte_bancaire SET solde='"+compte.getSolde()+"', CODE_FONCTIONNAIRE='"+compte.getFonctionnaire().getN_fonc()+"' WHERE codeCompte='"+compte.getCodeCompte()+"' ");
+		query.executeUpdate();
+		
+	}
+
+
+	@Override
+	public List<Etudiant> getAllEtudiant() {
+		List<Etudiant> list=getSession().createCriteria(Etudiant.class).list();
+		return list;
+	}
+
+
+	@Override
+	public List<Facture> getAllFactureForOneEtudiant(int id_etudiant) {
+		
+		Criteria cr = getSession().createCriteria(Facture.class).createAlias("etudiant", "e");
+		cr.add(Restrictions.eq("e.n_etudiant", id_etudiant));
+		List<Facture> results = cr.list();
+		
+		
+	    
+		return results;
+	}
+
+
+	@Override
+	public List<Branche> findBrancheForNiveauName(String string) {
+		
+		Criteria cr = getSession().createCriteria(Branche.class).createAlias("niveau", "n");
+		cr.add(Restrictions.eq("n.niveau_scolaire", string));
+		List<Branche> results = cr.list();
+		
+		
+	    
+		return results;
+		
+	}
+
+
+	@Override
+	public List<Classe> findClasseForBrancheName(String nomBranche) {
+
+		Criteria cr = getSession().createCriteria(Classe.class).createAlias("branche", "b");
+		cr.add(Restrictions.eq("b.nom_branche", nomBranche));
+		List<Classe> results = cr.list();
+		
+		
+	    
+		return results;
+	}
+
+
+	@Override
+	public List<Etudiant> findEtudiantForClasseName(String nomClasse) {
+
+		Criteria cr = getSession().createCriteria(Etudiant.class).createAlias("classe", "c");
+		cr.add(Restrictions.eq("c.nom_classe", nomClasse));
+		List<Etudiant> results = cr.list();
+		
+		
+	    
+		return results;
+	}
+
+
+	
+
+
+	
 
 }
