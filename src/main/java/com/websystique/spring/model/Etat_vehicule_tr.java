@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,17 +31,11 @@ public class Etat_vehicule_tr implements Serializable {
     private String siege;
     private String carosserie;
    
-    
-   @OneToMany(mappedBy="etat")
-   private Collection<Vehicule> vehicules;
-    
+    @OneToOne(fetch=FetchType.LAZY, mappedBy="etat")
+    private Vehicule vehicule;
 	
-	public Collection<Vehicule> getVehicules() {
-	return vehicules;
-}
-public void setVehicules(Collection<Vehicule> vehicules) {
-	this.vehicules = vehicules;
-}
+
+
 	public int getId_etat_vehicule_tr() {
 		return id_etat_vehicule_tr;
 	}

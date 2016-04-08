@@ -4,17 +4,15 @@ import java.util.Collection;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @DiscriminatorValue("Chauffeur_tr")
-public class Chauffeur_tr extends Fonctionnaire{
-	
-	
+public class Chauffeur_tr extends Fonctionnaire {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy="chauffeur")
 	private Collection<Vehicule> vehicules;
 	
@@ -29,6 +27,12 @@ public class Chauffeur_tr extends Fonctionnaire{
 	}
 
 	private int num_permis;
+	public Chauffeur_tr() {
+		super();
+	
+	}
+
+
 	public Chauffeur_tr(int num_permis) {
 		super();
 		this.num_permis = num_permis;

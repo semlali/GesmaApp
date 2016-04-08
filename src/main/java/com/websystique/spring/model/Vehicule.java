@@ -5,12 +5,14 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -32,25 +34,30 @@ public class Vehicule implements Serializable {
 	}
 
 
-	public Vehicule(Date dateMiseEnService, int nbreAnneeService, Double poids_total) {
-	
-		DateMiseEnService = dateMiseEnService;
+
+
+
+	public Vehicule( Date dateMiseEnService, int nbreAnneeService,int numImmatriculation , Double poids_total) {
+		super();
+		this.numImmatriculation = numImmatriculation;
+		this.DateMiseEnService = dateMiseEnService;
 		this.nbreAnneeService = nbreAnneeService;
 		this.poids_total = poids_total;
-		
+
 	}
 
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int numImmatriculation;	
+	private int id_vehicule;
+	private int numImmatriculation;	
 	private Date DateMiseEnService ;
 	private int nbreAnneeService;
 	private Double poids_total;
 
 	
-	@ManyToOne
-	@JoinColumn
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="etat_vehicule")
 	private Etat_vehicule_tr etat;
 	
 	@ManyToOne
@@ -98,6 +105,14 @@ public class Vehicule implements Serializable {
 
 	public void setPoids_total(Double poids_total) {
 		this.poids_total = poids_total;
+	}
+    public int getId_vehicule() {
+		return id_vehicule;
+	}
+
+
+	public void setId_vehicule(int id_vehicule) {
+		this.id_vehicule = id_vehicule;
 	}
 
 	
