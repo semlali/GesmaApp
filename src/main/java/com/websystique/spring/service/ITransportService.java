@@ -11,8 +11,7 @@ import com.websystique.spring.model.Vehicule;
 
 public interface ITransportService {
 
-	public void AjouterChauffeur(Chauffeur_tr chauffeur);
-    public List<Chauffeur_tr> getAlldrivers();
+	
     public void AjouterVehicule(Vehicule vehicule);
     public List<Vehicule>getAllVehicules();
 	void deleteVehicule(int id);

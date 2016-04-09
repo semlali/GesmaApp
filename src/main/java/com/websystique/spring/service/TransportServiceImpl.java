@@ -2,6 +2,7 @@ package com.websystique.spring.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,25 +10,18 @@ import com.websystique.spring.dao.ITransportDao;
 import com.websystique.spring.model.Chauffeur_tr;
 import com.websystique.spring.model.Vehicule;
 
-@Service("TransportService")
+@Service(value="ITransportService")
 @Transactional
 public class TransportServiceImpl implements ITransportService {
-
+     
+	@Autowired
 	private ITransportDao dao;
 	
 	public void setDao(ITransportDao dao) {
 		this.dao = dao;
 		}
-	@Override
-	public void AjouterChauffeur(Chauffeur_tr chauffeur) {
 
-     dao.AjouterChauffeur(chauffeur);
-	}
-	@Override
-	public List<Chauffeur_tr> getAlldrivers() {
-		// TODO Auto-generated method stub
-		return dao.getAlldrivers();
-	}
+	
 	@Override
 	public void AjouterVehicule(Vehicule vehicule) {
 		// TODO Auto-generated method stub

@@ -10,19 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.websystique.spring.model.Chauffeur_tr;
 import com.websystique.spring.model.Vehicule;
 
-@Repository("transportDao") 
+@Repository(value="ITransportDao") 
 public class TransportDaoImp extends AbstractDao implements ITransportDao {
 
-	@Override
-	public void AjouterChauffeur(Chauffeur_tr chauffeur) {	
-		persist(chauffeur);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Chauffeur_tr> getAlldrivers(){
-			Criteria criteria = getSession().createCriteria(Chauffeur_tr.class);
-			return (List<Chauffeur_tr>) criteria.list();
-		}
 
 	@Override
 	public void AjouterVehicule(Vehicule vehicule) {

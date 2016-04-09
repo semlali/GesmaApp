@@ -1,56 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+ <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 <title>Transport Gesma</title>
-
-  <style type="text/css">
-      html, body { height: 100%;  background-color: lightgrey; margin: 0; padding: 0; }
-      #map { height: 100%; }
-     
-    </style>
-  <style>
-.dropbtn {
-    background-color: grey;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: grey;
-}
-</style>
 <script type="text/javascript">
 var map;
 function initMap() {
@@ -125,7 +80,7 @@ function initMap() {
 </tr>
 </table>
 <br><br><br>
-<table align="center">
+<table>
 <tr><td>
 <div   id="map" style="height:300px; width:500px; align:center" ></div>
 </td>

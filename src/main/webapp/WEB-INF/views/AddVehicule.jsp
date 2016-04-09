@@ -6,12 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<style>
-body {
-   ;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/style.css">
 <title>Ajout d'une vehicule </title>
 </head>
 <body>
@@ -24,7 +19,7 @@ body {
 	<td> Numéro d'immatriculation : </td><td><input type="text" name="numImmatriculation"/></td>
 	</tr>
 	<tr>
- <td> La date de mise en service :</td><td> <input type="text" name="DateMiseEnService"  /></td>
+   <td> La date de mise en service :</td><td> <input type="text" name="dateMiseEnService"  /></td>
 	</tr>
 	<tr>
     <td> Nombre des années de service :</td><td><input type="text"  name="nbreAnneeService"/></td>

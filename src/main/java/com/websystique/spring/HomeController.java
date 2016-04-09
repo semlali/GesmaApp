@@ -37,8 +37,7 @@ public class HomeController {
 	
 	@RequestMapping("/GestionVehicules")
 	public String gestionvehicules(Model model){
-		
-    	//model.addAttribute(service.getAllVehicules());
+		model.addAttribute("vehicules",service.getAllVehicules());
 		return "AcceuilVehicules";
 		
 	}
@@ -46,7 +45,7 @@ public class HomeController {
 	@RequestMapping("/AjouterVehicule")
 	public String AjouterVehicule(Model model){
 		Vehicule vehicule = new Vehicule();
-		model.addAttribute("vehicule",vehicule);	
+		model.addAttribute("vehicule", vehicule);	
 		return "AddVehicule";
 	}
 	
@@ -54,55 +53,15 @@ public class HomeController {
 	
 	@RequestMapping(value="/Ajouter", method = RequestMethod.POST)
 	public String ajouter(@ModelAttribute("vehicule") Vehicule v,Model model){
-		System.out.println("loll"+v.getNbreAnneeService()+" "+v.getNumImmatriculation());
 		service.AjouterVehicule(v);
-		model.addAttribute("success", "Vehicule number : " + v.getNumImmatriculation() + " registered successfully");
+		model.addAttribute("vehicules",service.getAllVehicules());
 	    return "AcceuilVehicules";
 		
 	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	
-	
-	@RequestMapping("/showChauffeurs")
-	public String showChauffeurs(Model model) {	
-		//model.addAttribute("chauffeurs",service.getAlldrivers());	
-		return "showAlldrivers";
-	}
-	
-	@RequestMapping("/ajouterChauffeur")
-	public String formChauffeur(Model model) {	
-		model.addAttribute("chauffeur",new Chauffeur_tr());
-		System.out.println("loliiii");
-		return "AjouterChauffeur";
-	}
-	
-	@RequestMapping("/addChauffeur")
-	public String saveChauffeur(Chauffeur_tr ch,Model model){
-	model.addAttribute("chauffeur",ch);
-	
-	Chauffeur_tr chauffeur = new Chauffeur_tr();
-	chauffeur.setNom_fonc(ch.getNom_fonc());
-	chauffeur.setPrenom_fonc(ch.getPrenom_fonc());
-	chauffeur.setAdresse(ch.getAdresse());
-    chauffeur.setCin(ch.getCin());
-    chauffeur.setLieu_naissance(ch.getLieu_naissance());
-    chauffeur.setDate_naissance(ch.getDate_naissance()); 
-   // service.AjouterChauffeur(ch);
-   // model.addAttribute("chauffeurs",service.getAlldrivers());	
-	return "showAlldrivers";
-	} */
+
 	
 	
 }

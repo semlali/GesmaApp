@@ -27,31 +27,11 @@ public class Vehicule implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public Vehicule() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-
-
-	public Vehicule( Date dateMiseEnService, int nbreAnneeService,int numImmatriculation , Double poids_total) {
-		super();
-		this.numImmatriculation = numImmatriculation;
-		this.DateMiseEnService = dateMiseEnService;
-		this.nbreAnneeService = nbreAnneeService;
-		this.poids_total = poids_total;
-
-	}
-
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_vehicule;
 	private int numImmatriculation;	
-	private Date DateMiseEnService ;
+	private Date dateMiseEnService;
 	private int nbreAnneeService;
 	private Double poids_total;
 
@@ -67,6 +47,24 @@ public class Vehicule implements Serializable {
 	@ManyToOne
 	@JoinColumn
 	private Horaire horaire;
+	public Vehicule() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public Vehicule(int numImmatriculation, Date dateMiseEnService, int nbreAnneeService, Double poids_total) {
+		super();
+		this.numImmatriculation = numImmatriculation;
+		this.dateMiseEnService = dateMiseEnService;
+		this.nbreAnneeService = nbreAnneeService;
+		this.poids_total = poids_total;
+	
+	}
+
+
+	
 	
 	public int getNumImmatriculation() {
 		return numImmatriculation;
@@ -79,12 +77,12 @@ public class Vehicule implements Serializable {
 
 
 	public Date getDateMiseEnService() {
-		return DateMiseEnService;
+		return dateMiseEnService;
 	}
 
 
 	public void setDateMiseEnService(Date dateMiseEnService) {
-		DateMiseEnService = dateMiseEnService;
+		this.dateMiseEnService = dateMiseEnService;
 	}
 
 
