@@ -9,17 +9,13 @@
 <body>
 <div align="center">
 <fieldset> <legend><h1>Module Paiement</h1></legend>
-<fieldset><legend><h2>Paiement et création de la facture</h2></legend>
-<a href="paiementForm">Versement espéce</a><br>
-<a href="#">Remise des chéques aux banques</a><br>
-</fieldset>
+<a href="paiementForm">Paiement et création de la facture(Versement espéce/Remise des chéques aux banques)</a><br>
 <a href="factureForm" role="button">Rechercher une facture</a><br>
 <a href="factureEtudiant" role="button">Lister les factures par étudiant</a><br>
-<a href="GestionFrais">Gestion des Frais de prestations</a><br>
-<a href="" >Gestion de reduction</a><br>
+<a href="GestionFrais">Gestion des Frais de prestations et reduction</a><br>
 <a href="GestionCaisse">Gestion multicaisse</a><br>
 <a href="creationCompte">Gestion des comptes bancaires</a><br>
-<a href="">Gestion des impayés</a><br>
+<a href="gestionImpaye">Gestion des impayés</a><br>
 <a href="">Gestion de réglement</a><br>
 </fieldset>
 </div>

@@ -34,7 +34,7 @@ public interface PaiementDao {
 	public void deleteCaisseById(int id);
 	public List<Caisse> getAllCaisse();
 	public Caisse getCaisseById(int getId);
-	public Facture addFacture(Facture facture,int codeEtudiant,int codeCaisse);
+	public Facture addFacture(Facture facture);
 	public void updateFacture(Facture facture, int codeFacture);
 	public void deleteFactureByNum(int codeFacture);
 	public Facture consulterFacture(String codeFacture);
@@ -50,10 +50,17 @@ public interface PaiementDao {
 	public Compte getCompteByCode(String getId);
 	public void updateCompteByCode(Compte compte);
 	public List<Etudiant> getAllEtudiant();
+	public Etudiant getEtudiantById(int id);
 	public List<Facture> getAllFactureForOneEtudiant(int id_etudiant);
 	public List<Branche> findBrancheForNiveauName(String string);
 	public List<Classe> findClasseForBrancheName(String nomBranche);
 	public List<Etudiant> findEtudiantForClasseName(String nomClasse);
-	
-
+	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName);
+	public List<Classe> getAllClasse();
+	public List<Etudiant> getAllImpaye(int IdClasse);
+	public Classe getClasseById(int classe);
+	public List<Etudiant> getEtatEtudiantByBranche(String nomBranche);
+    public void updateEtatTransportEtudiant(Etudiant etudiant, String s);
+    public void updateEtatInscriptionEtudiant(Etudiant etudiant, String s);
+    public Etudiant getEtatEtudiantParNom(String nom,String prenom);
 }

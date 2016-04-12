@@ -92,10 +92,43 @@ public class Etudiant implements Serializable{
 	private String nbr_annee_6primaire;
 	private int id_ecole;
 	
+	private String etat_transport;
+	private String etat_cantine;
+	private String etat_inscription;
+	
+	@ManyToOne
+	@JoinColumn
+	private Branche branche;
+	
+	public Branche getBranche() {
+		return branche;
+	}
+	public void setBranche(Branche branche) {
+		this.branche = branche;
+	}
+
 	@ManyToOne
 	@JoinColumn
 	private Classe classe;
 	
+	public String getEtat_transport() {
+		return etat_transport;
+	}
+	public void setEtat_transport(String etat_transport) {
+		this.etat_transport = etat_transport;
+	}
+	public String getEtat_cantine() {
+		return etat_cantine;
+	}
+	public void setEtat_cantine(String etat_cantine) {
+		this.etat_cantine = etat_cantine;
+	}
+	public String getEtat_inscription() {
+		return etat_inscription;
+	}
+	public void setEtat_inscription(String etat_inscription) {
+		this.etat_inscription = etat_inscription;
+	}
 	public int getN_etudiant() {
 		return n_etudiant;
 	}

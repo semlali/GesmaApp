@@ -92,11 +92,8 @@ public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 		query.executeUpdate();
 	}
 
-	public Facture addFacture(Facture facture, int codeEtudiant, int codeCaisse) {
-		Etudiant etudiant= (Etudiant)getSession().load(Etudiant.class, codeEtudiant);
-		facture.setEtudiant(etudiant);
-		Caisse caisse= (Caisse)getSession().load(Caisse.class, codeCaisse);
-		facture.setCaisse(caisse);
+	public Facture addFacture(Facture facture) {
+		
 		persist(facture);
 		return facture;
 		
@@ -336,6 +333,97 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 		
 	    
 		return results;
+	}
+
+
+	@Override
+	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName) {
+		
+		Criteria cr = getSession().createCriteria(Frais_Niveau.class).createAlias("frais", "f");
+		cr.add(Restrictions.eq("f.id_frais", fraisId));
+		cr.createAlias("niveau", "n");
+		cr.add(Restrictions.eq("n.niveau_scolaire", niveauName));
+		
+		return (Frais_Niveau) cr.uniqueResult();
+	}
+
+
+	@Override
+	public Etudiant getEtudiantById(int id) {
+		
+		Criteria criteria = getSession().createCriteria(Etudiant.class);
+		criteria.add(Restrictions.eq("n_etudiant",id));
+		return (Etudiant) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public List<Classe> getAllClasse() {
+
+             List<Classe> list=getSession().createCriteria(Classe.class).list();
+		
+		return list;
+	}
+
+
+	@Override
+	public List<Etudiant> getAllImpaye(int IdClasse) {
+		
+		Criteria cr = getSession().createCriteria(Etudiant.class);
+		cr.createAlias("classe", "c");
+		List<Etudiant> list = cr.add(Restrictions.eq("c.id_classe", IdClasse)).list();
+		
+		return list;
+	}
+
+
+	@Override
+	public Classe getClasseById(int classe) {
+		
+		Criteria criteria = getSession().createCriteria(Classe.class);
+		criteria.add(Restrictions.eq("id_classe",classe));
+		return (Classe) criteria.uniqueResult();
+		
+	}
+
+
+	@Override
+	public List<Etudiant> getEtatEtudiantByBranche(String nomBranche) {
+		
+		Criteria cr = getSession().createCriteria(Etudiant.class);
+		cr.createAlias("branche", "b");
+		List<Etudiant> list = cr.add(Restrictions.eq("b.nom_branche", nomBranche)).list();
+		
+		return list;
+	}
+
+
+	@Override
+	public void updateEtatTransportEtudiant(Etudiant etudiant, String s) {
+		
+      Query query = getSession().createSQLQuery("UPDATE etudiant SET etat_transport='"+s+"' WHERE n_etudiant='"+etudiant.getN_etudiant()+"'");
+	   query.executeUpdate();
+		
+	}
+
+
+	@Override
+	public void updateEtatInscriptionEtudiant(Etudiant etudiant, String s) {
+		
+		Query query = getSession().createSQLQuery("UPDATE etudiant SET etat_inscription='"+s+"' WHERE n_etudiant='"+etudiant.getN_etudiant()+"'");
+		   query.executeUpdate();
+		
+	}
+
+
+	@Override
+	public Etudiant getEtatEtudiantParNom(String nom,String prenom) {
+		
+		Criteria criteria = getSession().createCriteria(Etudiant.class);
+		criteria.add(Restrictions.eq("nom_etudiant",nom));
+		criteria.add(Restrictions.eq("prenom_etudiant",prenom));
+		return (Etudiant) criteria.uniqueResult();
+		
 	}
 
 

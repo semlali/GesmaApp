@@ -117,9 +117,9 @@ public class PaiementServiceImpl implements PaiementService {
 		dao.deleteCaisseById(id);
 	}
 
-	public Facture addFacture(Facture facture, int codeEtudiant, int codeCaisse) {
+	public Facture addFacture(Facture facture) {
 		// TODO Auto-generated method stub
-		return dao.addFacture(facture, codeEtudiant, codeCaisse);
+		return dao.addFacture(facture);
 	}
 
 	public void updateFacture(Facture facture, int codeFacture) {
@@ -280,6 +280,60 @@ public class PaiementServiceImpl implements PaiementService {
 	public List<Etudiant> findEtudiantForClasseName(String nomClasse) {
 		// TODO Auto-generated method stub
 		return dao.findEtudiantForClasseName(nomClasse);
+	}
+
+	@Override
+	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName) {
+		// TODO Auto-generated method stub
+		return dao.getPrixForFraisNiveau(fraisId, niveauName);
+	}
+
+	@Override
+	public Etudiant getEtudiantById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getEtudiantById(id);
+	}
+
+	@Override
+	public List<Classe> getAllClasse() {
+		// TODO Auto-generated method stub
+		return dao.getAllClasse();
+	}
+
+	@Override
+	public List<Etudiant> getAllImpaye(int IdClasse) {
+		// TODO Auto-generated method stub
+		return dao.getAllImpaye(IdClasse);
+	}
+
+	@Override
+	public Classe getClasseById(int classe) {
+		// TODO Auto-generated method stub
+		return dao.getClasseById(classe);
+	}
+
+	@Override
+	public List<Etudiant> getEtatEtudiantByBranche(String nomBranche) {
+		// TODO Auto-generated method stub
+		return dao.getEtatEtudiantByBranche(nomBranche);
+	}
+
+	@Override
+	public void updateEtatTransportEtudiant(Etudiant etudiant, String s) {
+		// TODO Auto-generated method stub
+		dao.updateEtatTransportEtudiant(etudiant, s);
+	}
+
+	@Override
+	public void updateEtatInscriptionEtudiant(Etudiant etudiant, String s) {
+		// TODO Auto-generated method stub
+		dao.updateEtatInscriptionEtudiant(etudiant, s);
+	}
+
+	@Override
+	public Etudiant getEtatEtudiantParNom(String nom,String prenom) {
+		// TODO Auto-generated method stub
+		return dao.getEtatEtudiantParNom(nom,prenom);
 	}
 
 	

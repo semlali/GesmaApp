@@ -1,7 +1,10 @@
 package com.websystique.spring;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
 import com.websystique.spring.model.Classe;
@@ -27,6 +31,7 @@ import com.websystique.spring.modelMVC.CompteFormulaire;
 import com.websystique.spring.modelMVC.FactureEtudiantForm;
 import com.websystique.spring.modelMVC.FactureForm;
 import com.websystique.spring.modelMVC.FraisNiveau;
+import com.websystique.spring.modelMVC.PaiementFormulaire;
 import com.websystique.spring.service.PaiementService;
 
 
@@ -75,6 +80,57 @@ public class HomeController {
 		model.addAttribute("niveaux", niveaux);
 		List<Branche> branches=service.getAllBranche();
 		model.addAttribute("branches", branches);
+		model.addAttribute("caisses", service.getAllCaisse());
+		
+		model.addAttribute("paiementFormulaire", new PaiementFormulaire());
+		return "paiementForm";
+	}
+	
+	@RequestMapping("/paiementAdd")
+	public String addfacture(Model model,PaiementFormulaire pf) {
+	
+		creerfacture(model);
+		model.addAttribute("paiementFormulaire", pf);
+		System.out.println("id frais niveau "+pf.getId_fraisNiveau());
+		
+		Etudiant etudiant=service.getEtudiantById(pf.getN_etudiant());
+		Frais_Niveau fraisNiveau=service.getNiveauFraisById(pf.getId_fraisNiveau());
+		Caisse caisse=service.getCaisseById(pf.getId_caisse());
+		
+		Facture facture=new Facture();
+		facture.setAvance(pf.getAvance());
+		facture.setCaisse(caisse);
+		facture.setDate_facture(pf.getDatePaiement());
+		facture.setEtat(true);
+	    facture.setEtudiant(etudiant);
+		facture.setFrais_niveau(fraisNiveau);
+		facture.setReduction(fraisNiveau.getReduction());
+		facture.setPrix(fraisNiveau.getPrix());
+		facture.setTypePaiement(pf.getTypePaiement());
+		
+		
+		model.addAttribute("facture", facture);
+		
+		System.out.println("frais choisit "+fraisNiveau.getFrais().getNom());
+		
+		
+		
+		service.addFacture(facture);
+		
+		
+
+		if(fraisNiveau.getFrais().getNom().equals("frais transport")){
+			System.out.println("how:  "+fraisNiveau.getFrais().getNom().equals("frais transport"));
+			service.updateEtatTransportEtudiant(etudiant,"payé");
+		}
+		
+		else if(fraisNiveau.getFrais().getNom().equals("frais inscription")) {
+			System.out.println("how:  "+fraisNiveau.getFrais().getNom());
+			service.updateEtatInscriptionEtudiant(etudiant,"payé");
+		}
+		
+		
+		
 		return "paiementForm";
 	}
 	
@@ -443,5 +499,71 @@ public class HomeController {
 		return service.getAllNiveau();
 		
 	}
+	
+	@RequestMapping(value = "/frais", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Frais> findAllFais() {
+		System.out.println("finding all frais");
+		return service.getAllFrais();	}
+	
+	
+	@RequestMapping(value = "/fraisNiveau", method = RequestMethod.GET)
+	public @ResponseBody
+	Set<Frais_Niveau> findPrixForFraisNiveau(Model model,
+			@RequestParam(value = "fraisId", required = true) int fraisId,@RequestParam(value = "stateId", required = true) String niveauName) {
+		System.out.println("id frais :::: "+fraisId);
+		System.out.println("id niveau :::: "+niveauName);
+		Set<Frais_Niveau> set =  new HashSet<Frais_Niveau>() ;
+		
+		Frais_Niveau fn= service.getPrixForFraisNiveau(fraisId,niveauName);
+		System.out.println("le prix"+fn.getPrix());
+		
+		set.add(fn);
+		
+		return set;	}
+	
+	@RequestMapping("/gestionImpaye")
+	public String gestionImpaye(Model model) {
+		
+		
+		model.addAttribute("frais",service.getAllFrais());
+		model.addAttribute("classes", service.getAllClasse());
+		
+		return "gestionImpaye";
+	}
+	
+	@RequestMapping("/impayeAction")
+	public String impayeAction(Model model,@RequestParam("classe") int classe,@RequestParam("branche") String branche) {
+		
+		gestionImpaye(model);
+		System.out.println("classe: "+classe);
+		
+		
+		
+		
+		if(classe!=0) {
+			
+		model.addAttribute("Etudiant",service.getAllImpaye(classe));
+		model.addAttribute("Classe",service.getClasseById(classe));
+		
+		}else {
+			System.out.println(branche);
+			model.addAttribute("Etudiant",service.getEtatEtudiantByBranche(branche));
+		}
+			
+		
+		return "gestionImpaye";
+	}
+	
+	@RequestMapping("/rechercheParEtudiant")
+	public String rechercheParEtudiant(Model model,@RequestParam("nomEtu") String nomEtu,@RequestParam("prenomEtu") String prenomEtu) {
+		
+		
+		model.addAttribute("EtudiantOne",service.getEtatEtudiantParNom(nomEtu,prenomEtu));
+		
+		return "gestionImpaye";
+	}
+	
+	
 	
 }
