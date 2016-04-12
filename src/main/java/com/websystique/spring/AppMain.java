@@ -4,9 +4,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.websystique.spring.configuration.AppConfig;
-import com.websystique.spring.model.Facture;
-import com.websystique.spring.model.Frais;
-import com.websystique.spring.service.PaiementService;
+
+import com.websystique.spring.service.PaieService;
 
 public class AppMain {
 
@@ -17,7 +16,7 @@ public class AppMain {
 		//EmployeeService service = (EmployeeService) context.getBean("employeeService");
 
 		
-		PaiementService servicePaiement = (PaiementService) context.getBean("PaiementService");
+		PaieService servicePaie = (PaieService) context.getBean("PaieService");
 		
 		/*Facture facture= new Facture();
 		facture.setPrix(90000);
@@ -28,8 +27,6 @@ public class AppMain {
 		
 		servicePaiement.deleteFactureByNum(1);*/
 		
-		Frais frais=new Frais("frais scolarité","pas obligatoir!");
-		servicePaiement.addFrais(frais);
 		
 		/*Niveau niveau =new Niveau("2eme année bac");
 		servicePaiement.addNiveau(niveau);*/
