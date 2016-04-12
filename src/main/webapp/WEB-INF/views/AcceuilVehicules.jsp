@@ -6,12 +6,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>la liste des vehicules </title>
+<title>la liste des véhicules </title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
+   <script src="<c:url value="/resources/js/script.js" />"></script>
 </head>
 <body>
-<h2><center>La liste de tous les vehicules de l'établissement :</center></h2><br><br>
+<h2><center>La liste de tous les véhicules de l'établissement :</center></h2><br><br>
 <table> 
   <tr>
     <th>Id</th>
@@ -19,6 +20,7 @@
     <th>Date de mise en service</th>
     <th>Poids total </th>
      <th>Nombre d'années de service </th>
+     
   </tr>
 
 <c:forEach  items="${vehicules}" var="v">
@@ -28,14 +30,15 @@
     <td><fmt:formatDate value="${v.dateMiseEnService}" pattern="yyyy-MM-dd" /> </td>
     <td>${v.poids_total}</td>
     <td>${v.nbreAnneeService}</td> 
-     <td><a href="ModifierVehicule" class="button">Modiffier</a> </td>
- <td><a href="SupprimerVehiculet" class="button">Supprimer</a> </td>
+     <td><a href="ModifierVehicule?id_vehicule=${v.id_vehicule}" class="button" >Modiffier</a> </td>
+ <td><a href="SupprimerVehicule?id_vehicule=${v.id_vehicule}" class="button" onclick="return confirm('Are you sure you want to delete?')" >Supprimer</a> </td>
+ <td><a href="VerifierEtatVehicule?id_vehicule=${v.id_vehicule}"  class="button">Vérifier son état </a> </td>
+ <td><a href="newfile">newpage</a></td>
   </tr>
   <tr>
 </c:forEach>
-
 </table>  
-<center> <a href="AjouterVehicule" class="button">Ajouter une Vehicule</a> 
-<a href="VerifierEtat" class="button">Vérifier l'état d'une Vehicule</a> </center>
+<center> <a href="AjouterVehicule" class="button">Ajouter une Véhicule</a> </center>
+
+ 
 </body>
-</html>

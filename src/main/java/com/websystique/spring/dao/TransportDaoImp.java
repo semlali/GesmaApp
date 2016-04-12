@@ -30,7 +30,7 @@ public class TransportDaoImp extends AbstractDao implements ITransportDao {
 		@Override
 		public void deleteVehicule(int id) {
 			
-			Query query = getSession().createSQLQuery("delete from Vehicule where id_vehicule = :id");
+			Query query = getSession().createSQLQuery("delete from vehicule_tr where id_vehicule = :id");
 			query.setInteger("id", id);
 			query.executeUpdate();
 			
@@ -49,6 +49,9 @@ public class TransportDaoImp extends AbstractDao implements ITransportDao {
 			getSession().update(vehicule);
 			
 		}
+
+	
+
 	}
 
 

@@ -10,11 +10,11 @@
 <title>Ajout d'une vehicule </title>
 </head>
 <body>
-<fieldset>
-    <legend> Ajout d'une vehicule : </legend>
 
 <f:form action="Ajouter" modelAttribute="vehicule"  method="post">
-	<table >
+<fieldset>
+    <legend> Ajout d'une vehicule : </legend>
+<table>
 	<tr>
 	<td> Numéro d'immatriculation : </td><td><input type="text" name="numImmatriculation"/></td>
 	</tr>
@@ -27,13 +27,36 @@
     <tr>
     <td> Le poids total  :</td><td> <input type="text" name="poids_total" /> </td>
     </tr>
-    <tr>
-    	<td><input type="submit" value="ajouter"> </td>
-	</tr>
-	</table>
-</f:form>
+     
+  <tr>
+  <td>Roue</td><td><select name="etat_roue"><option id="1">Neuf</option>
+  <option id="2">moyen</option>
+  <option id="3">mauvais</option>
+  </select></td>
+  </tr>
+  <tr>
+ <td>Vitre</td><td><select name="etat_vitre"><option id="1">Neuf</option>
+  <option id="2">moyen</option>
+  <option id="3">mauvais</option>
+  </select></td>
+  </tr>
+  <tr>
+   <td>Siege</td><td><select name="etat_siege"><option id="1">Neuf</option>
+  <option id="2">moyen</option>
+  <option id="3">mauvais</option>
+  </select></td>
+  </tr>
+  <tr>
+   <td>Carosserie</td><td><select name="etat_carosserie"><option id="1">Neuf</option>
+  <option id="2">moyen</option>
+  <option id="3">mauvais</option>
+  </select></td>
+  </tr>
+  <tr><td>Remarques : </td><td><input type="text" name="remarques"></td></tr>
+  <tr><td><input type="submit" value="ajouter"> </td></tr>
+</table>
  </fieldset>
-
-
+ 
+ </f:form>
 </body>
 </html>

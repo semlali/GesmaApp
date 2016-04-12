@@ -34,11 +34,13 @@ public class Vehicule implements Serializable {
 	private Date dateMiseEnService;
 	private int nbreAnneeService;
 	private Double poids_total;
-
+    private String etat_roue;
+    private String etat_vitre;
+    private String etat_siege;
+    private String etat_carosserie;
+    private String remarques;
 	
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="etat_vehicule")
-	private Etat_vehicule_tr etat;
+	
 	
 	@ManyToOne
 	@JoinColumn
@@ -113,5 +115,66 @@ public class Vehicule implements Serializable {
 		this.id_vehicule = id_vehicule;
 	}
 
+
+
+	public String getEtat_roue() {
+		return etat_roue;
+	}
+
+
+
+	public void setEtat_roue(String etat_roue) {
+		this.etat_roue = etat_roue;
+	}
+
+
+
+	public String getEtat_vitre() {
+		return etat_vitre;
+	}
+
+
+
+	public void setEtat_vitre(String etat_vitre) {
+		this.etat_vitre = etat_vitre;
+	}
+
+
+
+	public String getEtat_siege() {
+		return etat_siege;
+	}
+
+
+
+	public void setEtat_siege(String etat_siege) {
+		this.etat_siege = etat_siege;
+	}
+
+
+
+	public String getEtat_carosserie() {
+		return etat_carosserie;
+	}
+
+
+
+	public void setEtat_carosserie(String etat_carosserie) {
+		this.etat_carosserie = etat_carosserie;
+	}
+
+
+
+	public String getRemarques() {
+		return remarques;
+	}
+
+
+
+	public void setRemarques(String remarques) {
+		this.remarques = remarques;
+	}
+
 	
+
 }

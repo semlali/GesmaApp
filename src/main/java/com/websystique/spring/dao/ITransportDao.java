@@ -11,9 +11,11 @@ public interface ITransportDao {
     
     public void AjouterVehicule(Vehicule vehicule);
     public List<Vehicule>getAllVehicules();
-	void deleteVehicule(int id);
-	Vehicule findById(int id);
-	void updateVehicule(Vehicule vehicule);
+	public void deleteVehicule(int id);
+	public Vehicule findById(int id);
+	public void updateVehicule(Vehicule vehicule);
+
+	
 	
   
     
