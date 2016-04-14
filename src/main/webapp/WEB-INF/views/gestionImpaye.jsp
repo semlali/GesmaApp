@@ -191,7 +191,12 @@ $(document).ready(function() {
              </tr>                                
              </c:forEach>
      </table>
+     
 </div>
 </c:if>
+<br><br>
+<div align="center"><button>Edition des lettres de rappel aux règlements</button></div>
+
+
 </body>
 </html>

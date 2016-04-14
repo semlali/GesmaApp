@@ -192,10 +192,14 @@ public class HomeController {
 	}
 	
 	
+
 	
-	
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-    public String updateFrais(Model model,@RequestParam("getId") int getId,FraisNiveau fn) {
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public @ResponseBody
+	Frais_Niveau updateFrais(Model model,@RequestParam("getId") int getId,FraisNiveau fn) {
+		
+		System.out.println("id de niveau_frais : "+getId); //here's when I want to see the param
+		
 		
 		model.addAttribute("updateFraisFormulaire",fn);
 		
@@ -209,8 +213,9 @@ public class HomeController {
        
        model.addAttribute("frais_to_update", service.getNiveauFraisById(getId));
 		
-        System.out.println("id de niveau_frais : "+getId); //here's when I want to see the param
-        return "GestionFrais";
+       return service.getNiveauFraisById(getId);
+      
+        //return "GestionFrais";
     }
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -564,6 +569,8 @@ public class HomeController {
 		return "gestionImpaye";
 	}
 	
+
+			
 	
 	
 }

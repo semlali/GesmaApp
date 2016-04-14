@@ -5,36 +5,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Gestion des frais</title>
-<script type="text/javascript">
-</script>
+<link rel="stylesheet" href="resources/css/style.css" type="text/css" media="screen"/>
+<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link data-require="bootstrap-css@*" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 </head>
 
 <body>
-<div align="center">
- <h1>Gestion des frais</h1>
-<fieldset> <legend><h3>Tous les Frais de prestations</h3></legend>
-               <table border="1">
-                     <th>Niveau</th><th>Frais</th><th>prix</th><th>réduction</th><th></th><th></th>
-                     <c:forEach items="${niveauFrais}" var="nf">
-                     <tr> 
-                         
-                         <td> ${nf.niveau.niveau_scolaire}</td>
-                         <td> ${nf.frais.nom}</td>
-                         <td> ${nf.prix}</td>
-                         <td> ${nf.reduction}</td>
-                         <td><a href="update?getId=${nf.id_frais_niveau}" role="button">update</a></td>
-                         <td><a href="delete?getId=${nf.id_frais_niveau}" role="button">delete</a></td>
-                     </tr>
-                     </c:forEach>
-               </table>
-</fieldset>
-</div>
-
-
-<div align="center" id="dcacl">
-   
-       <f:form method="post" name="form" action="addFrais" modelAttribute="GestionFraisFormulaire">
-          <fieldset> <legend><h3>Ajouter des nouveaux frais</h3></legend>
+ 
+    <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modifier le frais de <label id="frais"></label> pour <label id="niveau"></label></h4>
+                </div>
+                <f:form method="post" name="form" action="updateFrais" modelAttribute="updateFraisFormulaire">
+                <input type="hidden" id="idFrais" name="frais"/>
+                <input type="hidden" id="idNiveau" name="niveau"/><br>
+                Prix: <input id="edit-prix"  name="prix"/><br>
+                Reduction: <input id="edit-reduction"  name="reduction"/><br>
+               
+                
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </f:form>
+            </div>
+        </div>
+    </div>
+    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modifier le frais de <label id="frais"></label> pour <label id="niveau"></label></h4>
+                </div>
+                <f:form method="post" name="form" action="addFrais" modelAttribute="GestionFraisFormulaire">
+         
                <table>
                      <tr>
                      <td>Choisissez un niveau</td>
@@ -70,52 +80,92 @@
                      <td><input type="submit" value="ok"/> </td>
                      </tr>
                 </table>
-           </fieldset>
+          
        </f:form>
-</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#edit-modal').on('show.bs.modal', function(e) {
+            
+            var $modal = $(this),
+                esseyId = e.relatedTarget.id;
+            
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: 'update',
+                data: {getId: esseyId},
+                success: function(data) 
+                {   
+                	
+                	$("#idFrais").val(data.frais.id_frais);
+                	$("#idNiveau").val(data.niveau.id_niveau);
+                	$("#edit-prix").val(data.prix);
+                	$("#edit-reduction").val(data.reduction);
+                	
+                	$modal.find('#frais').html(data.frais.nom);
+                	$modal.find('#niveau').html(data.niveau.niveau_scolaire);
+                   
+                }
+            });
+            
+        })
+    </script>
+    
+<div align="center" id="content">
+ <h2>Gestion des frais</h2>
+  
+ <h3>Tous les Frais de prestations</h3>
+
+               <table class="table3">
+                     <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col" abbr="Starter">Niveau</th>
+                        <th scope="col" abbr="Medium">Frais</th>
+                        <th scope="col" abbr="Business">prix</th>
+                        <th scope="col" abbr="Deluxe">réduction</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th ></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                </tfoot>     
+                     
+                     <c:forEach items="${niveauFrais}" var="nf">
+                     <tr> 
+                         <th></th>
+                         <td> ${nf.niveau.niveau_scolaire}</td>
+                         <td> ${nf.frais.nom}</td>
+                         <td> ${nf.prix}</td>
+                         <td> ${nf.reduction}</td>
+                         <td>
+                         <a href="#myModal" data-toggle="modal" id="${nf.id_frais_niveau}" data-target="#edit-modal">Modifier</a>
+                         </td>
+                         <td><a href="delete?getId=${nf.id_frais_niveau}" class="blue-pill" >Supprimer</a></td>
+                         
+                     </tr>
+                     </c:forEach>
+               </table>
+  
+                <a href="#myModaltwo" data-toggle="modal" id="myBtn" data-target="#add-modal"><h3>Ajouter nouveau frais</h3></a> 
+             
+              </div>
+           
 <c:if test="${error}">
 <script type="text/javascript">
-alert("Vous pouvez pas supprimer ce frais car il réferent a certain facture!! Supprimer d'abord les facture associés ");
+var person = confirm("supprimer les factures associés", "ok");
 </script>
 </c:if>
-
-<c:if test="${not empty frais_to_update}">
-<div align="center" id="dcacl">
-   
-       <f:form method="post" name="form" action="updateFrais" modelAttribute="updateFraisFormulaire">
-          <fieldset> <legend><h3>Modifier un frais de prestation</h3></legend>
-               <table>
-                     <tr>
-                     <td>Choisissez un niveau</td>
-                     <td>
-                     <input type="hidden" path="niveau"  name="niveau" value="${frais_to_update.niveau.id_niveau}" />
-                      <input  value="${frais_to_update.niveau.niveau_scolaire}"/>              
-                    
-                              </td>
-                     </tr>
-                      <tr>
-                     <td>Choisissez le type de frais</td>
-                     <td>
-                     <input type="hidden" path="frais"  name="frais" value="${frais_to_update.frais.id_frais}" />
-                     <input value="${frais_to_update.frais.nom}"/>                
-                              </td>
-                     </tr>
-                     <tr>
-                     <td>Prix</td>
-                     <td><input type="text"   name="prix"  value="${frais_to_update.prix}"></td>
-                     </tr>
-                     <tr>
-                     <td>Reduction</td>
-                     <td><input type="text"  name="reduction" value="${frais_to_update.reduction}"></td>
-                     </tr>
-                     <tr>
-                     <td><input type="submit" value="ok"/> </td>
-                     </tr>
-                </table>
-           </fieldset>
-       </f:form>
-</div>
-</c:if>
-                     
+ 
 </body>
 </html>
