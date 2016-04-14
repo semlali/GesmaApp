@@ -1,18 +1,11 @@
 package com.websystique.spring;
 
 
-
-import java.util.Collection;
-import java.util.Date;
-
-import javax.persistence.ManyToOne;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,60 +26,95 @@ public class HomeController {
 	public String index() {
 		return "index";
 	}
-	
+
 	//salarie
 	@RequestMapping("/formSalarie")
 	public String Salarie(Model model) {
 		model.addAttribute("listeProfession",service.afficherProfession());
 		model.addAttribute("listeTypeContrat",service.afficherTypeContrat());
         model.addAttribute("listeBanque",service.afficherBanque());
-		model.addAttribute("salarie",new FonctionnaireModel());
-		
-		
+	    model.addAttribute("salarieModel",new FonctionnaireModel());
 		return "salarie";
 	}
 	
-	@RequestMapping("/ajouterSalarie")
-	public String ajouterSalarie (FonctionnaireModel fm , Model model) {
-		Boolean cnss = false, amo=false,ir=false;
-		model.addAttribute("salarie", fm);
-		Banque b= service.getBanqueById(fm.getIdbanque());
-		TypeContrat type_c= service.getTypeContratById(fm.getIdTypeContrat());
-		Profession p= service.getProfessionById(fm.getIdProfession());
-		System.out.println("profession :"+p.getNomProfession()+"id: "+p.getIdProfession());
-		Contrat c= new Contrat(fm.getDateEntree(),fm.getDateSortie(),fm.getSalaireBase(),fm.getModeRegelemnt(),p,type_c);
-		System.out.println("on est a contrat "+c.getDateEntree()+" "+c.getDateSortie()+""+c.getSalaireBase()+" "+c.getModeRegelemnt()+" "+c.getProfession().getNomProfession()+""+c.getTypecontrat());
-				
-				
-				if(fm.getAmo()!= null){
-		 amo=true;
-		}
-		else if(fm.getCnss()!= null){
+	@RequestMapping("/ajoutSalarie")
+	public String ajoutSalarie(FonctionnaireModel fm,Model model) {
+		  
+		 		
+		   model.addAttribute("salarieModel", fm);
+		   
+			Banque b= service.getBanqueById(fm.getIdbanque());
 			
-		 cnss=true;
-		}
-		else if( fm.getIr()!=null){
-		 ir=true;
-		}
-		
-		Fonctionnaire f= new Fonctionnaire(
-		fm.getNom_fonc(),fm.getPrenom_fonc(),fm.getNom_fonc_ara(),fm.getPrenom_fonc_ara(),
-		fm.getMatricule(),fm.getNationalite(),fm.getCin(),fm.getCarte_sejour(),
-		fm.getDate_naissance(),fm.getLieu_naissance(),fm.getSexe(),fm.getSituation_familiale(),
-		fm.getNbr_enfants(),fm.getAdresse(),fm.getVille(),fm.getTelephone(),fm.getEmail(),
-		fm.getDateEntree(),fm.getDateSortie(),fm.getCompteBancaire(),fm.getAgenceBancaire(),
-		fm.getLogin(),fm.getPass(),cnss,ir,amo,fm.getNumCnss(),
-		fm.getNumCimr(),fm.getNumMutuelle(),c,b);
-		
-		System.out.println("on est a fonctionnaire"+f.getNom_fonc());
-		
-		
-		//service.ajouterFonctionnaire(f);
-	
-					
-					
-		return "index";
+			TypeContrat typeContrat= service.getTypeContratById(fm.getIdTypeContrat());
+			
+			Profession p= service.getProfessionById(fm.getIdProfession());
+			
+			Contrat c= new Contrat(fm.getDateEntree(),fm.getDateSortie(),fm.getSalaireBase(),fm.getModeRegelemnt(),p,typeContrat);
+				
+
+			Boolean cnss = false, amo=false,ir=false;
+
+			if(fm.getAmo()!= null){
+			 amo=true;
+			}
+			else if(fm.getCnss()!= null){
+				
+			 cnss=true;
+			}
+			else if( fm.getIr()!=null){
+			 ir=true;
+			}
+			
+			System.out.println("on est avant fonctionaire ");
+			Fonctionnaire f= new Fonctionnaire(
+			fm.getNom_fonc(),fm.getPrenom_fonc(),fm.getNom_fonc_ara(),fm.getPrenom_fonc_ara(),
+			fm.getMatricule(),fm.getNationalite(),fm.getCin(),fm.getCarte_sejour(),
+			fm.getDate_naissance(),fm.getLieu_naissance(),fm.getSexe(),fm.getSituation_familiale(),
+			fm.getNbr_enfants(),fm.getAdresse(),fm.getVille(),fm.getTelephone(),fm.getEmail(),
+			fm.getDateEntree(),fm.getDateSortie(),fm.getCompteBancaire(),fm.getAgenceBancaire(),
+			fm.getLogin(),fm.getPass(),cnss,ir,amo,fm.getNumCnss(),
+			fm.getNumCimr(),fm.getNumMutuelle(),b,c);
+			
+			
+			
+			
+			if(fm.getNumero_de_permis()!=null){
+				System.out.println("on est a persistance chauffeur");
+				Chauffeur chauffeur =new Chauffeur(
+						fm.getNom_fonc(),fm.getPrenom_fonc(),fm.getNom_fonc_ara(),fm.getPrenom_fonc_ara(),
+						fm.getMatricule(),fm.getNationalite(),fm.getCin(),fm.getCarte_sejour(),
+						fm.getDate_naissance(),fm.getLieu_naissance(),fm.getSexe(),fm.getSituation_familiale(),
+						fm.getNbr_enfants(),fm.getAdresse(),fm.getVille(),fm.getTelephone(),fm.getEmail(),
+						fm.getDateEntree(),fm.getDateSortie(),fm.getCompteBancaire(),fm.getAgenceBancaire(),
+						fm.getLogin(),fm.getPass(),cnss,ir,amo,fm.getNumCnss(),
+						fm.getNumCimr(),fm.getNumMutuelle(),b,c,fm.getNumero_de_permis());
+						 
+						
+				service.ajouterChauffeur(chauffeur);
+			}
+			else if(fm.getEchel()!=null){
+				System.out.println("on est a persistance professeur");
+
+				Professeur prof =new Professeur(
+						fm.getNom_fonc(),fm.getPrenom_fonc(),fm.getNom_fonc_ara(),fm.getPrenom_fonc_ara(),
+						fm.getMatricule(),fm.getNationalite(),fm.getCin(),fm.getCarte_sejour(),
+						fm.getDate_naissance(),fm.getLieu_naissance(),fm.getSexe(),fm.getSituation_familiale(),
+						fm.getNbr_enfants(),fm.getAdresse(),fm.getVille(),fm.getTelephone(),fm.getEmail(),
+						fm.getDateEntree(),fm.getDateSortie(),fm.getCompteBancaire(),fm.getAgenceBancaire(),
+						fm.getLogin(),fm.getPass(),cnss,ir,amo,fm.getNumCnss(),
+						fm.getNumCimr(),fm.getNumMutuelle(),b,c,fm.getEchel());
+
+				service.ajouterProfesseur(prof);
+			}
+			else {
+				System.out.println("on est a persistance fonctionnaire");
+
+			service.ajouterFonctionnaire(f);
+			}
+			return "index";
 	}
+	
+	
 	
 	//fonction:
 	@RequestMapping("/formFonction")
@@ -95,12 +123,7 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/ajoutSalarie")
-	public String AjoutSalarie(Model model, 
-			
-    @RequestParam String nomProfession) {
-		return "index";
-	}
+	
 	@RequestMapping("/formBanque")
 	public String index(Model model) {
 		model.addAttribute("banqueModel", new BanqueModel());
@@ -207,8 +230,17 @@ public class HomeController {
 	  @RequestMapping("/formFichePaie")
 		public String fichePaie (Model model) {
 			
+			model.addAttribute("listeSalaries",service.afficherSalaries());
 
 			
 			return "fichePaie";
 		}
+	  
+	  @RequestMapping(value = "/calculerFichePaie", method = RequestMethod.GET)
+	    public String calculerFichePaie(Model model,@RequestParam("salarie") int getId) {
+		    fichePaie(model);
+		    System.out.println("on est avant fonct");
+			Fonctionnaire f=  service.getSalarieById(getId);	System.out.println("fonctionnaire selectionné "+f.getClass().getName());
+	        return "fichePaie";
+	    }
 }

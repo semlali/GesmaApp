@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.websystique.entities.Anciennete;
 import com.websystique.entities.Banque;
+import com.websystique.entities.Chauffeur;
 import com.websystique.entities.Contrat;
 import com.websystique.entities.Fonctionnaire;
 import com.websystique.entities.IGR;
+import com.websystique.entities.Professeur;
 import com.websystique.entities.Profession;
 import com.websystique.entities.TypeContrat;
 import com.websystique.spring.dao.PaieDao;
@@ -100,11 +102,34 @@ public class PaieServiceImplementation implements PaieService {
 	@Override
 	public Profession getProfessionById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.getProfessionById(id);
 	}
 
+	@Override
+    public void ajouterContrat(Contrat c){
+    	dao.ajouterContrat(c);
+    }
+	@Override
+	public void ajouterChauffeur(Chauffeur c) {
+		// TODO Auto-generated method stub
+		dao.ajouterChauffeur(c);
+	}
+	@Override
+	public void ajouterProfesseur(Professeur p) {
+		// TODO Auto-generated method stub
+		dao.ajouterProfesseur(p);
+	}
+	@Override
+	public List<Fonctionnaire> afficherSalaries() {
+		// TODO Auto-generated method stub
+		return dao.afficherSalaries();
+	}
+	@Override
+	public Fonctionnaire getSalarieById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getSalarieById(id);
+	}
 
-	
 
 
 }

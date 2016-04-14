@@ -117,23 +117,23 @@
      <fieldset>
     <legend>Fiche de Paie :</legend>
 
-<f:form action="validerUpdateIGR" modelAttribute="IGRModel" method="GET">
+<f:form action="calculerFichePaie" method="GET">
   
   <table>
   <tr> 
-  <td> <label path="debutTranche" >Selectionner un employé:  </label></td>
+  <td> <label>Selectionner un employé:  </label></td>
   <td> 
-  
-     <select name="sexe" id = "sexe">
-        <option value="v">1</option>
-        <option value="m">1)</option>
-       <option value="c">1</option>
-       <option value="d">1</option>
-        
-        </select></td>
-        
-        <td> <input type="button" value="calculer"/></td>
-  
+  <select name="salarie" id ="salarie" >
+        <c:forEach items="${listeSalaries}" var="s" >
+        <option value="${s.n_fonc}">
+        ${s.nom_fonc} ${s.prenom_fonc}
+        </option>
+        </c:forEach>
+  </select>
+  </td>
+  <td>
+        <input path="submit" type="submit" value="Calculer"/>
+ </td>
   </tr>
   
   </table>

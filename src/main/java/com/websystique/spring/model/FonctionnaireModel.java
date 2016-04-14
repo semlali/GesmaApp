@@ -1,6 +1,5 @@
 package com.websystique.spring.model;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,15 +9,7 @@ import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.websystique.entities.Avances;
-import com.websystique.entities.Banque;
-import com.websystique.entities.BulletinPaie;
-import com.websystique.entities.Conge;
-import com.websystique.entities.Contrat;
-import com.websystique.entities.Fonctionnaire;
-import com.websystique.entities.Prets;
-import com.websystique.entities.Profession;
-import com.websystique.entities.TypeContrat;
+
 
 public class FonctionnaireModel {
 	
@@ -30,7 +21,7 @@ public class FonctionnaireModel {
 	private String nationalite;
 	private String cin;
 	@DateTimeFormat(pattern="yy-M-d")
-	private Date date_naissance;
+    private Date date_naissance;
 	private String lieu_naissance;
 	private String sexe;
 	private String situation_familiale;
@@ -39,8 +30,6 @@ public class FonctionnaireModel {
 	private String ville;
 	private String telephone;
 	private String email;
-	private String photo_fonc;
-	private Date date_situation_familiale;
 	private int compteBancaire;
 	private String agenceBancaire;
 	private String login;
@@ -54,24 +43,27 @@ public class FonctionnaireModel {
 	//mutuelle
 	
     private int numMutuelle;
-	//contrat
+	 //contrat
     @DateTimeFormat(pattern="yy-M-d")
 	private Date dateEntree;
 	@DateTimeFormat(pattern="yy-M-d")
 	private Date dateSortie;
 	private Double salaireBase;
-	private String modeRegelemnt;
-	private Profession profession;
+	private String modeRegelement;
 	private int idTypeContrat;
 	private int idProfession;//profession en contrat
 	//banque
 	private int idbanque;
-	private String numero_de_permis;
+	private Integer numero_de_permis;
+	private String frais_professionnel, categorieSalaire;
 	//fonction
 	//exoneration 
 	
 	private String cnss, ir,amo;
 
+	//prof
+	private String echel;
+	
 	public String getNom_fonc() {
 		return nom_fonc;
 	}
@@ -127,6 +119,7 @@ public class FonctionnaireModel {
 	public void setCin(String cin) {
 		this.cin = cin;
 	}
+	
 
 	public Date getDate_naissance() {
 		return date_naissance;
@@ -198,23 +191,6 @@ public class FonctionnaireModel {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPhoto_fonc() {
-		return photo_fonc;
-	}
-
-	public void setPhoto_fonc(String photo_fonc) {
-		this.photo_fonc = photo_fonc;
-	}
-
-	
-	public Date getDate_situation_familiale() {
-		return date_situation_familiale;
-	}
-
-	public void setDate_situation_familiale(Date date_situation_familiale) {
-		this.date_situation_familiale = date_situation_familiale;
 	}
 
 	public int getCompteBancaire() {
@@ -298,22 +274,12 @@ public class FonctionnaireModel {
 	}
 
 	public String getModeRegelemnt() {
-		return modeRegelemnt;
+		return modeRegelement;
 	}
 
 	public void setModeRegelemnt(String modeRegelemnt) {
-		this.modeRegelemnt = modeRegelemnt;
+		this.modeRegelement = modeRegelemnt;
 	}
-
-	public Profession getProfession() {
-		return profession;
-	}
-
-	public void setProfession(Profession profession) {
-		this.profession = profession;
-	}
-
-
 
 	public int getIdTypeContrat() {
 		return idTypeContrat;
@@ -339,11 +305,11 @@ public class FonctionnaireModel {
 		this.idbanque = idbanque;
 	}
 
-	public String getNumero_de_permis() {
+	public Integer getNumero_de_permis() {
 		return numero_de_permis;
 	}
 
-	public void setNumero_de_permis(String numero_de_permis) {
+	public void setNumero_de_permis(Integer numero_de_permis) {
 		this.numero_de_permis = numero_de_permis;
 	}
 
@@ -377,6 +343,38 @@ public class FonctionnaireModel {
 
 	public void setCarte_sejour(String carte_sejour) {
 		this.carte_sejour = carte_sejour;
+	}
+
+	public String getModeRegelement() {
+		return modeRegelement;
+	}
+
+	public void setModeRegelement(String modeRegelement) {
+		this.modeRegelement = modeRegelement;
+	}
+
+	public String getFrais_professionnel() {
+		return frais_professionnel;
+	}
+
+	public void setFrais_professionnel(String frais_professionnel) {
+		this.frais_professionnel = frais_professionnel;
+	}
+
+	public String getCategorieSalaire() {
+		return categorieSalaire;
+	}
+
+	public void setCategorieSalaire(String categorieSalaire) {
+		this.categorieSalaire = categorieSalaire;
+	}
+
+	public String getEchel() {
+		return echel;
+	}
+
+	public void setEchel(String echel) {
+		this.echel = echel;
 	}
 
 	

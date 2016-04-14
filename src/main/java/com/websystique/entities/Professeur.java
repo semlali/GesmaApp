@@ -1,5 +1,6 @@
 package com.websystique.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("P")
 @Table(name="professeur")
 
-public class Professeur extends  Fonctionnaire {
+public class Professeur extends  Fonctionnaire implements Serializable {
 
 	/**
 	 * 
@@ -167,37 +168,25 @@ public class Professeur extends  Fonctionnaire {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Professeur(Date date_echelon, String cadre_actuel,
-			Date date_domination_etab, String code_fonctionaire,
-			Date date_titularisation, Date date_cadre, Date date_echel,
-			String echel, String mode_affectation, int annee_scolaire,
-			int id_matiere, int id_conjoint, int id_tache, int id_cycle,
-			String type_acces_echel, String enciennete_echel, Date date_tache,
-			Date date_nomination_delegation, Date date_nomination_academie,
-			String type_fonc) {
-		super();
-		this.date_echelon = date_echelon;
-		this.cadre_actuel = cadre_actuel;
-		this.date_domination_etab = date_domination_etab;
-		this.code_fonctionaire = code_fonctionaire;
-		this.date_titularisation = date_titularisation;
-		this.date_cadre = date_cadre;
-		this.date_echel = date_echel;
+	public Professeur(String nom_fonc, String prenom_fonc, String nom_fonc_ara,
+			String prenom_fonc_ara, int matricule, String nationalite,
+			String cin, String carte_sejour, Date date_naissance,
+			String lieu_naissance, String sexe, String situation_familiale,
+			int nbr_enfants, String adresse, String ville, String telephone,
+			String email, Date date_travail, Date sortieTravail,
+			int compteBancaire, String agenceBancaire, String login,
+			String pass, Boolean cnss, Boolean ir, Boolean amo, int numCnss,
+			int numCimr, int numMutuelle, Banque banque, Contrat contrat,
+			String echel) {
+		super(nom_fonc, prenom_fonc, nom_fonc_ara, prenom_fonc_ara, matricule,
+				nationalite, cin, carte_sejour, date_naissance, lieu_naissance,
+				sexe, situation_familiale, nbr_enfants, adresse, ville,
+				telephone, email, date_travail, sortieTravail, compteBancaire,
+				agenceBancaire, login, pass, cnss, ir, amo, numCnss, numCimr,
+				numMutuelle, banque, contrat);
 		this.echel = echel;
-		this.mode_affectation = mode_affectation;
-		this.annee_scolaire = annee_scolaire;
-		this.id_matiere = id_matiere;
-		this.id_conjoint = id_conjoint;
-		this.id_tache = id_tache;
-		this.id_cycle = id_cycle;
-		this.type_acces_echel = type_acces_echel;
-		this.enciennete_echel = enciennete_echel;
-		this.date_tache = date_tache;
-		this.date_nomination_delegation = date_nomination_delegation;
-		this.date_nomination_academie = date_nomination_academie;
-		this.type_fonc = type_fonc;
-	
 	}
+	
 	
 	
 }

@@ -20,5 +20,9 @@ public interface PaieDao {
     public void ajouterFonctionnaire(Fonctionnaire f);
     public TypeContrat getTypeContratById(int id);
     public Profession getProfessionById(int id);
-	
+    public void ajouterContrat(Contrat c);
+	public void ajouterChauffeur(Chauffeur c);
+	public void ajouterProfesseur(Professeur p);
+    public List<Fonctionnaire> afficherSalaries();
+    public Fonctionnaire getSalarieById(int id);
 }

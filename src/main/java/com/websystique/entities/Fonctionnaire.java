@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -68,13 +70,15 @@ public class Fonctionnaire implements Serializable {
 	@Column(name = "num_mutuelle")
     private int numMutuelle;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn
 	private Contrat contrat;
 	
 	@OneToMany(mappedBy="fonctionnaire")
 	private Collection<Conge> conge;
 	
 	@ManyToOne 
+	@JoinColumn
 	private Banque banque;
 	
 	@OneToMany(mappedBy="fonctionnaire")
@@ -350,7 +354,7 @@ public class Fonctionnaire implements Serializable {
 			String email,  Date date_travail, Date sortieTravail, 
 			int compteBancaire, String agenceBancaire, String login,
 			String pass, Boolean cnss, Boolean ir, Boolean amo, int numCnss,
-			int numCimr, int numMutuelle, Contrat contrat, Banque banque) {
+			int numCimr, int numMutuelle,  Banque banque, Contrat contrat) {
 		super();
 		
 		this.nom_fonc = nom_fonc;
@@ -384,7 +388,6 @@ public class Fonctionnaire implements Serializable {
 		this.numCnss = numCnss;
 		this.numCimr = numCimr;
 		this.numMutuelle = numMutuelle;
-		this.contrat = contrat;
 	//	this.conge = conge;
 		this.banque = banque;
 		//this.bulletinPaies = bulletinPaies;
@@ -392,6 +395,7 @@ public class Fonctionnaire implements Serializable {
 		//this.prets = prets;
 		this.carte_sejour=carte_sejour;
 		this.sortieTravail=sortieTravail;
+		this.contrat=contrat;
 	}
 	
 	

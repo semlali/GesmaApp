@@ -11,75 +11,55 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Paie Gesma</title>
 
-<script type="text/javascript" >
-
-function changeChauffeurProfesseur(obj) {
-	var selectBox = obj;
-    var selected = selectBox.options[selectBox.selectedIndex].value;
-    var zone1 = document.getElementById("permis");
-    var zone2 = document.getElementById("permis2");
-    var zone3 = document.getElementById("echel1");
-    var zone4 = document.getElementById("echel2");
-    
-    if(selected == '3'){
-   	 zone1.disabled = false;
-   	 zone2.disabled = false;
-   	 zone3.disabled = true;
-     zone4.disabled = true;
-   }
-    else if(selected == '4'){
-       zone3.disabled = false;
-       zone4.disabled = false;
-       zone1.disabled = true;
-       zone2.disabled = true;
-   }
-   else {
-	   
-	   zone3.disabled = true;
-       zone4.disabled = true;
-       zone1.disabled = true;
-       zone2.disabled = true;
-   }
-}
-function changeContrat(obj) {
-	var selectBox = obj;
-    var selected = selectBox.options[selectBox.selectedIndex].value;
-    var zone7 = document.getElementById("dateSortie");
-    
-    if(selected == '1'){
-        zone7.disabled = false;
-        
-    }
-    if(selected == '2'){
-        zone7.disabled = true;
-        
-    }
-}
-
-function changeNationalite(obj) {
+<script >
+function change(obj) {
 
 
     var selectBox = obj;
     var selected = selectBox.options[selectBox.selectedIndex].value;
-   
+    var zone1 = document.getElementById("permis");
+    var zone2 = document.getElementById("permis2");
     var zone3 = document.getElementById("cin1");
     var zone4 = document.getElementById("cin2");
     var zone5 = document.getElementById("carte_sejour1");
     var zone6 = document.getElementById("carte_sejour2");
-    if(selected == 'm'){
-        zone3.disabled = false;
-        zone4.disabled = false;
-        zone5.disabled = true;
-        zone6.disabled = true;
-    }
-    if(selected == 'e'){
-        zone5.disabled = false;
-        zone6.disabled = false;
-        zone3.disabled = true;
-        zone4.disabled = true;
+    var zone7 = document.getElementById("dateSortie");
+
+
+    if(selected === 'chauffeur'){
+        zone1.disabled = false;
+        zone2.disabled= false;
 
     }
-    
+    else if(selected=='m'){
+        zone3.disabled = false;
+        zone4.disabled = false;
+        zone5.disabled  = true;
+        zone6.disabled = true;
+
+    }
+    else if(selected=='e'){
+    	 zone3.disabled= true;
+         zone4.disabled= true;
+         zone5.disabled= false;
+         zone6.disabled = false;
+    	
+    }
+    else if(selected=='CDI'){
+    	
+        zone7.disabled = true;
+
+    }
+    else if(selected=='CDD'){
+    	
+        zone7.disabled = false;
+
+    }
+    else{
+        zone1.disabled = true;
+        zone2.disabled = true;
+
+    }
 }
 </script>
 <style>
@@ -159,23 +139,23 @@ function changeNationalite(obj) {
 </div>
 
 
-<f:form method="POST" action="ajoutSalarie" modelAttribute="salarieModel">
+<f:form method="POST" action="ajoutSalarie" >
  <fieldset>
 <legend>Données personnelles :</legend>
 <table>
     
     <tr>
-	
+
         <td><label path="matricule">Matricule</label></td>
-        <td><input path="matricule" name="matricule" required="required"/></td>
+        <td><input path="matricule" name="matricule" /></td>
         <td><label path="nom">Nom</label></td>
-        <td><input path="nom" name="nom_fonc" required="required"/></td>
-        <td><label >Prénom</label></td>
-        <td><input path="prenom_fonc"  name="prenom_fonc" required="required"/></td>
-        <td><label>Nom arabe </label></td>
-        <td><input path="nom_fonc_ara" name="nom_fonc_ara" required="required"/></td>
-         <td><label >Prénom arabe </label></td>
-         <td><input path="prenom_fonc_ara" name="prenom_fonc_ara" required="required" /></td>
+        <td><input path="matricule" /></td>
+        <td><label path="nom">Prénom</label></td>
+        <td><input path="prenom_fonc"  name="prenom_fonc"/></td>
+        <td><label>Nom arabe: </label></td>
+        <td><input path="nom_fonc_ara" name="nom_fonc_ara" /></td>
+         <td><label >Prénom arabe: </label></td>
+         <td><input path="prenom_fonc_ara" name="prenom_fonc_ara" /></td>
          
     </tr>
      
@@ -183,51 +163,50 @@ function changeNationalite(obj) {
        
          <td><label path="sexe">Sexe</label></td>
         <td>
-        <select name="sexe" id = "sexe" required="required">
+        <select name="sexe" id = "sexe">
         <option value="f">Feminin</option>
         <option value="m">Masculin</option>
         </select>
         </td>
         <td><label path="telephone">Telephone</label></td>
-        <td><input  path="telephone" name="telephone" required="required" /></td>
+        <td><input  path="telephone" name="telephone" /></td>
         <td><label path="email">E-mail</label></td>
-        <td><input type="email" path="email"  name="email" required="required"/></td>
-         <td><label path="date">Date Naissance:</label></td>  
-        <td><input type="date" path="date" name="date_naissance" required="required"/></td>  
+        <td><input type="email" path="email"  name="email"/></td>
+        <td><label path="date">Date Naissance:</label></td>
+        <td><input type="date" path="date" name="date_naissance" /></td>
         <td><label path="lieu">Lieu Naissance</label></td>
-        <td><input path="lieu_naissance" name="lieu_naissance" required="required" /></td>
+        <td><input path="lieu_naissance" name="lieu_naissance" /></td>
         
    </tr>
         
    <tr>
         
         <td><label >Nationalité:</label></td>
-        <td>
-         <select name="nationalite" id = "nationalite" onchange="changeNationalite(this)" required="required">
+        <td> <select name="nationalite" id = "nationalite" onchange="change(this)">
         <option value="m">Marocain(e)</option>
         <option value="e">Etrangère</option>
         </select>
         </td>
         <td><label id="cin1" >CIN</label></td>
-        <td><input path="cin" name="cin" id="cin2" required="required" /></td>
+        <td><input path="cin" name="cin" id="cin2" /></td>
         <td><label id="carte_sejour1">N° carte séjour:</label></td>
-        <td><input path="carte_sejour" name="carte_sejour"  id="carte_sejour2" required="required"/></td>
+        <td><input path="carte_sejour" name="carte_sejour"  id="carte_sejour2"/></td>
         
         <td><label >Ville</label></td>
-        <td><input path="ville" name="ville" required="required"/></td>
+        <td><input path="ville" name="ville"/></td>
         <td><label >Adresse</label></td>
-        <td><input path="adresse" name="adresse" required="required"/></td>
+        <td><input path="adresse" name="adresse"/></td>
         
      
-  </tr>
+    </tr>
   <tr>
      
-         <td><label >Login</label></td>
-        <td><input path="login" name="login" required="required"/></td>
+        <td><label >Login</label></td>
+        <td><input path="login" name="login"/></td>
         <td><label >Password </label></td>
-        <td><input path="pass" name="pass" required="required"/></td>
+        <td><input path="pass" name="pass"/></td>
         <td><label >Confirmation de password  </label></td>
-        <td><input path="pass" name="pass" required="required"/></td>
+        <td><input path="pass" name="pass"/></td>
   </tr>
   
  </table>
@@ -249,7 +228,7 @@ function changeNationalite(obj) {
         <td><input path="nbr_enfants" name="nbr_enfants" /></td>
        
         <td><label path="cnss">N° CNSS : </label></td>
-        <td><input path="cnss"  name="numCnss"/></td>
+        <td><input path="cnss"  name="cnss"/></td>
         <td><label path="numCimr">N° CIMR : </label></td>
         <td><input path="numCimr"  name="numCimr"/></td>
     </tr>
@@ -259,7 +238,7 @@ function changeNationalite(obj) {
         <td><input path="ppr" name="numMutuelle" /></td>
        <td><label path="contrat">Type contrat:</label></td>
         <td>       
-         <select name="idTypeContrat" id ="idTypeContrat"  onchange="changeContrat(this)">
+         <select name="idTypeContrat" id ="idTypeContrat"  onchange="change(this)">
         <c:forEach items="${listeTypeContrat}" var="c" >
         <option value="${c.idTypeContrat}">
         ${c.nomType}</option>
@@ -269,15 +248,14 @@ function changeNationalite(obj) {
         <td><label path="dateEntree">Date Entrée :</label></td>
         <td><input type="date" path="dateEntree"  name="dateEntree"/></td>
         <td><label path="dateSortie">Date Sortie :</label></td>
-        <td><input type="date" path="dateSortie" name="dateSortie" id="dateSortie"/></td>  
-        
+        <td><input type="date" path="dateSortie"  id="dateSortie"/></td>  
     </tr>
     
      <tr>
           
         <td><label path="fonction">Fonction : </label></td>
 		<td>
-        <select name="idProfession" id = "fonction" onchange="changeChauffeurProfesseur(this)" >
+        <select name="idProfession" id = "fonction" onchange="change(this)" >
         <c:forEach items="${listeProfession}" var="p" >
         <option value="${p.idProfession}">
         ${p.nomProfession}</option>
@@ -285,14 +263,10 @@ function changeNationalite(obj) {
         </select>
         </td>
         <td>
-       <label id="permis" id="permis1"> N° Permis de conduite </label> 
+       <label id="permis"> N° Permis de conduite </label> 
        </td>
        <td> <input name="numero_de_permis" type="text" id="permis2"> </input></td>
-       <td>
-       <label id="echel1"> Echel: </label> 
-       </td>
-       <td> <input name="echel" id="echel2" type="text" > </input></td>
-    
+     
     </tr>
     
  </table>
@@ -305,7 +279,7 @@ function changeNationalite(obj) {
 
     
      <tr>
-        <td><label path="id">Categorie du salaire :</label></td>
+        <td><label >Categorie du salaire :</label></td>
         <td>
         <select name="categorieSalaire" id = "categorieSalaire">
         <option value="m">Mensuel</option>
@@ -354,9 +328,9 @@ function changeNationalite(obj) {
 
   
     <tr>
-         <td><input type= "checkbox" name="amo" value="amo"/>Exonéré AMO </td>
-         <td><input type= "checkbox" name="cnss" value="cnss"/>Exonéré CNSS </td>
-         <td> <input type= "checkbox" name="ir" value="ir"/>Exonéré IR</td>
+         <td><input type= "radio" name="amo" value="amo"/>Exonéré AMO </td>
+         <td><input type= "radio" name="cnss" value="cnss"/>Exonéré CNSS </td>
+         <td> <input type= "radio" name="ir" value="ir"/>Exonéré IR</td>
            
     </tr>
     
@@ -369,7 +343,6 @@ function changeNationalite(obj) {
     <tr>
         <td colspan="2">
         <input path="submit" type="submit" value="Valider"/>
-        <input path="reset" type="reset" value="Annuler"/>
         
     
         </td>
