@@ -95,6 +95,7 @@ public class Etudiant implements Serializable{
 	private String etat_transport;
 	private String etat_cantine;
 	private String etat_inscription;
+	private String adress;
 	
 	@ManyToOne
 	@JoinColumn
@@ -506,6 +507,12 @@ public class Etudiant implements Serializable{
 	}
 	public void setClasse(Classe classe) {
 		this.classe = classe;
+	}
+	public String getAdress() {
+		return adress;
+	}
+	public void setAdress(String adress) {
+		this.adress = adress;
 	}
 	
 

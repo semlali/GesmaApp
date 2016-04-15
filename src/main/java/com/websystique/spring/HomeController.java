@@ -47,6 +47,11 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/home")
+	public String home() {
+		return "home";
+	}
+	
 	
 	
 	@RequestMapping("/paiementModule")
@@ -55,10 +60,10 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/factureForm")
+	@RequestMapping("/SearchFacture")
 	public String facture(Model model) {
 		model.addAttribute("factureFormulaire", new FactureForm());
-		return "factureForm";
+		return "SearchFacture";
 	}
 	
 	@RequestMapping("/ChargerFacture")
@@ -71,10 +76,10 @@ public class HomeController {
 		model.addAttribute("reduction", facture.getReduction());
 		model.addAttribute("niveau", facture.getFrais_niveau().getNiveau());
 		model.addAttribute("frais", facture.getFrais_niveau().getFrais());
-		return "factureForm";
+		return "SearchFacture";
 	}
 	
-	@RequestMapping("/paiementForm")
+	@RequestMapping("/PaiementFormulaire")
 	public String creerfacture(Model model) {
 		List<Niveau> niveaux=service.getAllNiveau();
 		model.addAttribute("niveaux", niveaux);
@@ -83,12 +88,14 @@ public class HomeController {
 		model.addAttribute("caisses", service.getAllCaisse());
 		
 		model.addAttribute("paiementFormulaire", new PaiementFormulaire());
-		return "paiementForm";
+		return "PaiementFormulaire";
 	}
 	
 	@RequestMapping("/paiementAdd")
 	public String addfacture(Model model,PaiementFormulaire pf) {
 	
+		
+		model.addAttribute("test", true);
 		creerfacture(model);
 		model.addAttribute("paiementFormulaire", pf);
 		System.out.println("id frais niveau "+pf.getId_fraisNiveau());
@@ -131,7 +138,7 @@ public class HomeController {
 		
 		
 		
-		return "paiementForm";
+		return "PaiementFormulaire";
 	}
 	
 	@RequestMapping("/GestionFrais")
@@ -449,11 +456,11 @@ public class HomeController {
 	
 	}
 	
-	@RequestMapping("/factureEtudiant")
+	@RequestMapping("/SearchEtudiantFacture")
 	public String factureEtudiant(Model model) {
 		model.addAttribute("factureEtudiantFormulaire", new FactureEtudiantForm());
 		model.addAttribute("etudiants", service.getAllEtudiant());
-		return "factureEtudiant";
+		return "SearchEtudiantFacture";
 	}
 	
 	
@@ -463,7 +470,7 @@ public class HomeController {
 		factureEtudiant(model);
 		System.out.println("id etudiant "+f.getN_etudiant());
 		model.addAttribute("factures", service.getAllFactureForOneEtudiant(f.getN_etudiant()));
-		return "factureEtudiant";
+		return "SearchEtudiantFacture";
 	}
 	
 	@RequestMapping(value = "/etudiants", method = RequestMethod.GET)
