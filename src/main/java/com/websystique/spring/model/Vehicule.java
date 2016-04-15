@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 
@@ -30,7 +32,9 @@ public class Vehicule implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_vehicule;
-	private int numImmatriculation;	
+	private int numImmatriculation;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateMiseEnService;
 	private int nbreAnneeService;
 	private Double poids_total;

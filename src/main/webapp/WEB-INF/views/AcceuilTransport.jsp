@@ -46,7 +46,7 @@ function initMap() {
   <button class="dropbtn">Gestion des vehicules</button>
   <div class="dropdown-content" style="left:0;">
     <a href="GestionVehicules">afficher tous les vehicules</a>
-    <a href="">Vérifier l'état une vehicule</a>
+    <a href="RechercheVehicule">Rechercher une vehicule</a>
   </div>
 </div>
 </td>
@@ -79,13 +79,10 @@ function initMap() {
     </div>
 </tr>
 </table>
-<br><br><br>
-<table>
-<tr><td>
-<div   id="map" style="height:300px; width:500px; align:center" ></div>
-</td>
-</tr>
-</table>
+<br><br><br><br><br><br>
+<center>
+<div  id="map" style="height:300px; width:500px;" ></div>
+</center>
 
 </body>
 </html>
