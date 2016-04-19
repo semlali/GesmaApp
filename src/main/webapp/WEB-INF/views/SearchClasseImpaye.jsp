@@ -13,7 +13,107 @@
         
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="resources/css/theme-default.css"/>
-        <!-- EOF CSS INCLUDE -->                                     
+        <!-- EOF CSS INCLUDE -->   
+        
+        <!-- les select dynamique -->
+        
+<script type="text/javascript"
+	src="<c:url value="/resources/jquery/1.6/jquery-1.6.1.min.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/jquery-ui/jquery-ui-1.8.10.custom.min.js" />"></script>	
+<script type="text/javascript">
+	window.scrollTo(0, 1);
+</script>
+
+
+<c:url var="findBranchClasseURL" value="/classes" />
+<c:url var="findStateCitiesURL" value="/cities" />
+<c:url var="findStatesURL" value="/states" />
+
+<!-- http://forum.springsource.org/showthread.php?110258-dual-select-dropdown-lists -->
+<!-- http://api.jquery.com/jQuery.getJSON/ -->
+
+
+
+<script type="text/javascript">
+$(document).ready(function() { 
+	$('#city').change(
+			function() {
+				$.getJSON('${findBranchClasseURL}', {
+					stateName : $(this).val(),
+					ajax : 'true'
+				}, function(data) {
+					var i=0;
+					var html = '<option value="'+i+'">tous les classes</option>';
+					var len = data.length;
+					for ( var i = 0; i < len; i++) { 
+						html += '<option value="' + data[i].id_classe + '">'
+								+ data[i].nom_classe + '</option>';
+					}
+					html += '</option>';
+
+					$('#classe').html(html);
+				});
+			});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() { 
+	$('#usStates').change(
+			function() {
+				$.getJSON('${findStateCitiesURL}', {
+					stateName : $(this).val(),
+					ajax : 'true'
+				}, function(data) {
+					var html = '<option value="">Branche</option>';
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						html += '<option value="' + data[i].nom_branche + '">'
+								+ data[i].nom_branche + '</option>';
+					}
+					html += '</option>';
+
+					$('#city').html(html);
+				});
+			});
+});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$.getJSON('${findStatesURL}', {
+					ajax : 'true'
+				}, function(data) {
+					var html = '<option value="">Niveau</option>';
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						html += '<option value="' + data[i].niveau_scolaire + '">'
+								+ data[i].niveau_scolaire + '</option>';
+					}
+					html += '</option>';
+
+					$('#usStates').html(html);
+				});
+			});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#city").change(onSelectChange);
+	});
+
+	function onSelectChange() {
+		var selected = $("#city option:selected");		
+		var output = "";
+		if(selected.val() != 0){
+			output = "You selected branche " + selected.text();
+		}
+		$("#output").html(output);
+	}
+</script>
+                              
     </head>
     <body>
         <!-- START PAGE CONTAINER -->
@@ -319,7 +419,9 @@
                 
                 <!-- PAGE TITLE -->
                 <div class="page-title">                    
-                    <h2><span class="fa fa-users"></span>Recherche Facture <small>139 factures</small></h2>
+                    <h2><span class="fa search"></span>Liste des impayés <small>139 étudiants</small></h2><div class="col-md-4">
+                                                <a href="SearchImpaye" class="btn btn-success btn-block"><span class="fa fa-hand-o-right"></span>Recherche Par Nom d'étudiant</a>
+                                            </div>  
                 </div>
                 <!-- END PAGE TITLE -->                
                 
@@ -332,28 +434,36 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <p>Utiliser barre de recherch pour trouver les factures par  nom d'étudiant, numéro de facture.</p>
-                                  <f:form class="form-horizontal" method="post" action="ChargerFacture" modelAttribute="factureFormulaire">
-                                        <div class="form-group">
-                                            <div class="col-md-8">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <span class="fa fa-search"></span>
-                                                    </div>
-                                                   
-                                                    <f:input path="numFacture" placeholder="what are you looking for?" class="form-control" />
-                                                    <div class="input-group-btn">
-                                                        <input class="btn btn-primary" type="submit" value="Search"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                          <div class="col-md-4">
-                                                <a href="SearchEtudiantFacture" class="btn btn-success btn-block"><span class="fa fa-hand-o-right"></span>Recherche Par Etudiant</a>
-                                            </div>   
-                                        </div>
-                                    </f:form>  
-                                   
-          
-                         
+ 
+ <p>choisissez les coordonnées de l'étudiant</p>
+ 
+  <f:form method="get" action="impayeAction" >                          
+                                    
+                                    
+                                        
+                                    <table>
+                     
+                       <tr>
+	<td>Choisissez les coordonnées de l'étudiant
+	<td><select id="usStates" path="niveau" name="niveau">
+	</select> 
+	
+	<td><select id="city" path="branche" name="branche">
+		<option value="">Branche</option>
+	</select>
+	
+	<td><select id="classe" path="classe" name="classe">
+		<option value="">Classe</option>
+	</select>
+	
+	
+	</tr></table> 
+                                                               
+                                    <div class="btn-group pull-right">
+                                       
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>                                                                
+                                </f:form> 
                        
                     
           
@@ -363,46 +473,41 @@
                             
                         </div>
                     </div>
-<c:if test="${not empty factureFormulaire.facture}">
-                    <div align="center">
-                        
-                            <!-- CONTACT ITEM -->
-                            <div class="panel panel-default" align="center">
-                                <div class="panel-body profile">
-                                    <div class="profile-image">
-                                        <img src="resources/assets/images/users/user3.jpg" alt="Nadia Ali"/>
-                                    </div>
-                                    <div class="profile-data">
-                                        <div class="profile-data-name">${etudiant.nom_etudiant} ${etudiant.prenom_etudiant}</div>
-                                        <div class="profile-data-title">Propriétaire de la facture</div>
-                                        
-                                    </div>
-                                    <div class="profile-controls">
-                                        <a href="#" class="profile-control-left"><span class="fa fa-info"></span></a>
-                                        <a href="#" class="profile-control-right"><span class="fa fa-phone"></span></a>
-                                    </div>
-                                </div>                                
-                                <div class="panel-body">                                    
-                                    <div class="contact-info">
-                                        <p><small>Date de création</small><br/>${factureFormulaire.facture.date_facture}</p>
-                                        <p><small>Adresse de l'étudiant</small><br/>${etudiant.adress}</p>
-                                        <p><small>Niveau de l'étudiant</small><br/>${niveau.niveau_scolaire}</p>
-                                        <p><small>Frais de facture</small><br/>${frais.nom}</p>
-                                        <p><small>Etat</small><br/>${factureFormulaire.facture.etat}</p>
-                                        <p><small>Avance</small><br/>${factureFormulaire.facture.avance}</p> 
-                                        <p><small>Montant</small><br/>${factureFormulaire.facture.prix}</p>
-                                        <p>
-                        <button class="btn btn-success btn-block"><span class="fa fa-print"></span> Imprimer facture</button>
-                  </p>                                        
-                                    </div>
-                                </div>                                
-                            </div>
-                             
-                            <!-- END CONTACT ITEM -->
                     
-                                              
-                    </div>
-                  
+<c:if test="${not empty Etudiant}">
+
+    
+     <!-- START CONTEXTUAL CLASSES TABLE SAMPLE -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">LISTE</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <p>L'état des étudiants de la classe : <code>${Classe.nom_classe}</code>. </p>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>id</th>
+                                                <th>Nom Etudiant</th>
+                                                <th>Transport</th>
+                                                <th>Inscription</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <c:forEach items="${Etudiant}" var="e">
+                                            <tr class="active">
+                                                <td>${e.n_etudiant}</td>
+                                                <td>${e.nom_etudiant}</td>
+                                                <td>${e.etat_transport}</td>
+                                                <td>${e.etat_inscription}</td>
+                                            </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>                                
+                                </div>
+                            </div>
+                            <!-- END CONTEXTUAL CLASSES TABLE SAMPLE -->
+ 
 </c:if>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->                                                 

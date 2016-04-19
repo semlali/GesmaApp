@@ -107,7 +107,7 @@ $(document).ready(function() {
 <div align="center">
  <h1>Recherche des impayés</h1>  
        <f:form method="get" action="rechercheParEtudiant" >
-          <fieldset> <legend><h3>Recherche etat d'etudiant</h3></legend>
+          <fieldset> <legend><h3>Recherche état d'etudiant</h3></legend>
                <table>
                      <tr>
                          <td>Entrer le nom de l'étudiant</td>

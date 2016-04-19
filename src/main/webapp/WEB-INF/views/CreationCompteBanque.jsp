@@ -1,5 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+<!DOCTYPE html>
 <html lang="en">
     <head>        
         <!-- META SECTION -->
@@ -13,7 +14,12 @@
         
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="resources/css/theme-default.css"/>
-        <!-- EOF CSS INCLUDE -->                                     
+        <!-- EOF CSS INCLUDE -->    
+        
+        <!--  -->                         
+        <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+             
     </head>
     <body>
         <!-- START PAGE CONTAINER -->
@@ -105,7 +111,7 @@
                                         <li class="xn-openable">
                         <a href="#"><span class="fa glyphicon-euro"></span> <span class="xn-text">Paiement</span></a>
                         <ul>
-                            <li><a href="pages-gallery.html"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
+                            <li><a href="prestationsGestion"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
                             <li><a href="pages-profile.html"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
                             <li><a href="pages-address-book.html"><span class="fa fa-users"></span>Gestion des règlements</a></li>
                             <li><a href="SearchFacture"><span class="fa fa-search-plus"></span>Recherch multicritère sur les paiements (num facture, etudiant,...)</a></li>
@@ -230,25 +236,25 @@
                             <div class="panel-body list-group list-group-contacts scroll" style="height: 200px;">
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-online"></div>
-                                    <img src="resources/resources/assets/images/users/user2.jpg" class="pull-left" alt="John Doe"/>
+                                    <img src="assets/images/users/user2.jpg" class="pull-left" alt="John Doe"/>
                                     <span class="contacts-title">John Doe</span>
                                     <p>Praesent placerat tellus id augue condimentum</p>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-away"></div>
-                                    <img src="resources/assets/images/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk"/>
+                                    <img src="assets/images/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk"/>
                                     <span class="contacts-title">Dmitry Ivaniuk</span>
                                     <p>Donec risus sapien, sagittis et magna quis</p>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-away"></div>
-                                    <img src="resources/assets/images/users/user3.jpg" class="pull-left" alt="Nadia Ali"/>
+                                    <img src="assets/images/users/user3.jpg" class="pull-left" alt="Nadia Ali"/>
                                     <span class="contacts-title">Nadia Ali</span>
                                     <p>Mauris vel eros ut nunc rhoncus cursus sed</p>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <div class="list-group-status status-offline"></div>
-                                    <img src="resources/assets/images/users/user6.jpg" class="pull-left" alt="Darth Vader"/>
+                                    <img src="assets/images/users/user6.jpg" class="pull-left" alt="Darth Vader"/>
                                     <span class="contacts-title">Darth Vader</span>
                                     <p>I want my money back!</p>
                                 </a>
@@ -307,110 +313,196 @@
                     </li>
                     <!-- END TASKS -->
                 </ul>
-                <!-- END X-NAVIGATION VERTICAL -->                    
+                <!-- END X-NAVIGATION VERTICAL -->                     
                 
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li class="active">Address Book</li>
+                    <li><a href="#">Tables</a></li>
+                    <li class="active">Basic</li>
                 </ul>
-                <!-- END BREADCRUMB -->                                                
+                <!-- END BREADCRUMB -->
                 
                 <!-- PAGE TITLE -->
                 <div class="page-title">                    
-                    <h2><span class="fa fa-users"></span>Recherche Facture <small>139 factures</small></h2>
+                    <h2><span class="fa fa-arrow-circle-o-left"></span>Gestion des comptes bancaire</h2>
                 </div>
                 <!-- END PAGE TITLE -->                
                 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-                    
+                
                     <div class="row">
-                        <div class="col-md-12">
-                            
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <p>Utiliser barre de recherch pour trouver les factures par  nom d'étudiant, numéro de facture.</p>
-                                  <f:form class="form-horizontal" method="post" action="ChargerFacture" modelAttribute="factureFormulaire">
-                                        <div class="form-group">
-                                            <div class="col-md-8">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <span class="fa fa-search"></span>
-                                                    </div>
-                                                   
-                                                    <f:input path="numFacture" placeholder="what are you looking for?" class="form-control" />
-                                                    <div class="input-group-btn">
-                                                        <input class="btn btn-primary" type="submit" value="Search"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                          <div class="col-md-4">
-                                                <a href="SearchEtudiantFacture" class="btn btn-success btn-block"><span class="fa fa-hand-o-right"></span>Recherche Par Etudiant</a>
-                                            </div>   
-                                        </div>
-                                    </f:form>  
-                                   
-          
+                        <div class="col-md-6">
+
                          
-                       
-                    
-          
-                                                                      
-                                </div>
-                            </div>
-                            
+                        </div>
+                        <div class="col-md-6">
+
+                          
+                   
+
                         </div>
                     </div>
-<c:if test="${not empty factureFormulaire.facture}">
-                    <div align="center">
-                        
-                            <!-- CONTACT ITEM -->
-                            <div class="panel panel-default" align="center">
-                                <div class="panel-body profile">
-                                    <div class="profile-image">
-                                        <img src="resources/assets/images/users/user3.jpg" alt="Nadia Ali"/>
-                                    </div>
-                                    <div class="profile-data">
-                                        <div class="profile-data-name">${etudiant.nom_etudiant} ${etudiant.prenom_etudiant}</div>
-                                        <div class="profile-data-title">Propriétaire de la facture</div>
-                                        
-                                    </div>
-                                    <div class="profile-controls">
-                                        <a href="#" class="profile-control-left"><span class="fa fa-info"></span></a>
-                                        <a href="#" class="profile-control-right"><span class="fa fa-phone"></span></a>
-                                    </div>
-                                </div>                                
-                                <div class="panel-body">                                    
-                                    <div class="contact-info">
-                                        <p><small>Date de création</small><br/>${factureFormulaire.facture.date_facture}</p>
-                                        <p><small>Adresse de l'étudiant</small><br/>${etudiant.adress}</p>
-                                        <p><small>Niveau de l'étudiant</small><br/>${niveau.niveau_scolaire}</p>
-                                        <p><small>Frais de facture</small><br/>${frais.nom}</p>
-                                        <p><small>Etat</small><br/>${factureFormulaire.facture.etat}</p>
-                                        <p><small>Avance</small><br/>${factureFormulaire.facture.avance}</p> 
-                                        <p><small>Montant</small><br/>${factureFormulaire.facture.prix}</p>
-                                        <p>
-                        <button class="btn btn-success btn-block"><span class="fa fa-print"></span> Imprimer facture</button>
-                  </p>                                        
-                                    </div>
-                                </div>                                
-                            </div>
-                             
-                            <!-- END CONTACT ITEM -->
-                    
-                                              
+
+
+                    <!-- START RESPONSIVE TABLES -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Tous les comptes</h3>
+                                </div>
+                                  <!-- START DEFAULT DATATABLE -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">                                
+                                    <h3 class="panel-title">Default</h3>
+                                    <ul class="panel-controls">
+                                        <li><a href="#myModaltwo" data-toggle="modal" id="myBtn" data-target="#add-modal"><span class="fa fa-plus-square"></span></a></li>
+                                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                    </ul>                                
+                                </div>
+                                <div class="panel-body panel-body-table">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-actions">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50">Code compte</th>
+                                                    <th width="100">Responsable de création de compte</th>
+                                                    <th width="100">Solde</th>
+                                                    <th width="100">Date création</th>
+                                                    <th width="100">actions</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody> 
+                                            <c:forEach items="${comptes}" var="c">                                           
+                                                <tr id="trow_1">
+                                                    <td class="text-center">${c.codeCompte}</td>
+                                                    <td>${c.fonctionnaire.nom_fonc}</td>
+                                                    <td><span class="label label-warning">${c.solde} DH</span></td>
+                                                    <td>${c.dateCreation}</td>
+                                                    <td>
+                                                        <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${c.codeCompte}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>
+                                                        <a class="btn btn-danger btn-rounded btn-sm" href="deleteCompte?getId=${c.codeCompte}" onclick="return confirm('Are you sure you want to delete?')"><span class="fa fa-times"></span></a>
+                                                    
+                                                    </td>
+                                                </tr>
+                                             </c:forEach>   
+                                            </tbody>
+                                        </table>
+                                    </div>                                
+
+                                </div>
+                            </div>                                                
+
+                        </div>
                     </div>
-                  
-</c:if>
-                </div>
-                <!-- END PAGE CONTENT WRAPPER -->                                                 
+                    <!-- END RESPONSIVE TABLES -->
+                    
+                <!-- END PAGE CONTENT WRAPPER -->                                    
+                </div>         
             </div>            
             <!-- END PAGE CONTENT -->
         </div>
-        <!-- END PAGE CONTAINER -->
-
+        <!-- END PAGE CONTAINER -->    
+         <!-- modal update -->
+         <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modifier le compte bancaire créer par <label id="nomFonc"></label></h4>
+                </div>
+                <f:form method="post" name="form" action="updateCompteFormulaire" modelAttribute="addCompteFormulaire">
+               
+                <table>
+                <tr>
+                     <td>Code du compte</td>
+                     <td>
+                     <input  type="text" id="code" name="code"/>
+                     </tr>
+                     <tr>
+                     <td>Date de création</td>
+                     <td><input  type="text" path="dateCreation" name="dateCreation" id="date" /></td>
+                     </tr>
+                     <tr>
+                     <td>Solde</td>
+                     <td><input type="text" path="solde" name="solde" id="solde"/></td>
+                     </tr>
+                
+                </table>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </f:form>
+            </div>
+        </div>
+    </div>
+    <!-- end modal update -->
+    
+    <!-- start modal add -->
+    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter nouveau compte</h4>
+                </div>
+               <f:form method="post" name="form" action="addCompte" modelAttribute="addCompteFormulaire">
+          
+               <table>
+                      <tr>
+                     <td>Code du compte</td>
+                     <td><input type="text" path="codeCompte" name="codeCompte"/></td>
+                     </tr>
+                     <tr>
+                     <td>Date de création</td>
+                     <td><input type="date" path="dateCreation" name="dateCreation"/></td>
+                     </tr>
+                     <tr>
+                     <td>Solde</td>
+                     <td><input type="text" path="solde" name="solde"/></td>
+                     </tr>
+                      
+                </table>
+          
+       
+          <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+       </f:form>
+            </div>
+        </div>
+    </div>
+    <!-- end modal add -->
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-remove-row">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-times"></span> Remove <strong>Data</strong> ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to remove this row?</p>                    
+                        <p>Press Yes if you sure.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-success btn-lg mb-control-yes">Yes</button>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->        
+        
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
             <div class="mb-container">
@@ -431,10 +523,10 @@
         </div>
         <!-- END MESSAGE BOX-->
 
-        <!-- START PRELOADS -->
+         <!-- START PRELOADS -->
         <audio id="audio-alert" src="resources/audio/alert.mp3" preload="auto"></audio>
         <audio id="audio-fail" src="resources/audio/fail.mp3" preload="auto"></audio>
-        <!-- END PRELOADS -->          
+        <!-- END PRELOADS -->                  
         
     <!-- START SCRIPTS -->
         <!-- START PLUGINS -->
@@ -444,17 +536,65 @@
         <!-- END PLUGINS -->
 
         <!-- START THIS PAGE PLUGINS-->        
-        <script type='text/javascript' src='resources/js/plugins/icheck/icheck.min.js'></script>
+        <script type='text/javascript' src='resources/js/plugins/icheck/icheck.min.js'></script>        
         <script type="text/javascript" src="resources/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="resources/js/plugins/scrolltotop/scrolltopcontrol.js"></script>
+        
+        <script type="text/javascript" src="resources/js/plugins/morris/raphael-min.js"></script>
+        <script type="text/javascript" src="resources/js/plugins/morris/morris.min.js"></script>       
+        <script type="text/javascript" src="resources/js/plugins/rickshaw/d3.v3.js"></script>
+        <script type="text/javascript" src="resources/js/plugins/rickshaw/rickshaw.min.js"></script>
+        <script type='text/javascript' src='resources/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
+        <script type='text/javascript' src='resources/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>                
+        <script type='text/javascript' src='resources/js/plugins/bootstrap/bootstrap-datepicker.js'></script>                
+        <script type="text/javascript" src="resources/js/plugins/owl/owl.carousel.min.js"></script>                 
+        
+        <script type="text/javascript" src="resources/js/plugins/moment.min.js"></script>
+        <script type="text/javascript" src="resources/js/plugins/daterangepicker/daterangepicker.js"></script>
         <!-- END THIS PAGE PLUGINS-->        
 
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="resources/js/settings.js"></script>
         
         <script type="text/javascript" src="resources/js/plugins.js"></script>        
-        <script type="text/javascript" src="resources/js/actions.js"></script>        
+        <script type="text/javascript" src="resources/js/actions.js"></script>
+        
+        <script type="text/javascript" src="resources/js/demo_dashboard.js"></script>
         <!-- END TEMPLATE -->
-
-    <!-- END SCRIPTS -->         
+       <script>
+        $('#edit-modal').on('show.bs.modal', function(e) {
+            
+            var $modal = $(this),
+                esseyId = e.relatedTarget.id;
+            
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: 'updateCompte',
+                data: {getId: esseyId},
+                success: function(data) 
+                {   
+                	
+                	$("#code").val(data.codeCompte);
+                	$("#date").val(data.dateCreation);
+                	$("#solde").val(data.solde);
+                	
+                	
+                	
+                   $modal.find('#nomFonc').html(data.fonctionnaire.nom_fonc);
+                	
+                   
+                }
+            });
+            
+        })
+    </script>
+    <!-- END SCRIPTS -->                
     </body>
 </html>
+
+
+
+
+
+

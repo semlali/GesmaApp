@@ -141,7 +141,7 @@ public class HomeController {
 		return "PaiementFormulaire";
 	}
 	
-	@RequestMapping("/GestionFrais")
+	@RequestMapping("/prestationsGestion")
 	public String getAllFraisNiveau(Model model) {
 		List<Frais> frais=service.getAllFrais();
 		model.addAttribute("frais", frais);
@@ -153,7 +153,7 @@ public class HomeController {
 		List<Frais_Niveau> niveauFrais=service.getAllNiveauFrais();
 		model.addAttribute("niveauFrais",niveauFrais);
 		
-		return "GestionFrais";
+		return "prestationsGestion";
 	}
 	
 	
@@ -193,7 +193,7 @@ public class HomeController {
 		model.addAttribute("niveauFrais",niveauFrais);
 		
 		
-		return "GestionFrais";
+		return "prestationsGestion";
 		
 		
 	}
@@ -205,7 +205,7 @@ public class HomeController {
 	public @ResponseBody
 	Frais_Niveau updateFrais(Model model,@RequestParam("getId") int getId,FraisNiveau fn) {
 		
-		System.out.println("id de niveau_frais : "+getId); //here's when I want to see the param
+		System.out.println("id modifier : "+getId); //here's when I want to see the param
 		
 		
 		model.addAttribute("updateFraisFormulaire",fn);
@@ -235,12 +235,12 @@ public class HomeController {
        
         System.out.println("supprimer frais num : "+getId); //here's when I want to see the param
         
-        return "GestionFrais";
+        return "prestationsGestion";
     }
 	
 	@ExceptionHandler({DataIntegrityViolationException.class})
     public ModelAndView  handleIOException(Exception ex) {
-		ModelAndView model = new ModelAndView("GestionFrais");
+		ModelAndView model = new ModelAndView("prestationsGestion");
 		
 		
 		List<Frais> frais =service.getAllFrais();
@@ -288,12 +288,12 @@ public class HomeController {
 		model.addAttribute("niveauFrais",niveauFrais);
 		
 		
-		return "GestionFrais";
+		return "prestationsGestion";
 		
 		
 	}
 	
-	@RequestMapping("/GestionCaisse")
+	@RequestMapping("/gestionDesCaisses")
 	public String GestionCaisse(Model model) {
 	
 		List<Caisse> caisses=service.getAllCaisse();
@@ -304,7 +304,7 @@ public class HomeController {
 		
 		model.addAttribute("GestionCaisseFormulaire", new CaisseFormulaire());
 		
-		return "GestionCaisse";
+		return "gestionDesCaisses";
 		
 	}
 	
@@ -326,7 +326,7 @@ public class HomeController {
 		
 		model.addAttribute("GestionCaisseFormulaire",cf);
 		
-		return "GestionCaisse";
+		return "gestionDesCaisses";
 		
 	}
 	
@@ -340,18 +340,21 @@ public class HomeController {
        
         System.out.println("supprimer caisse num : "+getId); //here's when I want to see the param
         
-        return "GestionCaisse";
+        return "gestionDesCaisses";
     }
 	
 	@RequestMapping(value = "/updateCaisse", method = RequestMethod.GET)
-    public String updateCaisse(Model model,@RequestParam("getId") int getId,CaisseFormulaire cf) {
+    public @ResponseBody
+    Caisse updateCaisse(Model model,@RequestParam("getId") int getId,CaisseFormulaire cf) {
 		
+		
+		System.out.println("id update "+getId);
 		GestionCaisse(model);
-		model.addAttribute("caisse_to_update", service.getCaisseById(getId));
+		//model.addAttribute("caisse_to_update", service.getCaisseById(getId));
 		
         System.out.println("id de caisse modifié : "+service.getCaisseById(getId).getNom_caisse()); //here's when I want to see the param
         
-        return "GestionCaisse";
+        return service.getCaisseById(getId);
     }
 	
 	@RequestMapping(value = "/updateCaisseForm")
@@ -374,16 +377,16 @@ public class HomeController {
         
         GestionCaisse(model);
         
-        return "GestionCaisse";
+        return "gestionDesCaisses";
     }
 	
-	@RequestMapping("/creationCompte")
+	@RequestMapping("/CreationCompteBanque")
 	public String creationCompte(Model model) {
 		
 		model.addAttribute("comptes", service.getAllCompte());
 		model.addAttribute("addCompteFormulaire", new CompteFormulaire());
 		
-		return "creationCompte";
+		return "CreationCompteBanque";
 	}
 	
 	@RequestMapping("/addCompte")
@@ -405,7 +408,7 @@ public class HomeController {
 		
 		creationCompte(model);
 		
-		return "creationCompte";
+		return "CreationCompteBanque";
 		
 	}
 	
@@ -419,20 +422,21 @@ public class HomeController {
        
         System.out.println("supprimer compte num : "+getId); //here's when I want to see the param
         
-        return "creationCompte";
+        return "CreationCompteBanque";
     }
 	
 	
-	@RequestMapping(value = "/updateCompte", method = RequestMethod.GET)
-    public String updateCompte(Model model,@RequestParam("getId") String getId,CompteFormulaire cf) {
+	@RequestMapping(value = "/updateCompte", method = RequestMethod.POST)
+    public @ResponseBody
+    Compte updateCompte(Model model,@RequestParam("getId") String getId,CompteFormulaire cf) {
 		
 		creationCompte(model);
 		
        
-       model.addAttribute("compte_to_update", service.getCompteByCode(getId));
+       //model.addAttribute("compte_to_update", service.getCompteByCode(getId));
 		
-        System.out.println("id de compte : "+getId); //here's when I want to see the param
-        return "creationCompte";
+        System.out.println("id de compte to update : "+service.getCompteByCode(getId).getCodeCompte()); //here's when I want to see the param
+        return service.getCompteByCode(getId);
     }
 	
 	@RequestMapping(value = "/updateCompteFormulaire")
@@ -452,7 +456,7 @@ public class HomeController {
 		creationCompte(model);
 		
 	
-	return "creationCompte";
+	return "CreationCompteBanque";
 	
 	}
 	
@@ -534,14 +538,24 @@ public class HomeController {
 		
 		return set;	}
 	
-	@RequestMapping("/gestionImpaye")
+	@RequestMapping("/SearchImpaye")
 	public String gestionImpaye(Model model) {
 		
 		
 		model.addAttribute("frais",service.getAllFrais());
 		model.addAttribute("classes", service.getAllClasse());
 		
-		return "gestionImpaye";
+		return "SearchImpaye";
+	}
+	
+	@RequestMapping("/SearchClasseImpaye")
+	public String gestionClasseImpaye(Model model) {
+		
+		
+		model.addAttribute("frais",service.getAllFrais());
+		model.addAttribute("classes", service.getAllClasse());
+		
+		return "SearchClasseImpaye";
 	}
 	
 	@RequestMapping("/impayeAction")
@@ -549,7 +563,7 @@ public class HomeController {
 		
 		gestionImpaye(model);
 		System.out.println("classe: "+classe);
-		
+		System.out.println("branche: "+branche);
 		
 		
 		
@@ -563,8 +577,8 @@ public class HomeController {
 			model.addAttribute("Etudiant",service.getEtatEtudiantByBranche(branche));
 		}
 			
-		
-		return "gestionImpaye";
+		System.out.println("whaaat: "+service.getEtatEtudiantByBranche(branche).get(1).getNom_etudiant());
+		return "SearchClasseImpaye";
 	}
 	
 	@RequestMapping("/rechercheParEtudiant")
@@ -573,7 +587,7 @@ public class HomeController {
 		
 		model.addAttribute("EtudiantOne",service.getEtatEtudiantParNom(nomEtu,prenomEtu));
 		
-		return "gestionImpaye";
+		return "SearchImpaye";
 	}
 	
 
