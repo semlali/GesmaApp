@@ -25,12 +25,12 @@
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
             
-            <!-- START PAGE SIDEBAR -->
+              <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="home">ATLANT</a>
+                        <a href="home">GESMA</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
@@ -112,7 +112,7 @@
                         <a href="#"><span class="fa glyphicon-euro"></span> <span class="xn-text">Paiement</span></a>
                         <ul>
                             <li><a href="prestationsGestion"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
-                            <li><a href="pages-profile.html"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
+                            <li><a href="gestionDesCaisses"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
                             <li><a href="pages-address-book.html"><span class="fa fa-users"></span>Gestion des règlements</a></li>
                             <li><a href="SearchFacture"><span class="fa fa-search-plus"></span>Recherch multicritère sur les paiements (num facture, etudiant,...)</a></li>
                             <li class="xn-openable">
@@ -124,7 +124,7 @@
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-check-square-o"></span> Gestion des comptes bancaires</a>
                                 <ul>
-                                    <li><a href="pages-mailbox-inbox.html"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
+                                    <li><a href="CreationCompteBanque"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
                                     <li><a href="PaiementFormulaire"><span class="fa fa-money"></span> Versements espèces/Remises des chèques aux banques</a></li>
                                   
                                 </ul>
@@ -133,7 +133,7 @@
                                 <a href="#"><span class="fa fa-list-alt"></span> Gestion des impayés</a>
                                 
                                 <ul>                                    
-                                    <li><a href="pages-blog-list.html"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
+                                    <li><a href="SearchImpaye"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
                                     <li><a href="pages-blog-post.html"><span class="fa fa-file-o"></span> Synthès des impayés</a></li>
                                 </ul>
                             </li>
@@ -387,7 +387,8 @@
                                                     <td><span class="label label-warning">${c.solde} DH</span></td>
                                                     <td>${c.dateCreation}</td>
                                                     <td>
-                                                        <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${c.codeCompte}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>
+                                                       
+                                                         <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${c.codeCompte}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>
                                                         <a class="btn btn-danger btn-rounded btn-sm" href="deleteCompte?getId=${c.codeCompte}" onclick="return confirm('Are you sure you want to delete?')"><span class="fa fa-times"></span></a>
                                                     
                                                     </td>
@@ -410,38 +411,33 @@
             <!-- END PAGE CONTENT -->
         </div>
         <!-- END PAGE CONTAINER -->    
-         <!-- modal update -->
+        
+      <!-- modal update -->
          <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Modifier le compte bancaire créer par <label id="nomFonc"></label></h4>
-                </div>
-                <f:form method="post" name="form" action="updateCompteFormulaire" modelAttribute="addCompteFormulaire">
-               
-                <table>
-                <tr>
-                     <td>Code du compte</td>
-                     <td>
-                     <input  type="text" id="code" name="code"/>
-                     </tr>
-                     <tr>
-                     <td>Date de création</td>
-                     <td><input  type="text" path="dateCreation" name="dateCreation" id="date" /></td>
-                     </tr>
-                     <tr>
-                     <td>Solde</td>
-                     <td><input type="text" path="solde" name="solde" id="solde"/></td>
-                     </tr>
-                
-                </table>
-                
-                <div class="modal-footer">
+                    <h4 class="modal-title" id="myModalLabel">Modifier le Compte créer le <label id="dateCreation"></label></h4>
+                    
+                   <f:form method="post" name="form" action="updateCompteFormulaire" modelAttribute="addCompteFormulaire">
+                   <table>
+                   <tr>
+                   <td>Numéro de compte
+                    <td><input id="code" path="codeCompte"  name="codeCompte"/>
+                   </tr>
+                    <tr>
+                    <td>Solde</td>
+                    <td><input type="text" path="solde" id="solde" name="solde"/></td>
+                    </tr>
+                    </table>
+                    <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
-                </f:form>
+                   </f:form>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -561,11 +557,14 @@
         
         <script type="text/javascript" src="resources/js/demo_dashboard.js"></script>
         <!-- END TEMPLATE -->
-       <script>
+       
+    <!-- END SCRIPTS -->      
+    <script>
         $('#edit-modal').on('show.bs.modal', function(e) {
             
             var $modal = $(this),
                 esseyId = e.relatedTarget.id;
+                
             
             $.ajax({
                 cache: false,
@@ -574,22 +573,15 @@
                 data: {getId: esseyId},
                 success: function(data) 
                 {   
-                	
-                	$("#code").val(data.codeCompte);
-                	$("#date").val(data.dateCreation);
+                	$modal.find('#code').val(data.codeCompte);
+                	$("#dateCreation").html(data.dateCreation);
                 	$("#solde").val(data.solde);
                 	
-                	
-                	
-                   $modal.find('#nomFonc').html(data.fonctionnaire.nom_fonc);
-                	
-                   
                 }
             });
             
         })
-    </script>
-    <!-- END SCRIPTS -->                
+    </script>          
     </body>
 </html>
 

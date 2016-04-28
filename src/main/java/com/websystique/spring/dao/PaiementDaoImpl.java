@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.CategoriePaiement;
 import com.websystique.spring.model.Classe;
 import com.websystique.spring.model.Compte;
+import com.websystique.spring.model.DetailFacture;
 import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
@@ -162,6 +164,12 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 		criteria.add(Restrictions.eq("id_frais",id));
 		return (Frais) criteria.uniqueResult();
 	}
+	@Override
+	public Frais getFraisByName(String nom) {
+		Criteria criteria = getSession().createCriteria(Frais.class);
+		criteria.add(Restrictions.eq("nom",nom));
+		return (Frais) criteria.uniqueResult();
+	}
 
 	@Override
 	public Niveau getNiveauById(int id) {
@@ -181,7 +189,7 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 	public Frais_Niveau AddFrais_Niveau(Frais_Niveau fn) {
 		// TODO Auto-generated method stub
 		
-   Query query = getSession().createSQLQuery("insert into frais_niveau_paiement(frais_id_frais,niveau_id_niveau,prix,reduction) values('"+fn.getFrais().getId_frais()+"','"+fn.getNiveau().getId_niveau()+"','"+fn.getPrix()+"','"+fn.getReduction()+"')"); 
+   Query query = getSession().createSQLQuery("insert into frais_niveau_paiement(frais_id_frais,niveau_id_niveau,categoriePaiement_id_categoriePaiement,prix,reduction) values('"+fn.getFrais().getId_frais()+"','"+fn.getNiveau().getId_niveau()+"','"+fn.getCategoriepaiement().getId_categoriePaiement()+"','"+fn.getPrix()+"','"+fn.getReduction()+"')"); 
 		   query.executeUpdate();
 		return null;
 	}
@@ -337,12 +345,15 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 
 
 	@Override
-	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName) {
+	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName,int idcategorie) {
 		
 		Criteria cr = getSession().createCriteria(Frais_Niveau.class).createAlias("frais", "f");
 		cr.add(Restrictions.eq("f.id_frais", fraisId));
 		cr.createAlias("niveau", "n");
 		cr.add(Restrictions.eq("n.niveau_scolaire", niveauName));
+		cr.createAlias("categoriepaiement", "c");
+		cr.add(Restrictions.eq("c.id_categoriePaiement", idcategorie));
+		
 		
 		return (Frais_Niveau) cr.uniqueResult();
 	}
@@ -425,6 +436,54 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 		return (Etudiant) criteria.uniqueResult();
 		
 	}
+
+
+	@Override
+	public List<CategoriePaiement> getAllcategories() {
+       List<CategoriePaiement> list=getSession().createCriteria(CategoriePaiement.class).list();
+		
+		return list;
+	}
+
+
+	@Override
+	public CategoriePaiement getCategorieById(int idcategorie) {
+		Criteria criteria = getSession().createCriteria(CategoriePaiement.class);
+		criteria.add(Restrictions.eq("id_categoriePaiement",idcategorie));
+		return (CategoriePaiement) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public DetailFacture addDetailFacture(DetailFacture detail) {
+		persist(detail);
+		return detail;
+	}
+
+
+	@Override
+	public Facture getFactureById(int getId) {
+		Criteria criteria = getSession().createCriteria(Facture.class);
+		criteria.add(Restrictions.eq("id_facture",getId));
+		return (Facture) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public List<DetailFacture> getAllDetailFactureForFacture(Facture facture) {
+		
+		Criteria cr = getSession().createCriteria(DetailFacture.class).createAlias("facture", "f");
+		cr.add(Restrictions.eq("f.id_facture", facture.getId_facture()));
+		List<DetailFacture> results = cr.list();
+		return results;
+		
+	}
+
+
+	
+
+
+
 
 
 	

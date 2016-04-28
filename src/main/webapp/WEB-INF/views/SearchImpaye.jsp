@@ -138,12 +138,12 @@ $(document).ready(function() {
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
             
-            <!-- START PAGE SIDEBAR -->
+              <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="home">ATLANT</a>
+                        <a href="home">GESMA</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
@@ -224,8 +224,8 @@ $(document).ready(function() {
                                         <li class="xn-openable">
                         <a href="#"><span class="fa glyphicon-euro"></span> <span class="xn-text">Paiement</span></a>
                         <ul>
-                            <li><a href="pages-gallery.html"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
-                            <li><a href="pages-profile.html"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
+                            <li><a href="prestationsGestion"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
+                            <li><a href="gestionDesCaisses"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
                             <li><a href="pages-address-book.html"><span class="fa fa-users"></span>Gestion des règlements</a></li>
                             <li><a href="SearchFacture"><span class="fa fa-search-plus"></span>Recherch multicritère sur les paiements (num facture, etudiant,...)</a></li>
                             <li class="xn-openable">
@@ -237,7 +237,7 @@ $(document).ready(function() {
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-check-square-o"></span> Gestion des comptes bancaires</a>
                                 <ul>
-                                    <li><a href="pages-mailbox-inbox.html"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
+                                    <li><a href="CreationCompteBanque"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
                                     <li><a href="PaiementFormulaire"><span class="fa fa-money"></span> Versements espèces/Remises des chèques aux banques</a></li>
                                   
                                 </ul>
@@ -246,7 +246,7 @@ $(document).ready(function() {
                                 <a href="#"><span class="fa fa-list-alt"></span> Gestion des impayés</a>
                                 
                                 <ul>                                    
-                                    <li><a href="pages-blog-list.html"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
+                                    <li><a href="SearchImpaye"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
                                     <li><a href="pages-blog-post.html"><span class="fa fa-file-o"></span> Synthès des impayés</a></li>
                                 </ul>
                             </li>
@@ -438,7 +438,7 @@ $(document).ready(function() {
                 
                 <!-- PAGE TITLE -->
                 <div class="page-title">                    
-                    <h2><span class="fa search"></span>Recherche Facture <small>139 factures</small></h2><div class="col-md-4">
+                    <h2><span class="fa search"></span>Recherche Des impayés<small>139 impayés</small></h2><div class="col-md-4">
                                                 <a href="SearchClasseImpaye" class="btn btn-success btn-block"><span class="fa fa-hand-o-right"></span>Lister les impayés par classe</a>
                                             </div>  
                 </div>
@@ -489,8 +489,11 @@ $(document).ready(function() {
                             
                         </div>
                     </div>
-                    
+               
 <c:if test="${not empty EtudiantOne}">
+<div>
+ <a href="#" data-toggle="modal" id="${EtudiantOne.n_etudiant}" data-target="#edit-modal" ><span class="fa fa-hand-o-right"></span>Envoyer une lettre de rappel a ${EtudiantOne.nom_etudiant} </a>    
+</div>
 <div align="center">
 
     <table border="1">
@@ -505,15 +508,42 @@ $(document).ready(function() {
              </tr>                                
              
      </table>
-</div>             
+</div>     
+            
 </c:if>
                 </div>
-                <!-- END PAGE CONTENT WRAPPER -->                                                 
+                <!-- END PAGE CONTENT WRAPPER -->    
+                                                         
             </div>            
             <!-- END PAGE CONTENT -->
         </div>
         <!-- END PAGE CONTAINER -->
-
+        <!-- modal update -->
+         <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><label id="NomLabel"></label> Voulez vous envoyer EMAIL ou SMS ? </h4>
+                </div>
+                <f:form method="get" action="envoyerEmail">
+               <div align="center">
+                   <input  name="idEtudiant" type="hidden" id="idEtudiant"/>    
+                   <label class="check"><input type="radio" class="iradio" name="iradio" value="email" checked="checked"/> Email</label><br>
+                   <label class="check"><input type="radio" class="iradio" name="iradio" value="sms" /> Sms</label>
+               </div>   
+                     
+         
+               
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+          </f:form>  
+            </div>
+        </div>
+    </div>
+    <!-- end modal update -->
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
             <div class="mb-container">
@@ -558,6 +588,28 @@ $(document).ready(function() {
         <script type="text/javascript" src="resources/js/actions.js"></script>        
         <!-- END TEMPLATE -->
 
-    <!-- END SCRIPTS -->         
+    <!-- END SCRIPTS -->      
+    <script>
+        $('#edit-modal').on('show.bs.modal', function(e) {
+            
+            var $modal = $(this),
+                esseyId = e.relatedTarget.id;
+            
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                url: 'ShowModalEmailSms',
+                data: {getId: esseyId},
+                success: function(data) 
+                {   
+                	
+                	$modal.find('#NomLabel').html(data.nom_etudiant);
+                	$modal.find('#idEtudiant').val(data.n_etudiant);
+                   
+                }
+            });
+            
+        })
+    </script>   
     </body>
 </html>

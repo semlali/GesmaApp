@@ -138,12 +138,12 @@ $(document).ready(function() {
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
             
-            <!-- START PAGE SIDEBAR -->
+              <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="home">ATLANT</a>
+                        <a href="home">GESMA</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
@@ -224,8 +224,8 @@ $(document).ready(function() {
                                         <li class="xn-openable">
                         <a href="#"><span class="fa glyphicon-euro"></span> <span class="xn-text">Paiement</span></a>
                         <ul>
-                            <li><a href="pages-gallery.html"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
-                            <li><a href="pages-profile.html"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
+                            <li><a href="prestationsGestion"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
+                            <li><a href="gestionDesCaisses"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
                             <li><a href="pages-address-book.html"><span class="fa fa-users"></span>Gestion des règlements</a></li>
                             <li><a href="SearchFacture"><span class="fa fa-search-plus"></span>Recherch multicritère sur les paiements (num facture, etudiant,...)</a></li>
                             <li class="xn-openable">
@@ -237,7 +237,7 @@ $(document).ready(function() {
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-check-square-o"></span> Gestion des comptes bancaires</a>
                                 <ul>
-                                    <li><a href="pages-mailbox-inbox.html"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
+                                    <li><a href="CreationCompteBanque"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
                                     <li><a href="PaiementFormulaire"><span class="fa fa-money"></span> Versements espèces/Remises des chèques aux banques</a></li>
                                   
                                 </ul>
@@ -246,7 +246,7 @@ $(document).ready(function() {
                                 <a href="#"><span class="fa fa-list-alt"></span> Gestion des impayés</a>
                                 
                                 <ul>                                    
-                                    <li><a href="pages-blog-list.html"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
+                                    <li><a href="SearchImpaye"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
                                     <li><a href="pages-blog-post.html"><span class="fa fa-file-o"></span> Synthès des impayés</a></li>
                                 </ul>
                             </li>
@@ -504,14 +504,13 @@ $(document).ready(function() {
                                     <div class="contact-info">
                                         <p><small>Numéro de facture</small><br/>${f.numFacture}</p>
                                         <p><small>Date de création</small><br/>${f.date_facture}</p>
-                                        <p><small>Frais de facture</small><br/>${f.frais_niveau.frais.nom}</p>
                                         <p><small>Etat</small><br/>${f.etat}</p>
                                         <p><small>Type de paiement</small><br/>${f.typePaiement}</p>
                                         <p><small>Nom de caisse</small><br/>${f.caisse.nom_caisse}</p>
                                         <p><small>Avance</small><br/>${f.avance}</p> 
                                         <p><small>Montant</small><br/>${f.prix}</p>
                                         <p>
-                        <button class="btn btn-success btn-block"><span class="fa fa-print"></span> Imprimer facture</button>
+                        <a class="btn btn-success btn-block" href="imprimerFacture?getId=${f.id_facture}"><span class="fa fa-print"></span> Imprimer facture</a>
                   </p>                                        
                                     </div>
                                 </div>                                

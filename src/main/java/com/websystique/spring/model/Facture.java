@@ -27,6 +27,9 @@ public class Facture implements Serializable {
 	private Date date_facture;
 	private boolean etat;
 	
+	@ManyToOne
+	@JoinColumn
+	private CategoriePaiement categorie;
 		
 	@ManyToOne
 	@JoinColumn
@@ -36,12 +39,10 @@ public class Facture implements Serializable {
 	@JoinColumn
 	private Caisse caisse;
 	
-	@ManyToOne
-	@JoinColumn
-	private Frais_Niveau frais_niveau;
 	
 	
-	private String reduction;
+	
+	
 	
 	private Double avance;
 	private double prix;
@@ -107,15 +108,7 @@ public class Facture implements Serializable {
 		this.caisse = caisse;
 	}
 
-	public Frais_Niveau getFrais_niveau() {
-		return frais_niveau;
-	}
-
-	public void setFrais_niveau(Frais_Niveau frais_niveau) {
-		this.frais_niveau = frais_niveau;
-	}
-
-	public Double getAvance() {
+    public Double getAvance() {
 		return avance;
 	}
 
@@ -151,22 +144,6 @@ public class Facture implements Serializable {
 
 
 
-	public String getReduction() {
-		return reduction;
-	}
-
-
-
-
-
-	public void setReduction(String reduction) {
-		this.reduction = reduction;
-	}
-
-
-
-
-
 	public String getTypePaiement() {
 		return typePaiement;
 	}
@@ -178,6 +155,28 @@ public class Facture implements Serializable {
 	public void setTypePaiement(String typePaiement) {
 		this.typePaiement = typePaiement;
 	}
+
+
+
+
+
+	public CategoriePaiement getCategorie() {
+		return categorie;
+	}
+
+
+
+
+
+	public void setCategorie(CategoriePaiement categorie) {
+		this.categorie = categorie;
+	}
+
+
+
+
+
+	
 	
 	
 	

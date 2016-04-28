@@ -31,6 +31,18 @@ public class Frais_Niveau implements Serializable{
 	@JoinColumn
 	private Niveau niveau;
 	
+	@ManyToOne
+	@JoinColumn
+	private CategoriePaiement categoriepaiement;
+	
+    public CategoriePaiement getCategoriepaiement() {
+		return categoriepaiement;
+	}
+
+	public void setCategoriepaiement(CategoriePaiement categoriepaiement) {
+		this.categoriepaiement = categoriepaiement;
+	}
+
 	private Double prix;
 	
 	private String reduction;

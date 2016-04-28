@@ -8,8 +8,6 @@ import com.websystique.spring.model.Frais_Niveau;
 public class PaiementFormulaire {
 	
 	private int n_etudiant;
-	private int id_fraisNiveau;
-	private Frais_Niveau fraisNiveau;
 	private double avance;
 	private String typePaiement;
 	
@@ -17,6 +15,31 @@ public class PaiementFormulaire {
 	private Date datePaiement;
 	private int id_caisse;
 	
+	private int categorie;
+	
+	private String niveau;
+	
+	private String frais1;
+	private String frais2;
+	
+	private String reduction;
+	
+
+	public String getFrais1() {
+		return frais1;
+	}
+
+	public void setFrais1(String frais1) {
+		this.frais1 = frais1;
+	}
+
+	public String getFrais2() {
+		return frais2;
+	}
+
+	public void setFrais2(String frais2) {
+		this.frais2 = frais2;
+	}
 
 	public int getN_etudiant() {
 		return n_etudiant;
@@ -26,13 +49,7 @@ public class PaiementFormulaire {
 		this.n_etudiant = n_etudiant;
 	}
 
-	public Frais_Niveau getFraisNiveau() {
-		return fraisNiveau;
-	}
-
-	public void setFraisNiveau(Frais_Niveau fraisNiveau) {
-		this.fraisNiveau = fraisNiveau;
-	}
+	
 
 	public double getAvance() {
 		return avance;
@@ -59,13 +76,7 @@ public class PaiementFormulaire {
 	}
 
 
-	public int getId_fraisNiveau() {
-		return id_fraisNiveau;
-	}
-
-	public void setId_fraisNiveau(int id_fraisNiveau) {
-		this.id_fraisNiveau = id_fraisNiveau;
-	}
+	
 
 	public String getTypePaiement() {
 		return typePaiement;
@@ -73,6 +84,32 @@ public class PaiementFormulaire {
 
 	public void setTypePaiement(String typePaiement) {
 		this.typePaiement = typePaiement;
+	}
+
+	
+
+	public int getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(int categorie) {
+		this.categorie = categorie;
+	}
+
+	public String getReduction() {
+		return reduction;
+	}
+
+	public void setReduction(String reduction) {
+		this.reduction = reduction;
+	}
+
+	public String getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
 	}
 	
 	

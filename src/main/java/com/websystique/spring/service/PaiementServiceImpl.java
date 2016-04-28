@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.websystique.spring.dao.PaiementDao;
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.CategoriePaiement;
 import com.websystique.spring.model.City;
 import com.websystique.spring.model.Classe;
 import com.websystique.spring.model.Compte;
+import com.websystique.spring.model.DetailFacture;
 import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
@@ -24,7 +26,10 @@ import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
 import com.websystique.spring.model.Reduction;
 import com.websystique.spring.model.State;
+import java.util.*;
 
+import javax.mail.*;
+import javax.mail.internet.*;
 
 @Service("PaiementService")
 @Transactional
@@ -283,9 +288,9 @@ public class PaiementServiceImpl implements PaiementService {
 	}
 
 	@Override
-	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName) {
+	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName, int idcategore) {
 		// TODO Auto-generated method stub
-		return dao.getPrixForFraisNiveau(fraisId, niveauName);
+		return dao.getPrixForFraisNiveau(fraisId, niveauName, idcategore);
 	}
 
 	@Override
@@ -334,6 +339,104 @@ public class PaiementServiceImpl implements PaiementService {
 	public Etudiant getEtatEtudiantParNom(String nom,String prenom) {
 		// TODO Auto-generated method stub
 		return dao.getEtatEtudiantParNom(nom,prenom);
+	}
+
+	@Override
+	public List<CategoriePaiement> getAllcategories() {
+		// TODO Auto-generated method stub
+		return dao.getAllcategories();
+	}
+
+	@Override
+	public CategoriePaiement getCategorieById(int idcategorie) {
+		// TODO Auto-generated method stub
+		return dao.getCategorieById(idcategorie);
+	}
+
+	@Override
+	public Frais getFraisByName(String nom) {
+		// TODO Auto-generated method stub
+		return dao.getFraisByName(nom);
+	}
+
+	@Override
+	public DetailFacture addDetailFacture(DetailFacture detail) {
+		// TODO Auto-generated method stub
+		return dao.addDetailFacture(detail);
+	}
+
+	@Override
+	public Facture getFactureById(int getId) {
+		// TODO Auto-generated method stub
+		return dao.getFactureById(getId);
+	}
+
+	@Override
+	public List<DetailFacture> getAllDetailFactureForFacture(Facture facture) {
+		// TODO Auto-generated method stub
+		return dao.getAllDetailFactureForFacture(facture);
+	}
+
+	@Override
+	public void sendFromGMail(String to) {
+		// TODO Auto-generated method stub
+		String USER_NAME = "hims.store";  // GMail user name (just the part before "@gmail.com")
+	    String PASSWORD = "hims102030"; // GMail password
+	    
+	    String from = USER_NAME;
+	    String pass = PASSWORD;
+	    //String to = { RECIPIENT }; // list of recipient email addresses
+	    String subject = "RAPPEL PAIEMENT";
+	    String body = "lettre de rappel de votre école";
+	    
+	    Properties props = System.getProperties();
+	    String host = "smtp.gmail.com";
+
+	    props.put("mail.smtp.starttls.enable", "true");
+
+	    props.put("mail.smtp.ssl.trust", host);
+	    props.put("mail.smtp.user", from);
+	    props.put("mail.smtp.password", pass);
+	    props.put("mail.smtp.port", "587");
+	    props.put("mail.smtp.auth", "true");
+
+
+	    Session session = Session.getDefaultInstance(props);
+	    MimeMessage message = new MimeMessage(session);
+
+	    try {
+
+
+	        message.setFrom(new InternetAddress(from));
+	       
+
+	        InternetAddress toAddress = new InternetAddress(to);
+	        
+
+	            message.addRecipient(Message.RecipientType.TO, toAddress);
+	        
+
+
+
+	        message.setSubject(subject);
+	        message.setText(body);
+
+
+	        Transport transport = session.getTransport("smtp");
+
+
+	        transport.connect(host, from, pass);
+	        transport.sendMessage(message, message.getAllRecipients());
+	        transport.close();
+
+	    }
+	    catch (AddressException ae) {
+	        ae.printStackTrace();
+	    }
+	    catch (MessagingException me) {
+	        me.printStackTrace();
+	    }
+	    
 	}
 
 	

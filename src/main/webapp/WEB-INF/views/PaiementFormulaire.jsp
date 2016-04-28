@@ -25,6 +25,8 @@
 	window.scrollTo(0, 1);
 </script>
 
+<c:url var="findTypeURL" value="/findType" />
+<c:url var="findCategoriePaiementURL" value="/categorie" />
 <c:url var="findFraisNiveauURL" value="/fraisNiveau" />
 <c:url var="findFraisURL" value="/frais" />
 <c:url var="findEtudiantClasseURL" value="/etudiants" />
@@ -37,6 +39,25 @@
 
 <script type="text/javascript">
 	$(document).ready(
+			function() {
+				$.getJSON('${findCategoriePaiementURL}', {
+					ajax : 'true'
+				}, function(data) {
+					var html = '<option value="">Catégorie</option>';
+					var len = data.length;
+					for ( var i = 0; i < len; i++) {
+						html += '<option value="' + data[i].id_categoriePaiement + '">'
+								+ data[i].categorie + '</option>';
+					}
+					html += '</option>';
+
+					$('#categorie').html(html);
+				});
+			});
+</script>
+
+<script type="text/javascript">
+	/*$(document).ready(
 			function() {
 				$.getJSON('${findFraisURL}', {
 					ajax : 'true'
@@ -51,27 +72,116 @@
 
 					$('#frais').html(html);
 				});
-			});
+			});*/
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() { 
-	$('#frais').change(
+ 
+$(document).ready(function() {
+	
+	$('#check1').click(function() {
+		
+		  if($(this).is(':checked')) {
+			
+            $.getJSON('${findTypeURL}', {                                           
+			getId : 1,
+			stateId : $('#usStates').val(),
+			categorieId : $('#categorie').val(),
+			ajax : 'true'
+		},  function(data) {
+			//$('#prixLabel').html(data.prix);
+			$('#Label1').val(data.prix);
+			$('#reduction1').val(data.reduction);
+			$('#prix').val(data.id_frais_niveau);
+			//$('#prixLabel').val(document.getElementById("Label1").value+document.getElementById("Label2").value);
+			var x=$('#Label1').val();
+			var y=$('#Label2').val();
+			
+			var xx=$('#reduction1').val();
+			var yy=$('#reduction2').val();
+			
+			$('#prixLabel').val(+x + +y);
+			$('#prixLabelTotal').val(+x*xx + +y*yy);
+			
+			
+		});
+			}
+			
+		 else {
+				$('#Label1').val('');
+	            //alert('unchecked');
+				//$('#prixLabel').val(document.getElementById("Label1").value+document.getElementById("Label2").value);  
+				var x=$('#Label1').val();
+				var y=$('#Label2').val();
+				
+				var xx=$('#reduction1').val();
+				var yy=$('#reduction2').val();
+				
+				$('#prixLabel').val(+x + +y);
+				$('#prixLabelTotal').val(+x*xx + +y*yy);
+	        }
+			
+			
+			//$('#prixLabel').val($('#Label1').val()+$('#Label2').val());
+	    });
+	    
+	 
+	$('#check2').click(
+	    		function() {
+	      if($(this).is(':checked')) {
+	    			
+	            $.getJSON('${findTypeURL}', {                                           
+					getId : 2,
+					stateId : $('#usStates').val(),
+					categorieId : $('#categorie').val(),
+					ajax : 'true'
+				},  function(data) {
+					//$('#prixLabel').html(data.prix);
+					$('#Label2').val(data.prix);
+					$('#reduction2').val(data.reduction);
+					$('#prix').val(data.id_frais_niveau);
+					//$('#prixLabel').val(document.getElementById("Label1").value+document.getElementById("Label2").value);
+					var x=$('#Label1').val();
+					var y=$('#Label2').val();
+					
+					var xx=$('#reduction1').val();
+					var yy=$('#reduction2').val();
+					
+					$('#prixLabel').val(+x + +y);
+					$('#prixLabelTotal').val(+x*+xx + +y*+yy);
+				});
+	    			}
+	    			
+	       else {
+	    				$('#Label2').val('');
+	    	            //alert('unchecked');
+	    				// $('#prixLabel').val(document.getElementById("Label1").value+document.getElementById("Label2").value); 
+	    				var x=$('#Label1').val();
+						var y=$('#Label2').val();
+						
+						var xx=$('#reduction1').val();
+						var yy=$('#reduction2').val();
+						
+						$('#prixLabel').val(+x + +y);
+						$('#prixLabelTotal').val(+x*+xx + +y*+yy);
+	    	        
+	       }
+	    		
+	    			
+	   
+	       });
+	    
+	$('#categorie').change(
 			function() {
-				$.getJSON('${findFraisNiveauURL}', {
+				$.getJSON('${findFraisNiveauURL}', {                                           
 					stateId : $('#usStates').val(),
 					fraisId : $('#frais').val(),
+					categorieId : $('#categorie').val(),
 					ajax : 'true'
 				}, function(data) {
-					var html;
-					var len = data.length;
+					$('#prixLabel').html(data.prix);
+					$('#prix').val(data.id_frais_niveau);
 					
-						html += '<option value="' + data[0].id_frais_niveau + '">'
-								+ data[0].prix + '</option>';
-					
-					html += '</option>';
-					
-					$('#prix').html(html);
 				});
 			});
 });
@@ -180,12 +290,12 @@ $(document).ready(function() {
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
             
-            <!-- START PAGE SIDEBAR -->
+              <!-- START PAGE SIDEBAR -->
             <div class="page-sidebar">
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="home">ATLANT</a>
+                        <a href="home">GESMA</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">
@@ -266,8 +376,8 @@ $(document).ready(function() {
                                         <li class="xn-openable">
                         <a href="#"><span class="fa glyphicon-euro"></span> <span class="xn-text">Paiement</span></a>
                         <ul>
-                            <li><a href="pages-gallery.html"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
-                            <li><a href="pages-profile.html"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
+                            <li><a href="prestationsGestion"><span class="fa fa-cog"></span>Paramétrage des frais de prestations et des réductions</a></li>
+                            <li><a href="gestionDesCaisses"><span class="fa fa-user"></span> Gestion des multi-caisses</a></li>
                             <li><a href="pages-address-book.html"><span class="fa fa-users"></span>Gestion des règlements</a></li>
                             <li><a href="SearchFacture"><span class="fa fa-search-plus"></span>Recherch multicritère sur les paiements (num facture, etudiant,...)</a></li>
                             <li class="xn-openable">
@@ -279,8 +389,8 @@ $(document).ready(function() {
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-check-square-o"></span> Gestion des comptes bancaires</a>
                                 <ul>
-                                    <li><a href="pages-mailbox-inbox.html"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
-                                    <li><a href="pages-mailbox-message.html"><span class="fa fa-money"></span> Versements espèces/Remises des chèques aux banques</a></li>
+                                    <li><a href="CreationCompteBanque"><span class="fa fa-pencil-square-o"></span>  Création des comptes bancaires</a></li>
+                                    <li><a href="PaiementFormulaire"><span class="fa fa-money"></span> Versements espèces/Remises des chèques aux banques</a></li>
                                   
                                 </ul>
                             </li>
@@ -288,7 +398,7 @@ $(document).ready(function() {
                                 <a href="#"><span class="fa fa-list-alt"></span> Gestion des impayés</a>
                                 
                                 <ul>                                    
-                                    <li><a href="pages-blog-list.html"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
+                                    <li><a href="SearchImpaye"><span class="fa fa-list-ol"></span> Edition de la liste des impayés ( par élève, Classe)</a></li>
                                     <li><a href="pages-blog-post.html"><span class="fa fa-file-o"></span> Synthès des impayés</a></li>
                                 </ul>
                             </li>
@@ -483,14 +593,15 @@ $(document).ready(function() {
                 <div class="page-content-wrap">
                 <c:if test="${test}">
         <div class="alert alert-success">
-    <strong>Success!</strong>  Ajout de votre facture est efféctué avec succès
+           <strong>Success!</strong>  Ajout de votre facture est efféctué avec succès
                  
-                 <a class="btn btn-default" data-toggle="modal" data-target="#modal_basic">Afficher la Facture</a> 
+                 <a class="btn btn-default" data-toggle="modal" data-target="#modal_basic">Afficher la Facture</a>
+                 <a class="btn btn-default" href="imprimerFacture?getId=${facture.id_facture}">Imprimer la Facture</a>  
         </div>
          
                                 
                    
-        </c:if>
+                 </c:if>
                     <div class="row">
                         <div class="col-md-12">
                             <c:url value="/paiementAdd" var="signupUrl" />
@@ -498,7 +609,7 @@ $(document).ready(function() {
                            
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><strong>Separated</strong> Layout</h3>
+                                    <h3 class="panel-title"><strong>Paiement</strong> Formulaire</h3>
                                     <ul class="panel-controls">
                                         <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
                                     </ul>
@@ -529,29 +640,42 @@ $(document).ready(function() {
                                         </div>
                                     </div>
                                     
+                                    
                                     <div class="form-group">                                        
-                                        <label class="col-md-3 col-xs-12 control-label">Frais de prestation</label>
+                                        <label class="col-md-3 col-xs-12 control-label">Catégorie de paiement</label>
                                         <div class="col-md-6 col-xs-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><span class="fa fa-unlock-alt"></span></span>
-                                                <select  id="frais" path="id_frais" name="id_frais"></select>
+                                                <select  id="categorie" path="categorie" name="categorie"></select>
                                             </div>            
-                                            <span class="help-block">Password field sample</span>
+                                            <span class="help-block">Choisissez une catégorie</span>
                                         </div>
+                                     </div> 
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label">Frais</label>
+                                        <div class="col-md-6 col-xs-12">                                                                                                                                        
+                                            <input type="checkbox" id="check1" name="frais1" value="frais transport"/> Transport  <br />
+                                            <input type="checkbox" id="check2" name="frais2" value="frais inscription" /> Inscription 
+                                          <span class="help-block">Sample choice, easy to use</span>
+                                        </div>
+                                        
                                     </div>
                                     
                                     <div class="form-group">                                        
                                         <label class="col-md-3 col-xs-12 control-label">Prix</label>
                                         <div class="col-md-6 col-xs-12">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><span class="fa fa-unlock-alt"></span></span>
-                                                <select id="prix" path="id_fraisNiveau" name="id_fraisNiveau" ></select>
-                                            </div>            
-                                            <span class="help-block">Password field sample</span>
+                                              <table border="1">
+                                        <tr><td>Transport: <td>  <input id="Label1"  /><td><input id="reduction1"  />
+                                        <tr><td>Inscription: <td><input id="Label2" /><td><input id="reduction2"  />
+                                        <tr><td>Total: <td><input id="prixLabel"/><td><input id="prixLabelTotal" />
+                                        </table>
+                                           </div>            
+                                       <span class="help-block">Password field sample</span>
                                         </div>
                                     </div>
-                                    
-                                    <div class="form-group">                                        
+                                   
+                                       <div class="form-group">                                        
                                         <label class="col-md-3 col-xs-12 control-label">Caisse</label>
                                         <div class="col-md-6 col-xs-12">
                                             <div class="input-group">
@@ -634,16 +758,11 @@ $(document).ready(function() {
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Checkbox</label>
-                                        <div class="col-md-6 col-xs-12">                                                                                                                                        
-                                            <label class="check"><input type="checkbox" class="icheckbox" checked="checked"/> Checkbox title</label>
-                                            <span class="help-block">Checkbox sample, easy to use</span>
-                                        </div>
-                                    </div>
+                                   
 
                                 </div>
                                 <div class="panel-footer">
+                                 
                                     <button class="btn btn-default">Clear Form</button>                                    
                                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                                 </div>
@@ -666,11 +785,11 @@ $(document).ready(function() {
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="defModalHead">Basic Modal</h4>
+                        <h4 class="modal-title" id="defModalHead">Votre Facture</h4>
                     </div>
                     <div class="modal-body">
                        
-<fieldset><legend>Votre Facture</legend>
+
 <table > 
         <tr>
             <td>Numero de Facture:</td>
@@ -688,13 +807,10 @@ $(document).ready(function() {
             <td>Nom de l'étudiant:</td>
             <td>${facture.etudiant.nom_etudiant}</td>
         </tr>
+       
         <tr>
-            <td>Niveau de l'étudiant:</td>
-            <td>${facture.frais_niveau.niveau.niveau_scolaire}</td>
-        </tr>
-        <tr>
-            <td>Frais de facture:</td>
-            <td>${facture.frais_niveau.frais.nom}</td>
+            <td>Catégorie de paiement:</td>
+            <td>${facture.categorie.categorie}</td>
         </tr>
         <tr>
             <td>Avance:</td>
@@ -713,10 +829,11 @@ $(document).ready(function() {
             <td>${facture.prix}</td>
         </tr>
        
-    </table></fieldset>
+    </table>
 
                     </div>
                     <div class="modal-footer">
+                       
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -724,6 +841,7 @@ $(document).ready(function() {
         </div>
         <!-- END MESSAGE BOX-->
         
+       
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
             <div class="mb-container">

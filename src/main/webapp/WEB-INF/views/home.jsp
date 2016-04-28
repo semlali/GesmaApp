@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
+<title>GESMA</title>
 <head>        
         <!-- META SECTION -->
         <title>Atlant - Responsive Bootstrap Admin Template</title>            
@@ -31,7 +31,7 @@
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="home">ATLANT</a>
+                        <a href="home">GESMA</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     <li class="xn-profile">

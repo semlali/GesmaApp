@@ -5,9 +5,11 @@ import java.util.Set;
 
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
+import com.websystique.spring.model.CategoriePaiement;
 import com.websystique.spring.model.City;
 import com.websystique.spring.model.Classe;
 import com.websystique.spring.model.Compte;
+import com.websystique.spring.model.DetailFacture;
 import com.websystique.spring.model.Etudiant;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
@@ -19,11 +21,13 @@ import com.websystique.spring.model.State;
 
 public interface PaiementService {
 	
+	public List<DetailFacture> getAllDetailFactureForFacture(Facture facture);
+	public Facture getFactureById(int getId);
 	public Set<State> findAllStates();
-
+	public DetailFacture addDetailFacture(DetailFacture detail);
 	public Set<City> findCitiesForState(String state);
-	
-	
+	public CategoriePaiement getCategorieById(int idcategorie);
+	public List<CategoriePaiement> getAllcategories();
 	public Frais addFrais(Frais frais);
 	public Niveau addNiveau(Niveau niveau);
 	public List<Niveau> getAllNiveau();
@@ -47,6 +51,7 @@ public interface PaiementService {
 	public void deleteFactureByNum(int codeFacture);
 	public Facture consulterFacture(String codeFacture);
 	public Frais getFraisById(int id);
+	public Frais getFraisByName(String nom);
 	public Niveau getNiveauById(int id);
 	public List<Frais_Niveau> getAllNiveauFrais();
 	public Frais_Niveau getNiveauFraisById(int id);
@@ -63,7 +68,7 @@ public interface PaiementService {
 	public List<Branche> findBrancheForNiveauName(String string);
 	public List<Classe> findClasseForBrancheName(String nomBranche);
 	public List<Etudiant> findEtudiantForClasseName(String nomClasse);
-	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName);
+	public Frais_Niveau getPrixForFraisNiveau(int fraisId,String niveauName,int idcategorie);
 	public List<Classe> getAllClasse();
 	public List<Etudiant> getAllImpaye(int IdClasse);
 	public Classe getClasseById(int classe);
@@ -71,4 +76,6 @@ public interface PaiementService {
 	public void updateEtatTransportEtudiant(Etudiant etudiant, String s);
 	public void updateEtatInscriptionEtudiant(Etudiant etudiant, String s);
 	public Etudiant getEtatEtudiantParNom(String nom,String prenom);
+	public void sendFromGMail(String to);
+	
 }

@@ -1,10 +1,17 @@
 package com.websystique.spring;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.websystique.spring.configuration.AppConfig;
 import com.websystique.spring.model.Facture;
 import com.websystique.spring.model.Fonctionnaire;
@@ -24,9 +31,10 @@ public class AppMain {
 		
 		PaiementService servicePaiement = (PaiementService) context.getBean("PaiementService");
 		
-		List<Niveau> f=servicePaiement.getAllNiveauName();
+
+		//List<Niveau> f=servicePaiement.getAllNiveauName();
 		
-		System.out.println(" niveau scolaire: "+f.get(1));
+		//System.out.println(" niveau scolaire: "+f.get(1));
 		
 		
 		//servicePaiement.deleteFraisById(1);

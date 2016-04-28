@@ -1,5 +1,6 @@
 package com.websystique.spring.modelMVC;
 
+import com.websystique.spring.model.CategoriePaiement;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Niveau;
 
@@ -12,8 +13,22 @@ public class FraisNiveau {
 	private int frais;
 	private Double prix;
 	private String reduction;
+	private int categorie;
+	private CategoriePaiement categoriepaiement;
 	
 	
+	public int getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(int categorie) {
+		this.categorie = categorie;
+	}
+	public CategoriePaiement getCategoriepaiement() {
+		return categoriepaiement;
+	}
+	public void setCategoriepaiement(CategoriePaiement categoriepaiement) {
+		this.categoriepaiement = categoriepaiement;
+	}
 	public int getNumFraisNiveau() {
 		return numFraisNiveau;
 	}
