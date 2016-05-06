@@ -45,7 +45,7 @@ public class Frais_Niveau implements Serializable{
 
 	private Double prix;
 	
-	private String reduction;
+	private Double reduction;
 
 	public Frais_Niveau() {
 		super();
@@ -81,11 +81,11 @@ public class Frais_Niveau implements Serializable{
 		this.prix = prix;
 	}
 
-	public String getReduction() {
+	public Double getReduction() {
 		return reduction;
 	}
 
-	public void setReduction(String reduction) {
+	public void setReduction(Double reduction) {
 		this.reduction = reduction;
 	}
 

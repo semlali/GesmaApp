@@ -57,7 +57,7 @@ public class AppMain {
 		servicePaiement.addNiveau(niveau);*/
 		
 		
-		servicePaiement.setFrais_Niveau(1,1,999,"999");
+		servicePaiement.setFrais_Niveau(1,1,999,0.0);
 
 		
 		//Reduction red= new Reduction("heho", "1");

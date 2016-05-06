@@ -16,7 +16,6 @@ import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
-import com.websystique.spring.model.Reduction;
 import com.websystique.spring.model.State;
 
 public interface PaiementService {
@@ -34,19 +33,17 @@ public interface PaiementService {
 	public List<Niveau> getAllNiveauName();
 	public List<Branche> getAllBranche();
 	public List<Frais> getAllFrais();
-	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, String reduction);
+	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, Double reduction);
 	public Frais_Niveau AddFrais_Niveau(Frais_Niveau fn);
 	public Frais_Niveau deleteFraisById(int getId);
-	public Reduction addReduction(Reduction reduction);
-	public Reduction updateReduction(Reduction reduction,int id_reduction_old);
 	public void deleteReductionByName(String nom);
-	public Reduction getReductionByName(String name);
 	public Caisse addCaisse(Caisse caisse);
 	public Caisse updateCaisse(Caisse caisse,int id_caisse_old);
 	public void deleteCaisseById(int id);
 	public List<Caisse> getAllCaisse();
 	public Caisse getCaisseById(int getId);
 	public Facture addFacture(Facture facture);
+	public Facture mergeFacture(Facture facture);
 	public void updateFacture(Facture facture, int codeFacture);
 	public void deleteFactureByNum(int codeFacture);
 	public Facture consulterFacture(String codeFacture);
@@ -77,5 +74,6 @@ public interface PaiementService {
 	public void updateEtatInscriptionEtudiant(Etudiant etudiant, String s);
 	public Etudiant getEtatEtudiantParNom(String nom,String prenom);
 	public void sendFromGMail(String to);
-	
+	public Etudiant connexion(String nom,String pass);
+	public Fonctionnaire connxionFonc(String nom,String pass);
 }

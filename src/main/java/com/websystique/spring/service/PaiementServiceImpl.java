@@ -24,8 +24,8 @@ import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
-import com.websystique.spring.model.Reduction;
 import com.websystique.spring.model.State;
+
 import java.util.*;
 
 import javax.mail.*;
@@ -81,31 +81,19 @@ public class PaiementServiceImpl implements PaiementService {
 		return dao.addNiveau(niveau);
 	}
 
-	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, String reduction) {
+	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, Double reduction) {
 		// TODO Auto-generated method stub
 		dao.setFrais_Niveau(idNiveau, idFrais, prix, reduction);
 	}
 
-	public Reduction addReduction(Reduction reduction) {
-		// TODO Auto-generated method stub
-		return dao.addReduction(reduction);
-	}
-
-	public Reduction updateReduction(Reduction reduction,int id_reduction_old) {
-		// TODO Auto-generated method stub
-		
-		return dao.updateReduction(reduction,id_reduction_old);
-	}
+	
 
 	public void deleteReductionByName(String nom) {
 		// TODO Auto-generated method stub
 		 dao.deleteReductionByName(nom);
 	}
 
-	public Reduction getReductionByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public Caisse addCaisse(Caisse caisse) {
 		// TODO Auto-generated method stub
@@ -437,6 +425,24 @@ public class PaiementServiceImpl implements PaiementService {
 	        me.printStackTrace();
 	    }
 	    
+	}
+
+	@Override
+	public Etudiant connexion(String nom, String pass) {
+		// TODO Auto-generated method stub
+		return dao.connexion(nom, pass);
+	}
+
+	@Override
+	public Fonctionnaire connxionFonc(String nom, String pass) {
+		// TODO Auto-generated method stub
+		return dao.connxionFonc(nom, pass);
+	}
+
+	@Override
+	public Facture mergeFacture(Facture facture) {
+		// TODO Auto-generated method stub
+		return dao.mergeFacture(facture);
 	}
 
 	

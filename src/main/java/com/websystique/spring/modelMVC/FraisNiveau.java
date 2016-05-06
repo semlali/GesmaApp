@@ -12,7 +12,7 @@ public class FraisNiveau {
 	private Frais frai;
 	private int frais;
 	private Double prix;
-	private String reduction;
+	private Double reduction;
 	private int categorie;
 	private CategoriePaiement categoriepaiement;
 	
@@ -53,10 +53,10 @@ public class FraisNiveau {
 	public void setPrix(Double prix) {
 		this.prix = prix;
 	}
-	public String getReduction() {
+	public Double getReduction() {
 		return reduction;
 	}
-	public void setReduction(String reduction) {
+	public void setReduction(Double reduction) {
 		this.reduction = reduction;
 	}
 	

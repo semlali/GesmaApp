@@ -21,13 +21,13 @@ import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
-import com.websystique.spring.model.Reduction;
+
 
 
 @Repository("PaiementDao")
 public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 
-	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, String reduction) {
+	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, Double reduction) {
 		// TODO ajouter les differents frais
 		//Query query = getSession().createSQLQuery("insert into frais_niveau_paiement(frais_id_frais,niveau_id_niveau,prix,reduction) values('"+idFrais+"','"+idNiveau+"','"+prix+"','"+reduction+"')");
 		Query query = getSession().createSQLQuery("UPDATE frais_niveau_paiement SET prix='"+prix+"', reduction='"+reduction+"' WHERE frais_id_frais='"+idFrais+"' AND niveau_id_niveau='"+idNiveau+"'");
@@ -48,19 +48,7 @@ public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 		return niveau;
 	}
 
-	public Reduction addReduction(Reduction reduction) {
-		// TODO Auto-generated method stub
-		persist(reduction);
-		return reduction;
-	}
-
-	public Reduction updateReduction(Reduction reduction,int id_reduction_old) {
-		// TODO Auto-generated method stub
-    Query query = getSession().createSQLQuery("UPDATE reduction_paiement SET nom='"+reduction.getNom()+"', value='"+reduction.getValue()+"' WHERE id_reduction='"+id_reduction_old+"' ");
-	query.executeUpdate();
-		//getSession().update(reduction);
-		return reduction;
-	}
+	
 
 	public void deleteReductionByName(String nom) {
 		// TODO Auto-generated method stub
@@ -69,11 +57,6 @@ public class PaiementDaoImpl extends AbstractDao implements PaiementDao{
 		
 	}
 
-	public Reduction getReductionByName(String nom) {
-		Criteria criteria = getSession().createCriteria(Reduction.class);
-		criteria.add(Restrictions.eq("nom",nom));
-		return (Reduction) criteria.uniqueResult();
-	}
 
 	public Caisse addCaisse(Caisse caisse) {
 		
@@ -477,6 +460,32 @@ List<Frais> list=getSession().createCriteria(Frais.class).list();
 		List<DetailFacture> results = cr.list();
 		return results;
 		
+	}
+
+
+	@Override
+	public Etudiant connexion(String nom, String pass) {
+		Criteria criteria = getSession().createCriteria(Etudiant.class);
+		criteria.add(Restrictions.eq("login",nom));
+		criteria.add(Restrictions.eq("pass",pass));
+		return (Etudiant) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public Fonctionnaire connxionFonc(String nom, String pass) {
+		Criteria criteria = getSession().createCriteria(Fonctionnaire.class);
+		criteria.add(Restrictions.eq("login",nom));
+		criteria.add(Restrictions.eq("pass",pass));
+		return (Fonctionnaire) criteria.uniqueResult();
+	}
+
+
+	@Override
+	public Facture mergeFacture(Facture facture) {
+		// TODO Auto-generated method stub
+		 getSession().merge(facture);
+		 return facture;
 	}
 
 

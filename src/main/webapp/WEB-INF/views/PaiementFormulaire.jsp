@@ -101,7 +101,7 @@ $(document).ready(function() {
 			var yy=$('#reduction2').val();
 			
 			$('#prixLabel').val(+x + +y);
-			$('#prixLabelTotal').val(+x*xx + +y*yy);
+			$('#prixLabelTotal').val((+x + +y) - (x*xx/100 + y*yy/100));
 			
 			
 		});
@@ -109,6 +109,7 @@ $(document).ready(function() {
 			
 		 else {
 				$('#Label1').val('');
+				$('#reduction1').val('');
 	            //alert('unchecked');
 				//$('#prixLabel').val(document.getElementById("Label1").value+document.getElementById("Label2").value);  
 				var x=$('#Label1').val();
@@ -118,7 +119,7 @@ $(document).ready(function() {
 				var yy=$('#reduction2').val();
 				
 				$('#prixLabel').val(+x + +y);
-				$('#prixLabelTotal').val(+x*xx + +y*yy);
+				$('#prixLabelTotal').val((+x + +y) - (x*xx/100 + y*yy/100));
 	        }
 			
 			
@@ -148,12 +149,13 @@ $(document).ready(function() {
 					var yy=$('#reduction2').val();
 					
 					$('#prixLabel').val(+x + +y);
-					$('#prixLabelTotal').val(+x*+xx + +y*+yy);
+					$('#prixLabelTotal').val((+x + +y) - (x*xx/100 + y*yy/100));
 				});
 	    			}
 	    			
 	       else {
 	    				$('#Label2').val('');
+	    				$('#reduction2').val('');
 	    	            //alert('unchecked');
 	    				// $('#prixLabel').val(document.getElementById("Label1").value+document.getElementById("Label2").value); 
 	    				var x=$('#Label1').val();
@@ -163,7 +165,7 @@ $(document).ready(function() {
 						var yy=$('#reduction2').val();
 						
 						$('#prixLabel').val(+x + +y);
-						$('#prixLabelTotal').val(+x*+xx + +y*+yy);
+						$('#prixLabelTotal').val((+x + +y) - (x*xx/100 + y*yy/100));
 	    	        
 	       }
 	    		
@@ -662,7 +664,7 @@ $(document).ready(function() {
                                     </div>
                                     
                                     <div class="form-group">                                        
-                                        <label class="col-md-3 col-xs-12 control-label">Prix</label>
+                                        <label class="col-md-3 col-xs-12 control-label">Prix et réduction</label>
                                         <div class="col-md-6 col-xs-12">
                                             <div class="input-group">
                                               <table border="1">
@@ -688,7 +690,7 @@ $(document).ready(function() {
                                                             </c:forEach>
                                                </select>
                                             </div>            
-                                            <span class="help-block">Password field sample</span>
+                                            <span class="help-block">Caisse field </span>
                                         </div>
                                     </div>
                                     <div class="form-group">                                        
@@ -697,16 +699,6 @@ $(document).ready(function() {
                                             <div class="input-group">
                                                 <span class="input-group-addon"><span class="fa fa-unlock-alt"></span></span>
                                                 <input class="form-control" name="avance" path="avance"  />
-                                            </div>            
-                                            <span class="help-block">Password field sample</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">                                        
-                                        <label class="col-md-3 col-xs-12 control-label">Réduction</label>
-                                        <div class="col-md-6 col-xs-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><span class="fa fa-unlock-alt"></span></span>
-                                                <input name="reduction" path="reduction" class="form-control" />
                                             </div>            
                                             <span class="help-block">Password field sample</span>
                                         </div>
@@ -723,7 +715,7 @@ $(document).ready(function() {
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Textarea</label>
+                                        <label class="col-md-3 col-xs-12 control-label">Remarques</label>
                                         <div class="col-md-6 col-xs-12">                                            
                                             <textarea class="form-control" rows="5"></textarea>
                                             <span class="help-block">Default textarea field</span>

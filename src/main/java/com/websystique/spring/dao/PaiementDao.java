@@ -15,25 +15,23 @@ import com.websystique.spring.model.Fonctionnaire;
 import com.websystique.spring.model.Frais;
 import com.websystique.spring.model.Frais_Niveau;
 import com.websystique.spring.model.Niveau;
-import com.websystique.spring.model.Reduction;
+
 
 public interface PaiementDao {
 	
 	public List<DetailFacture> getAllDetailFactureForFacture(Facture facture);
 	public Facture getFactureById(int getId);
+	public Facture mergeFacture(Facture facture);
 	public Frais addFrais(Frais frais);
 	public Niveau addNiveau(Niveau niveau);
-	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, String reduction);
+	public void setFrais_Niveau(int idNiveau, int idFrais, double prix, Double reduction);
 	public Frais_Niveau AddFrais_Niveau(Frais_Niveau fn);
 	public Frais_Niveau deleteFraisById(int getId);
 	public List<Niveau> getAllNiveau();
 	public List<Niveau> getAllNiveauName();
 	public List<Branche> getAllBranche();
 	public List<Frais> getAllFrais();
-	public Reduction addReduction(Reduction reduction);
-	public Reduction updateReduction(Reduction reduction,int id_reduction_old);
 	public void deleteReductionByName(String nom);
-	public Reduction getReductionByName(String name);
 	public Caisse addCaisse(Caisse caisse);
 	public Caisse updateCaisse(Caisse caisse,int id_caisse_old);
 	public void deleteCaisseById(int id);
@@ -72,5 +70,7 @@ public interface PaiementDao {
     public void updateEtatTransportEtudiant(Etudiant etudiant, String s);
     public void updateEtatInscriptionEtudiant(Etudiant etudiant, String s);
     public Etudiant getEtatEtudiantParNom(String nom,String prenom);
-   
+    public Etudiant connexion(String nom,String pass);
+    public Fonctionnaire connxionFonc(String nom,String pass);
+    
 }

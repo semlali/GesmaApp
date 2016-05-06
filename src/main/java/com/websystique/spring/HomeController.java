@@ -1,11 +1,11 @@
 package com.websystique.spring;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.websystique.spring.model.Branche;
 import com.websystique.spring.model.Caisse;
 import com.websystique.spring.model.CategoriePaiement;
@@ -41,12 +40,13 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
- 
-
+import javax.servlet.http.HttpSession;
+import java.net.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import org.xml.sax.SAXException;
 
 
 @Controller
@@ -129,11 +129,25 @@ public class HomeController {
 	    facture.setTypePaiement(pf.getTypePaiement());
 		facture.setCategorie(cp);
 		
+		
 		//facture.setFrais_niveau(fraisNiveau);
 		//facture.setReduction(pf.getReduction());
 		//facture.setPrix(fraisNiveau.getPrix());
 		model.addAttribute("facture", facture);
 		service.addFacture(facture);
+		
+		Facture facture2=service.getFactureById(facture.getId_facture());
+		
+		Date date=facture.getDate_facture(); // your date
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(date);
+	    int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH);
+	    int day = cal.get(Calendar.DAY_OF_MONTH);
+	    
+		facture2.setNumFacture(month+""+day+"-"+facture.getId_facture());
+		service.mergeFacture(facture2);
+		System.out.println("hello samia "+facture.getNumFacture());
 		
 		if(pf.getFrais1()!=null && pf.getFrais2()==null){
 		DetailFacture df1=new DetailFacture();
@@ -706,8 +720,8 @@ public class HomeController {
 		double total=0.0;
 		for(int i=0;i<list.size();i++) {
 			
-		document.add(new Paragraph(list.get(i).getFn().getFrais().getNom()+" "+list.get(i).getFn().getPrix()));
-		total=total+list.get(i).getFn().getPrix();
+		document.add(new Paragraph(list.get(i).getFn().getFrais().getNom()+" "+list.get(i).getFn().getPrix()+" avec une réduction de "+list.get(i).getFn().getReduction()+"%"));
+		total=total+(list.get(i).getFn().getPrix() - list.get(i).getFn().getPrix()*(list.get(i).getFn().getReduction()/100));
 		}
 		document.add(new Paragraph("Total        "+total));
 		
@@ -738,7 +752,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/envoyerEmail", method = RequestMethod.GET)
-	public String envoyerEmail(@RequestParam(value = "idEtudiant", required = true) int idEtudiant,@RequestParam(value = "iradio", required = true) String iradio){
+	public String envoyerEmail(@RequestParam(value = "idEtudiant", required = true) int idEtudiant,@RequestParam(value = "iradio", required = true) String iradio) throws IOException, XPathExpressionException, SAXException, ParserConfigurationException{
 		System.out.println("choix etudiant: "+iradio);
 		
 		Etudiant etudiant=service.getEtudiantById(idEtudiant);
@@ -746,6 +760,24 @@ public class HomeController {
 			System.out.println("send email to semlali");
 			service.sendFromGMail(etudiant.getEmail());
 		  	
+		}
+		else if(iradio.equals("sms")){
+			System.out.println("envoi sms");
+			try {
+			String msg="BONJOUR TEST";
+            String username = "45000s12";
+            String password = "gesmasms";
+            String recipient="0662530017";
+			String requestUrl ="http://megacomsys.ddns.net:443/api?action=sendmessage&username="+username+"&password="+password+"&recipient="+recipient+
+					"&messagetype=SMS:TEXT&messagedata="+msg+"&sender=00212524435456&serviceprovider=GSMModem0&responseformat=xml";
+
+			URL url = new URL(requestUrl);
+			HttpURLConnection uc = (HttpURLConnection)url.openConnection();
+			System.out.println("response "+uc.getResponseMessage());
+			uc.disconnect();
+			}catch(Exception ex) {
+				System.out.println(ex.getMessage());
+			}
 		}
 		
 		return "SearchImpaye";
@@ -804,6 +836,76 @@ public class HomeController {
 		}
 		
 		return "SearchClasseImpaye";
+	}
+	
+
+	@RequestMapping("/index")
+	public String indexClient() {
+		return "Index";
+	}
+	
+	@RequestMapping("/connexion")
+	public String Connexion() {
+		return "connexion";
+	}
+	
+	@RequestMapping(value="/SeConnecter",method=RequestMethod.GET)
+	public String SeConnecter(@RequestParam(value = "nom", required = true) String nom,
+			@RequestParam(value = "pass", required = true) String pass,
+			HttpSession session,Model model) {
+			
+		System.out.println("se connecter avec "+nom+" "+pass);
+		
+		Etudiant etudiant=service.connexion(nom,pass);
+		Fonctionnaire fonctionnaire=service.connxionFonc(nom,pass);
+		if(etudiant!=null){
+			session.setAttribute("loggedInUser", etudiant.getNom_etudiant());
+			session.setAttribute("User", etudiant);
+			
+		    System.out.println(etudiant.getNom_etudiant());
+		return "Index";
+		}
+		else if(fonctionnaire!=null){
+			session.setAttribute("loggedInAdmin", fonctionnaire.getNom_fonc());
+		    System.out.println(fonctionnaire.getNom_fonc());
+		    
+			return "home";	
+		}
+		else {
+			model.addAttribute("message", "Invalid credentials!!");
+			return "connexion";
+		}
+		
+	}
+	
+	@RequestMapping("/deconnexion")
+	public String deconnexion(HttpSession session) {
+		session.invalidate();
+		return "Index";
+	}
+	
+	@RequestMapping("/paiementEnLigne")
+	public String paiementEnLigne(HttpSession session,Model model) {
+		
+		Etudiant etudiant=(Etudiant)session.getAttribute("User");
+		System.out.println("this is user "+etudiant.getNom_etudiant());
+		model.addAttribute("etudiant", etudiant);
+		return "paiementEnLigne";
+	}
+	
+	@RequestMapping("/paiement")
+	public String attente() {
+		
+		return "attente";
+	}
+	
+	@RequestMapping("/paiementParVirement")
+	public String paiementParVirement(HttpSession session,Model model) {
+		
+		Etudiant etudiant=(Etudiant)session.getAttribute("User");
+		System.out.println("this is user "+etudiant.getNom_etudiant());
+		model.addAttribute("etudiant", etudiant);
+		return "paiementParVirement";
 	}
 	
 	
