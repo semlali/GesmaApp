@@ -2,13 +2,12 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 
 <html lang="fr">
     <head>        
-   <!-- META SECTION -->
-        <title>Gestion des vehicules</title>            
+        <!-- META SECTION -->
+        <title>Gestion des arrêts</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -61,25 +60,19 @@
                              <a href=""><span class="fa fa-car"></span>Gestion des Vehicules</a>
                                  <ul>
                                  <li><a href="GestionVehicules"><span class="fa fa-car"></span>Consulter les vehicules </a></li>
-                                    <li><a href="AjouterVehicule"><span class="fa fa-plus"></span>Ajouter un vehicule </a></li>
-                                    <li><a href="chercherVehicule"><span class="fa fa-search"></span>Chercher un vehicule</a></li>
+                                    <li><a href="AjouterVehicule"><span class="fa fa-plus"></span>Ajouter une vehicule </a></li>
+                                    <li><a href="chercherVehicule"><span class="fa fa-search"></span>Chercher une vehicule</a></li>
                                 </ul>
                                 </li>
-                                     <li class="xn-openable">
-                              <a href="GestionEtablissements"><span class="fa fa-building-o"></span> Gestion des établissements </a>
-                             
-                              </li>
-                              <li class="xn-openable">
-                              <a href="pages-profile.html"><span class="fa fa-users"></span> Gestion des Chauffeurs</a>
-                              
-                              </li>
-                              
-                               <li class="xn-openable">
-                               <a href="pages-address-book.html"><span class="fa fa-users"></span> Gesiton des étudiants</a>
-                                <ul>
-                                 <li><a href="GestionEtudiants"><span class="fa fa-users"></span>Afficher tous les étudiants </a></li>
                                     
-                                </ul>
+                              <li >
+                              <a href="GestionChauffeurs"><span class="fa fa-users"></span> Gestion des Chauffeurs</a>
+                              
+                              </li>
+                              
+                               <li >
+                               <a href="GestionEtudiants"><span class="fa fa-users"></span> Gesiton des étudiants</a>
+                                
                                </li>
                                 
                             <li class="xn-openable">
@@ -89,10 +82,10 @@
                                     <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Full Width</a></li>
                                 </ul>
                             </li>
-                            <li class="xn-openable">
-                                <a href="#"><span class="fa fa-minus-circle"></span>  Gestion des arrêts </a>  
-                            </li>
-                           
+                           <li>
+                                <a href="GestionArrets"><span class="fa fa-minus-circle"></span>  Gestion des arrêts </a>  
+                        
+                           </li>
                     </li>
                
                     </ul>
@@ -325,21 +318,45 @@
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Transport</a></li>                    
-                    <li class="active">Gestion des vehicules</li>
+                    <li class="active">Gestion des arrêts</li>
                 </ul>
                 <!-- END BREADCRUMB -->                       
                 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
                 <div class="row">
-                                             
+                        <div class="col-md-12">                        
+                            <!-- START GOOGLE MAP WITH MARKER -->
+                      
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"> Map </h3>
+                                </div>
+                                <div class="panel-body panel-body-map">
+                                <div id="map_canvas" style="width: 985px; height: 400px;"></div>
+                                 
+                          
+                                </div>
+                            </div>                   
+                            <div>
+               <!-- End of MAP -->
+               <form>
+                  <input type="hidden" id="latFld">
+                  <input type="hidden" id="lngFld">
+                  </form>
+                        </div> 
+                        
+                         
+                            
                         <div class="col-md-12">
                             <div class="panel panel-default">
                      
                                 <div class="panel-heading">
-                           <h3 class="panel-title">La liste de tous les véhicules de l'établissement :</h3>
+                                  <h3 class="panel-title">La liste des arrêts :</h3>
+                                  <diV>
+                         
+                         </diV> 
                                 </div>
-
                                 <div class="panel-body panel-body-table">
 
                                     <div class="table-responsive">
@@ -348,53 +365,42 @@
                                                 <tr>
                                                     <th width="50">id</th>
                                                 
-                                                    <th width="200">Numéro d'immatriculation</th>
-                                                    <th width="300">Nombre des années de service</th>
-                                                    <th width="200">la date de mise en service </th>
-                                                    <th width="200">le poids total</th>
-                                                    <th width="200">Remarques </th>
+                                                    <th width="200">Adresse</th>
+                                                 
+                                                     <th width="200">Longitude </th>
+                                                      <th width="200">Latitude </th>
+                                                 
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody> 
-                                            <c:forEach  items="${vehicules}" var="v">        
-
-                                   
+                                            <!--<c:forEach  items="${etudiants}" var="e">  
+                                                                                  
                                                 <tr>
-                                                  
-                                                    <td><strong>${v.id_vehicule }</strong></td>
-                                                  
-                                                    <td>${v.numImmatriculation}</td>
-                                                     <td>${v.nbreAnneeService}</td> 
-                                                    <td><fmt:formatDate value="${v.dateMiseEnService}" pattern="yyyy-MM-dd" /> </td>
-                                                     <td>${v.poids_total}</td>
-                                                     <td>${v.remarques }</td>
-                                                    <td>      
-                                                       
-                                                           <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${v.id_vehicule}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>
-                                                          
-                                                        <a href="SupprimerVehicule?id_vehicule=${v.id_vehicule}" class="btn btn-danger btn-rounded btn-sm" onclick="return confirm('Are you sure you want to delete?')"><span class="fa fa-times"></span></a>
-                                                         <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${v.id_vehicule}" data-target="#verifier-modal" >vérifier son état </a>
-                                                           
+                                                  <td>${e.n_etudiant}</td>
+                                                  <td>${e.nom_etudiant}</td>
+                                             
+                                                  <td>${e.etat_transport} </td>
+                                                  <td>${e.longitude}</td>
+                                                  <td>${e.latitude }</td>
+                                                  <td>        
+                                                   <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${e.n_etudiant}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>    
                                                     </td>
                                                 </tr>
-                                               </c:forEach>
+                                               </c:forEach>-->
 
                                                </tbody>
                                         </table>
                         </div>
-                </div>
-                </div>
-                </div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->                                
             </div>            
             <!-- END PAGE CONTENT -->
         </div>
         <!-- END PAGE CONTAINER -->
-        
-       
-  
+
+
+ 
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
             <div class="mb-container">
@@ -453,223 +459,55 @@
         
         <script type="text/javascript" src="resources/js/demo_dashboard.js"></script>
         <!-- END TEMPLATE -->
-          <!-- modal update -->
-         <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Modifier les informations d'un véhicule : </label></h4>
-                        <f:form action="Modifier" modelAttribute="vehicule"  method="POST"  class="form-horizontal">
-          
-                             
-                        
-                      <div class="panel-body form-group-separated">
-                            <div class="form-group" >
-                                        <label class="col-md-3 col-xs-12 control-label">Numéro d'immatriculation :</label>
-                                        <div class="col-md-6 col-xs-12">                                            
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                <input type="text" class="form-control" name="numImmatriculation" id="numI"/>
-                                            </div>                                            
-                                         
-                                        </div>
-                                    </div>
-                                   <div class="form-group">                                        
-                                       <label class="col-md-3 col-xs-12 control-label">La date de mise en service :</label>
-                                        <div class="col-md-6 col-xs-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                                
-                                                <input type="text" class="form-control datepicker" name="dateMiseEnService" id="dateM" />                                               
-                                            </div>
-                                       
-                                        </div>
-                                    </div>
-                                       <div class="form-group">
-                                      <label class="col-md-3 col-xs-12 control-label">Nombre des années de service :</label>
-                                        <div class="col-md-6 col-xs-12">                                            
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                               <input type="text" class="form-control" name="nbreAnneeService" id="nbreA"/>
-                                            </div>                                            
-                                         
-                                        </div>
-                                    </div>
-                                   <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Le poids total  :</label>
-                                        <div class="col-md-6 col-xs-12">                                            
-                                            <div class="input-group">
-                                               <span class="input-group-addon">
-                                             <span class="fa fa-pencil"></span></span>
-                                               <input type="text" class="form-control" name="poids_total" id="poi"/>
-                                            </div>                                            
-                                         
-                                        </div>
-                                    </div>
+    <!-- map's script  -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9rxuTPCcOo3eeQhTLLatNoviyX1zHcQU&signed_in=true&callback=initMap"
+        async defer></script>
 
- 
-                               <div class="form-group">
-                                <label class="col-md-3 col-xs-12 control-label">Roue  :</label>
-                                 <div class="col-md-6 col-xs-12">                                            
-                                            <div class="input-group">
-                                             
-                                           
-                                          <select  name="etat_roue" id="etatR">
-                                            <option id="1">Neuf</option>
-                                            <option id="2">moyen</option>
-                                            <option id="3">mauvais</option>
-                                            </select>
-                                            </div>                                            
-                                         
-                                        </div>
-                               
-                               </div>
-                               <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Vitre</label>
-                                        <div class="col-md-6 col-xs-12">                     
+    <script type="text/javascript">
+        var map;
+        var markersArray = [];
 
-                                                                       
-                                            <select  name="etat_vitre" id="etatV">
-                                            <option id="1">Neuf</option>
-                                            <option id="2">moyen</option>
-                                            <option id="3">mauvais</option>
-                                            </select>
-                                           
-                                        </div>
-                                    </div>
- 
-                                    <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Siege</label>
-                                        <div class="col-md-6 col-xs-12">                     
+        function initMap()
+        {
+            var latlng = new google.maps.LatLng(41, 29);
+            var myOptions = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-                                                                       
-                                            <select  name="etat_siege" id="etatS">
-                                            <option id="1">Neuf</option>
-                                            <option id="2">moyen</option>
-                                            <option id="3">mauvais</option>
-                                            </select>
-                                           
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Carosserie</label>
-                                        <div class="col-md-6 col-xs-12">                     
+            // add a click event handler to the map object
+            google.maps.event.addListener(map, "click", function(event)
+            {
+                // place a marker
+                placeMarker(event.latLng);
 
-                                                                       
-                                            <select   name="etat_carosserie" id="etatC">
-                                            <option id="1">Neuf</option>
-                                            <option id="2">moyen</option>
-                                            <option id="3">mauvais</option>
-                                            </select>
-                                           
-                                        </div>
-                                    </div>
- 
-                                   <div class="form-group">
-                                        <label class="col-md-3 col-xs-12 control-label">Remarques :</label>
-                                        <div class="col-md-6 col-xs-12">                     
+                // display the lat/lng in your form's lat/lng fields
+                document.getElementById("latFld").value = event.latLng.lat();
+                document.getElementById("lngFld").value = event.latLng.lng();
+            });
+        }
+        function placeMarker(location) {
+         
+       
 
-                       
-                                            <textarea class="form-control" rows="5" name="remarques" id="rem"></textarea>
-                                        
-                                        </div>
-                                    </div>
-                                   <td><input type='hidden' id="id" name="id_vehicule"/></td>
- 
-          <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                </div>
-                            </div>
-       </f:form>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    <!-- end modal update -->
-<!-- start modal de vérification -->
-<div id="verifier-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">l'état d'un vehicule : </label></h4>
-                     <div class="panel-body" align="center"> 
-                                    <div class="contact-info">
-                                    <p><strong>  Roues  </strong><br/><label  id="roueEtat"></label></p>
-                                     <p><strong> Siege </strong><br/><label  id="SiegeEtat"></label></p>
-                                      <p><strong> Carosserie  </strong><br/><label  id="carosserieEtat"></label></p>
-                                       <p><strong> Vitre </strong><br/><label  id="vitreEtat"></label></p>
-                                         <p><strong> Remarques </strong><br/><label  id="remarques"></label></p>
-                                </div>
-                                </div> 
-                     </div>
-                     </div>
-                     </div>
-                     </div>
-<!-- end of modal de vérification -->
+            var marker = new google.maps.Marker({
+                position: location, 
+                map: map
+            });
 
- <script>
-          
-        $('#verifier-modal').on('show.bs.modal', function(e) {
-            
-            var $modal = $(this),
-                esseyId = e.relatedTarget.id;
-       $.ajax({
-         cache: false,
-         type: 'POST',
-         url: 'verifierEtatVehicule',
-         data: 'EID='+esseyId,
-         success: function(data) 
-         {
-   
-              $modal.find("#roueEtat").html(data.etat_roue);
-              $("#SiegeEtat").html(data.etat_siege);
-              $("#carosserieEtat").html(data.etat_carosserie);
-              $("#vitreEtat").html(data.etat_vitre);
-              $("#remarques").html(data.remarques);
-             
+            // add marker in markers array
+            markersArray.push(marker);
 
-           
-         }
-         });
-        })
-    </script> 
-    
-     <script>
-          
-        $('#edit-modal').on('show.bs.modal', function(e) {
-            
-            var $modal = $(this),
-                esseyId = e.relatedTarget.id;
-           
-       $.ajax({
-         cache: false,
-         type: 'POST',
-         url: 'ModifierVehicule',
-         data: 'EID='+esseyId,
-         success: function(data) 
-         {
-   
-              $modal.find("#numI").val(data.numImmatriculation);
-              $("#nbreA").val(data.nbreAnneeService);
-              $("#poi").val(data.poids_total);
-              $("#etatR").val(data.etat_roue);
-              $("#etatS").val(data.etat_siege);
-              $("#etatV").val(data.etat_vitre);
-              $("#etatC").val(data.etat_carosserie);
-              $("#rem").val(data.remarques);
-              $("#id").val(data.id_vehicule);
-              $("#dateM").val((data.dateMiseEnService).toString('M-d-yyyy'));
-           
-          
+            //map.setCenter(location);
+        }
 
-         }
-         });
-        })
-    </script>      
+     
+        
+    </script>
+    <!-- end of map script -->
+      
     <!-- END SCRIPTS -->         
     </body>
 </html>

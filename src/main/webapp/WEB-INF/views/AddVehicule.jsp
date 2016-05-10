@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
    <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -320,8 +319,7 @@
                         <div class="col-md-12">
                          
                              <f:form action="Ajouter" modelAttribute="vehicule"  method="post" class="form-horizontal">
-                                  
-                         <c:if test="${message}">
+                      <c:if test="${message}">
                           <div class="alert alert-info"><strong>vehicule enregistrée avec succés</strong></div>
                           </c:if>
                             <div class="panel panel-default">
@@ -378,7 +376,7 @@
                                   <div class="form-group">
                                         <label class="col-md-3 col-xs-12 control-label">Roue</label>
                                         <div class="col-md-6 col-xs-12">                                                                                            
-                                            <select class="form-control select" name="etat_roue">
+                                            <select  name="etat_roue">
                                             <option id="1">Neuf</option>
                                             <option id="2">moyen</option>
                                             <option id="3">mauvais</option>
@@ -389,7 +387,7 @@
                                         <div class="form-group">
                                         <label class="col-md-3 col-xs-12 control-label">Vitre</label>
                                         <div class="col-md-6 col-xs-12">                                                                                            
-                                            <select class="form-control select" name="etat_vitre">
+                                            <select  name="etat_vitre">
                                             <option id="1">Neuf</option>
                                             <option id="2">moyen</option>
                                             <option id="3">mauvais</option>
@@ -401,7 +399,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 col-xs-12 control-label">Siege</label>
                                         <div class="col-md-6 col-xs-12">                                                                                            
-                                            <select class="form-control select" name="etat_siege">
+                                            <select name="etat_siege">
                                             <option id="1">Neuf</option>
                                             <option id="2">moyen</option>
                                             <option id="3">mauvais</option>
@@ -412,7 +410,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 col-xs-12 control-label">Carosserie</label>
                                         <div class="col-md-6 col-xs-12">                                                                                            
-                                            <select class="form-control select"  name="etat_carosserie">
+                                            <select   name="etat_carosserie">
                                             <option id="1">Neuf</option>
                                             <option id="2">moyen</option>
                                             <option id="3">mauvais</option>
@@ -430,7 +428,7 @@
                                     </div>
  
                          <div class="panel-footer">
-                                    <input type="reset" value="clear"    class="btn btn-primary pull-left" />                              
+                                    <input type="reset" value="clear"   class="btn btn-primary pull-left" />                              
                                     <button type="submit" class="btn btn-primary pull-right">Enregistrer</button>
                          </div>
                             </div>

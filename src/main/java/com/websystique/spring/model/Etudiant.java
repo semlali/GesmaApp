@@ -1,9 +1,12 @@
 package com.websystique.spring.model;
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -88,6 +91,47 @@ public class Etudiant implements Serializable{
 	private int nbr_annee_5primaire;
 	private String nbr_annee_6primaire;
 	private int id_ecole;
+	
+	private String etat_transport;
+	private String etat_cantine;
+	private String etat_inscription;
+	private String adress;
+	private Double longitude;
+	private Double latitude; 
+	
+	@ManyToOne
+	@JoinColumn
+	private Branche branche;
+	
+	public Branche getBranche() {
+		return branche;
+	}
+	public void setBranche(Branche branche) {
+		this.branche = branche;
+	}
+
+	@ManyToOne
+	@JoinColumn
+	private Classe classe;
+	
+	public String getEtat_transport() {
+		return etat_transport;
+	}
+	public void setEtat_transport(String etat_transport) {
+		this.etat_transport = etat_transport;
+	}
+	public String getEtat_cantine() {
+		return etat_cantine;
+	}
+	public void setEtat_cantine(String etat_cantine) {
+		this.etat_cantine = etat_cantine;
+	}
+	public String getEtat_inscription() {
+		return etat_inscription;
+	}
+	public void setEtat_inscription(String etat_inscription) {
+		this.etat_inscription = etat_inscription;
+	}
 	public int getN_etudiant() {
 		return n_etudiant;
 	}
@@ -460,6 +504,29 @@ public class Etudiant implements Serializable{
 	public void setId_ecole(int id_ecole) {
 		this.id_ecole = id_ecole;
 	}
+	public Classe getClasse() {
+		return classe;
+	}
+	public void setClasse(Classe classe) {
+		this.classe = classe;
+	}
+	public String getAdress() {
+		return adress;
+	}
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
 	
-
 }

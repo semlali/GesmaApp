@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-  <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
 <%@ page session="false" %>
 
-<html lang="en">
+<html lang="fr">
     <head>        
         <!-- META SECTION -->
         <title>GESMA Application</title>            
@@ -61,13 +61,23 @@
                                  <ul>
                                  <li><a href="GestionVehicules"><span class="fa fa-car"></span>Consulter les vehicules </a></li>
                                     <li><a href="AjouterVehicule"><span class="fa fa-plus"></span>Ajouter une vehicule </a></li>
-                                    <li><a href="pages-timeline-simple.html"><span class="fa fa-search"></span>Chercher une vehicule</a></li>
+                                    <li><a href="chercherVehicule"><span class="fa fa-search"></span>Chercher une vehicule</a></li>
                                 </ul>
                                 </li>
-                              <li class="xn-openable">
-                              <a href="pages-profile.html"><span class="fa fa-users"></span> Gestion des Chauffeurs</a></li>
-                               <li class="xn-openable">
-                               <a href="pages-address-book.html"><span class="fa fa-users"></span> Gesiton des étudiants</a></li>
+                           
+                              <li >
+                              <a href="GestionChauffeurs"><span class="fa fa-users"></span> Gestion des Chauffeurs</a>
+                              
+                              </li>
+                              
+                              <li>
+                              <a href="test">test</a>
+                              </li>
+                               <li >
+                               <a href="GestionEtudiants"><span class="fa fa-users"></span> Gesiton des étudiants</a>
+                               
+                               </li>
+                                
                             <li class="xn-openable">
                                 <a href="#"><span class="fa fa-road"></span>Gestion des circuits</a>
                                 <ul>
@@ -76,7 +86,7 @@
                                 </ul>
                             </li>
                             <li class="xn-openable">
-                                <a href="#"><span class="fa fa-minus-circle"></span>  Gestion des arrêts </a>  
+                                <a href="GestionArrets"><span class="fa fa-minus-circle"></span>  Gestion des arrêts </a>  
                             </li>
                            
                     </li>

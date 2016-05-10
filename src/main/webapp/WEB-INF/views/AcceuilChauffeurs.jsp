@@ -8,7 +8,7 @@
 <html lang="fr">
     <head>        
    <!-- META SECTION -->
-        <title>Gestion des vehicules</title>            
+        <title>Gestion des chauffeurs</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,7 +70,7 @@
                              
                               </li>
                               <li class="xn-openable">
-                              <a href="pages-profile.html"><span class="fa fa-users"></span> Gestion des Chauffeurs</a>
+                              <a href="GestionChauffeurs"><span class="fa fa-users"></span> Gestion des Chauffeurs</a>
                               
                               </li>
                               
@@ -325,7 +325,7 @@
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Transport</a></li>                    
-                    <li class="active">Gestion des vehicules</li>
+                    <li class="active">Gestion des chauffeurs</li>
                 </ul>
                 <!-- END BREADCRUMB -->                       
                 
@@ -337,7 +337,7 @@
                             <div class="panel panel-default">
                      
                                 <div class="panel-heading">
-                           <h3 class="panel-title">La liste de tous les véhicules de l'établissement :</h3>
+                           <h3 class="panel-title">La liste de tous les chauffeurs de l'établissement :</h3>
                                 </div>
 
                                 <div class="panel-body panel-body-table">
@@ -348,40 +348,35 @@
                                                 <tr>
                                                     <th width="50">id</th>
                                                 
-                                                    <th width="200">Numéro d'immatriculation</th>
-                                                    <th width="300">Nombre des années de service</th>
-                                                    <th width="200">la date de mise en service </th>
-                                                    <th width="200">le poids total</th>
-                                                    <th width="200">Remarques </th>
+                                                    <th width="200">Nom </th>
+                                                    <th width="300">Prénom </th>
+                                                    <th width="200">téléphone  </th>
+                                                  
                                                     <th>actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody> 
-                                            <c:forEach  items="${vehicules}" var="v">        
+                                            <c:forEach  items="${chauffeurs}" var="c">        
 
                                    
                                                 <tr>
                                                   
-                                                    <td><strong>${v.id_vehicule }</strong></td>
-                                                  
-                                                    <td>${v.numImmatriculation}</td>
-                                                     <td>${v.nbreAnneeService}</td> 
-                                                    <td><fmt:formatDate value="${v.dateMiseEnService}" pattern="yyyy-MM-dd" /> </td>
-                                                     <td>${v.poids_total}</td>
-                                                     <td>${v.remarques }</td>
+                                                    <td><strong>${c.n_fonc}</strong></td>
+                                                    <td>${c.nom_fonc}</td>
+                                                    <td>${c.prenom_fonc}</td> 
+                                                    <td>${c.telephone}</td>
+                                                    
+                                                   
                                                     <td>      
-                                                       
-                                                           <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${v.id_vehicule}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>
-                                                          
-                                                        <a href="SupprimerVehicule?id_vehicule=${v.id_vehicule}" class="btn btn-danger btn-rounded btn-sm" onclick="return confirm('Are you sure you want to delete?')"><span class="fa fa-times"></span></a>
-                                                         <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${v.id_vehicule}" data-target="#verifier-modal" >vérifier son état </a>
+                                                         <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${c.n_fonc}" data-target="#edit-modal" ><span class="fa fa-pencil"></span></a>
+                                                         <a href="SupprimerFonc?id_fonc=${c.n_fonc}" class="btn btn-danger btn-rounded btn-sm" onclick="return confirm('Are you sure you want to delete?')"><span class="fa fa-times"></span></a>
+                                                         <a class="btn btn-default btn-rounded btn-sm"  data-toggle="modal" id="${c.n_fonc}" data-target="#affectation-modal" >affecter une véhicule </a>
                                                            
                                                     </td>
                                                 </tr>
                                                </c:forEach>
-
-                                               </tbody>
-                                        </table>
+                                         </tbody>
+                                     </table>
                         </div>
                 </div>
                 </div>
@@ -589,22 +584,22 @@
         </div>
     </div>
     <!-- end modal update -->
-<!-- start modal de vérification -->
-<div id="verifier-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- start modal d'affectation de vehicule -->
+<div id="affectation-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">l'état d'un vehicule : </label></h4>
+                    <h4 class="modal-title" id="myModalLabel">Veuillez choisir une véhicule </h4>
                      <div class="panel-body" align="center"> 
-                                    <div class="contact-info">
-                                    <p><strong>  Roues  </strong><br/><label  id="roueEtat"></label></p>
-                                     <p><strong> Siege </strong><br/><label  id="SiegeEtat"></label></p>
-                                      <p><strong> Carosserie  </strong><br/><label  id="carosserieEtat"></label></p>
-                                       <p><strong> Vitre </strong><br/><label  id="vitreEtat"></label></p>
-                                         <p><strong> Remarques </strong><br/><label  id="remarques"></label></p>
-                                </div>
-                                </div> 
+                     <f:form action="AffecterVehicule"  method="POST"  >
+                     <select id="vehicules"  name="numImmatriculation">
+                     </select>
+                     <br><br>
+                     <input type='hidden' id="idFonc" name="n_fonc"/>
+                     <button type="submit" class="btn btn-primary">Enregistrer</button>
+                     </f:form>
+                     </div> 
                      </div>
                      </div>
                      </div>
@@ -613,36 +608,36 @@
 
  <script>
           
-        $('#verifier-modal').on('show.bs.modal', function(e) {
-            
-            var $modal = $(this),
-                esseyId = e.relatedTarget.id;
+        $('#affectation-modal').on('show.bs.modal', function(e) {
+        	  var $modal = $(this),
+              IdFonc = e.relatedTarget.id;
        $.ajax({
          cache: false,
          type: 'POST',
-         url: 'verifierEtatVehicule',
-         data: 'EID='+esseyId,
-         success: function(data) 
-         {
-   
-              $modal.find("#roueEtat").html(data.etat_roue);
-              $("#SiegeEtat").html(data.etat_siege);
-              $("#carosserieEtat").html(data.etat_carosserie);
-              $("#vitreEtat").html(data.etat_vitre);
-              $("#remarques").html(data.remarques);
-             
-
-           
+         url: 'affectationVehicule',
+         data: 'EID='+IdFonc,
+         success:  function(data) {
+        	 
+        	 var html= ' <option value=""> veuiller choisir le numéro immatriculation</option>';
+        	 var len = data.length;
+        	 for ( var i = 0; i < len; i++) {
+        	 html += '<option value="' +data[i].numImmatriculation + '">'
+        	 +  data[i].numImmatriculation + '</option>';
+        	 }
+        	 html += '</option>';
+        	 $('#vehicules').html(html);
+        	$('#idFonc').val(IdFonc);
          }
-         });
+       });
+       
         })
-    </script> 
     
+    </script> 
+
      <script>
           
         $('#edit-modal').on('show.bs.modal', function(e) {
-            
-            var $modal = $(this),
+      var $modal = $(this),
                 esseyId = e.relatedTarget.id;
            
        $.ajax({
@@ -665,10 +660,10 @@
               $("#dateM").val((data.dateMiseEnService).toString('M-d-yyyy'));
            
           
-
          }
-         });
-        })
+       });
+      })
+     
     </script>      
     <!-- END SCRIPTS -->         
     </body>

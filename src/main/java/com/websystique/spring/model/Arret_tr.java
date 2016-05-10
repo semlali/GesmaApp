@@ -21,16 +21,19 @@ public class Arret_tr implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_arret;
-	private String nom;
+	private String adresse;
+	private Double longitude;
+	private Double latitude;
 	
 	@ManyToOne
 	@JoinColumn
 	private Quartier_tr quartier;
 	
-	public Arret_tr(int id_arret, String nom) {
+	public Arret_tr(int id_arret, String adresse) {
 		super();
 		this.id_arret = id_arret;
-		this.nom = nom;
+		this.adresse = adresse;
+		
 	}
 
 	public Arret_tr() {
@@ -46,12 +49,30 @@ public class Arret_tr implements Serializable {
 		this.id_arret = id_arret;
 	}
 
-	public String getNom() {
-		return nom;
+	
+
+	public String getAdresse() {
+		return adresse;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 	
 	

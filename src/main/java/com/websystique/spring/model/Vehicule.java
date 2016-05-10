@@ -1,19 +1,16 @@
 package com.websystique.spring.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,6 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="vehicule_tr")
+@Transactional
 public class Vehicule implements Serializable {
 	
 	
@@ -44,11 +42,13 @@ public class Vehicule implements Serializable {
     private String etat_carosserie;
     private String remarques;
 	
+    
+    
 	
 	
 	@ManyToOne
 	@JoinColumn
-	private Chauffeur_tr chauffeur;
+	private Chauffeur chauffeur;
 	
 	@ManyToOne
 	@JoinColumn
@@ -177,6 +177,30 @@ public class Vehicule implements Serializable {
 
 	public void setRemarques(String remarques) {
 		this.remarques = remarques;
+	}
+
+
+
+	public Chauffeur getChauffeur() {
+		return chauffeur;
+	}
+
+
+
+	public void setChauffeur(Chauffeur chauffeur) {
+		this.chauffeur = chauffeur;
+	}
+
+
+
+	public Horaire getHoraire() {
+		return horaire;
+	}
+
+
+
+	public void setHoraire(Horaire horaire) {
+		this.horaire = horaire;
 	}
 
 	
