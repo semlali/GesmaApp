@@ -6,15 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.websystique.entities.Anciennete;
-import com.websystique.entities.Banque;
-import com.websystique.entities.Chauffeur;
-import com.websystique.entities.Contrat;
-import com.websystique.entities.Fonctionnaire;
-import com.websystique.entities.IGR;
-import com.websystique.entities.Professeur;
-import com.websystique.entities.Profession;
-import com.websystique.entities.TypeContrat;
+import com.websystique.spring.entities.*;
 import com.websystique.spring.dao.PaieDao;
 
 @Service("PaieService")
@@ -128,6 +120,118 @@ public class PaieServiceImplementation implements PaieService {
 	public Fonctionnaire getSalarieById(int id) {
 		// TODO Auto-generated method stub
 		return dao.getSalarieById(id);
+	}
+	@Override
+	public void supprimerIgr(int id) {
+		// TODO Auto-generated method stub
+		dao.supprimerIgr(id);
+	}
+	@Override
+	public void supprimerAnciennete(int id) {
+		// TODO Auto-generated method stub
+		dao.supprimerAnciennete(id);
+	}
+	@Override
+	public Fonctionnaire chercherSalarieByName(String nom, String prenom) {
+		// TODO Auto-generated method stub
+		return dao.chercherSalarieByName(nom,prenom);
+	}
+	@Override
+	public Chauffeur chercherChauffeurByName(String nom, String prenom) {
+		// TODO Auto-generated method stub
+		return dao.chercherChauffeurByName(nom, prenom);
+	}
+	@Override
+	public Professeur chercherProfesseurByName(String nom, String prenom) {
+		// TODO Auto-generated method stub
+		return dao.chercherProfesseurByName(nom, prenom);
+	}
+	@Override
+	public void updateSalarieProf(Professeur p) {
+		// TODO Auto-generated method stub
+		dao.updateSalarieProf(p);
+	}
+	@Override
+	public void updateSalarieChauffeur(Chauffeur c, Long id) {
+		// TODO Auto-generated method stub
+		dao.updateSalarieChauffeur(c, id);
+	}
+	@Override
+	public void updateSalarie(Fonctionnaire f) {
+		// TODO Auto-generated method stub
+		dao.updateSalarie(f);
+	}
+	@Override
+	public List<Fonctionnaire> chercherSalarieByProfession(int id) {
+		// TODO Auto-generated method stub
+		return dao.chercherSalarieByProfession(id);
+	}
+	@Override
+	public List<Chauffeur> afficherListeChauffeur() {
+		// TODO Auto-generated method stub
+		return dao.afficherListeChauffeur();
+	}
+	@Override
+	public List<Professeur> afficherListeProfesseur() {
+		// TODO Auto-generated method stub
+		return dao.afficherListeProfesseur() ;
+	}
+	@Override
+	public List<PrimesVariables> afficherPrimes() {
+		// TODO Auto-generated method stub
+		return dao.afficherPrimes();
+	}
+	@Override
+	public void ajouterIgr(IGR igr) {
+		// TODO Auto-generated method stub
+		dao.ajouterIgr(igr);
+	}
+	@Override
+	public void ajouterAnciennete(Anciennete a) {
+		// TODO Auto-generated method stub
+		dao.ajouterAnciennete(a);
+		
+	}
+	@Override
+	public List<PrimesVariables> afficherPrimesParam() {
+		// TODO Auto-generated method stub
+		return dao.afficherPrimesParam();
+	}
+	@Override
+	public void supprimerPrimesPara(int id) {
+		// TODO Auto-generated method stub
+		dao.supprimerPrimesPara(id);
+	}
+	@Override
+	public PrimesVariables getPrimesVariablesById(int id) {
+		// TODO Auto-generated method stub
+		return dao.getPrimesVariablesById(id);
+	}
+	@Override
+	public void ajouterPrimes(PrimesVariables p) {
+		// TODO Auto-generated method stub
+		dao.ajouterPrimes(p);
+	}
+	@Override
+	public void updatePrimesVariables(PrimesVariables p, Long id) {
+		// TODO Auto-generated method stub
+		dao.updatePrimesVariables(p,id);
+	}
+	@Override
+	public void updateSalarieHeuresSupPrimes(Fonctionnaire f) {
+		// TODO Auto-generated method stub
+		dao.updateSalarieHeuresSupPrimes(f);
+	}
+	@Override
+	public void supprimerHeuresSupPara(int id) {
+		// TODO Auto-generated method stub
+		dao.supprimerHeuresSupPara(id);
+	}
+	@Override
+	public void updateProfession(Profession p) {
+		// TODO Auto-generated method stub
+		dao.updateProfession(p);
+		
 	}
 
 

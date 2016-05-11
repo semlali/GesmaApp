@@ -12,7 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 public class FonctionnaireModel {
-	
+	private Long n_fonc;
 	private String nom_fonc;
 	private String prenom_fonc;
 	private String nom_fonc_ara;
@@ -35,6 +35,7 @@ public class FonctionnaireModel {
 	private String login;
 	private String pass;
 	private String carte_sejour;
+	private Double frais_professionnels;
 	//cnss
 	private int numCnss;
 	//cimr
@@ -59,7 +60,7 @@ public class FonctionnaireModel {
 	//fonction
 	//exoneration 
 	
-	private String cnss, ir,amo;
+	private String ExoCnss, ExoIr,ExoAmo;
 
 	//prof
 	private String echel;
@@ -313,28 +314,31 @@ public class FonctionnaireModel {
 		this.numero_de_permis = numero_de_permis;
 	}
 
-	public String getCnss() {
-		return cnss;
+	
+	
+
+	public String getExoCnss() {
+		return ExoCnss;
 	}
 
-	public void setCnss(String cnss) {
-		this.cnss = cnss;
+	public void setExoCnss(String exoCnss) {
+		ExoCnss = exoCnss;
 	}
 
-	public String getIr() {
-		return ir;
+	public String getExoIr() {
+		return ExoIr;
 	}
 
-	public void setIr(String ir) {
-		this.ir = ir;
+	public void setExoIr(String exoIr) {
+		ExoIr = exoIr;
 	}
 
-	public String getAmo() {
-		return amo;
+	public String getExoAmo() {
+		return ExoAmo;
 	}
 
-	public void setAmo(String amo) {
-		this.amo = amo;
+	public void setExoAmo(String exoAmo) {
+		ExoAmo = exoAmo;
 	}
 
 	public String getCarte_sejour() {
@@ -375,6 +379,22 @@ public class FonctionnaireModel {
 
 	public void setEchel(String echel) {
 		this.echel = echel;
+	}
+
+	public Double getFrais_professionnels() {
+		return frais_professionnels;
+	}
+
+	public void setFrais_professionnels(Double frais_professionnels) {
+		this.frais_professionnels = frais_professionnels;
+	}
+
+	public Long getN_fonc() {
+		return n_fonc;
+	}
+
+	public void setN_fonc(Long n_fonc) {
+		this.n_fonc = n_fonc;
 	}
 
 	

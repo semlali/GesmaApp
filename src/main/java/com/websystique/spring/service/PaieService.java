@@ -2,15 +2,8 @@ package com.websystique.spring.service;
 
 import java.util.List;
 
-import com.websystique.entities.Anciennete;
-import com.websystique.entities.Banque;
-import com.websystique.entities.Chauffeur;
-import com.websystique.entities.Contrat;
-import com.websystique.entities.Fonctionnaire;
-import com.websystique.entities.IGR;
-import com.websystique.entities.Professeur;
-import com.websystique.entities.Profession;
-import com.websystique.entities.TypeContrat;
+import com.websystique.spring.entities.*;
+
 
 public interface PaieService {
 	public void ajouterBanque(Banque b);
@@ -33,8 +26,28 @@ public interface PaieService {
 	public void ajouterProfesseur(Professeur p);
     public List<Fonctionnaire> afficherSalaries();
     public Fonctionnaire getSalarieById(int id);
-
-
+    public void supprimerIgr(int id);
+    public void supprimerAnciennete(int id);
+    public Fonctionnaire chercherSalarieByName(String nom, String prenom);
+    public Chauffeur chercherChauffeurByName(String nom, String prenom);
+    public Professeur chercherProfesseurByName(String nom, String prenom);
+    public void updateSalarieProf(Professeur p );
+    public void updateSalarieChauffeur(Chauffeur c, Long id );
+    public void updateSalarie(Fonctionnaire f);
+    public List<Fonctionnaire> chercherSalarieByProfession(int id );
+    public List<Chauffeur> afficherListeChauffeur();
+	public List<Professeur> afficherListeProfesseur();
+	public List<PrimesVariables> afficherPrimes();
+	public void ajouterIgr(IGR igr);
+    public void ajouterAnciennete (Anciennete a);
+    public List<PrimesVariables> afficherPrimesParam(); 
+    public void supprimerPrimesPara (int id);
+	public PrimesVariables getPrimesVariablesById(int id);
+	public void ajouterPrimes(PrimesVariables p);
+    public void updatePrimesVariables(PrimesVariables p,Long id);
+    public void updateSalarieHeuresSupPrimes(Fonctionnaire f);
+    public void supprimerHeuresSupPara (int id);
+	public void updateProfession(Profession p);
 
 
 
