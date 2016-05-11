@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 
 <html lang="fr">
@@ -338,17 +339,14 @@
                           
                                 </div>
                             </div>                   
-                            <div>
+                     
                <!-- End of MAP -->
-               <form>
-                  <input type="hidden" id="latFld">
-                  <input type="hidden" id="lngFld">
-                  </form>
-                        </div> 
-                        
-                         
-                            
-                        <div class="col-md-12">
+               <f:form  action="AjouterArret" method="post" modelAttribute="arret_tr">
+                  <input type="text" id="latFld" name="latitude">
+                  <input type="text" id="lngFld" name="longitude">
+               <input type="submit" value="Enregister l'arrêt selectionné"/>
+               </f:form >
+                 <div class="col-md-12">
                             <div class="panel panel-default">
                      
                                 <div class="panel-heading">
@@ -469,7 +467,7 @@
 
         function initMap()
         {
-            var latlng = new google.maps.LatLng(41, 29);
+            var latlng = new google.maps.LatLng(31.6341600,-7.9999400);
             var myOptions = {
                 zoom: 10,
                 center: latlng,

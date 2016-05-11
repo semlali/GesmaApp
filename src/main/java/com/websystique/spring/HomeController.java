@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.websystique.spring.model.Arret_tr;
 import com.websystique.spring.model.Chauffeur;
 import com.websystique.spring.model.Etablissement;
 import com.websystique.spring.model.Etudiant;
@@ -43,7 +43,7 @@ public class HomeController {
 	public String gestionvehicules(Model model){
 		model.addAttribute("vehicules",service.getAllVehicules());
 		return "AcceuilVehicules";
-		
+
 	}
 	
 
@@ -173,12 +173,22 @@ public class HomeController {
 		public String test(){
 			return "test";
 		}
+
 		
 		
-		@RequestMapping(value="/GestionArrets")
-		public String gestionarrets(){
-			
+		@RequestMapping("/GestionArrets")
+		public String gestionarrets(Model model){
+			Arret_tr arret = new Arret_tr();
+			model.addAttribute("arret", arret);	
+			model.addAttribute("message",false);
 			return "AcceuilArrets";
+		}
+		@RequestMapping(value="/AjouterArret",method = RequestMethod.POST)
+		public String gestionarrets(@ModelAttribute("arret_tr") Arret_tr a){
+			
+			service.AjouterArret(a);
+             
+			return "redirect:/GestionArrets";
 		}
 		
 		
